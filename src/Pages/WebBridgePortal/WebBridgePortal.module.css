@@ -1,0 +1,138 @@
+.web_container {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.right_container {
+    flex: 0.75;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    height: 100vh;
+}
+
+.bridge_body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+    height: 90%;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.bridge_container {
+    flex: 0.26;
+    width: 100%;
+    height: calc(100% - 20px);
+    margin-top: 20px;
+}
+
+.bridge_container_middle h2,
+.bridge_container h2,
+.bridge_container_right h2 {
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.bridge_container p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.bridge_container_middle {
+    flex: 0.26;
+    width: 100%;
+    height: calc(100% - 20px);
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bridge_container_middle div {
+    flex: 0.49;
+}
+
+.bridge_container_right {
+    margin-top: 20px;
+    flex: 0.45;
+    height: calc(100% - 20px);
+}
+
+.heading {
+    border-bottom: 1px solid #ccc;
+}
+
+.lists {
+    list-style-type: none;
+    position: relative;
+    margin-top: 30px;
+}
+
+.lists li {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.lists li:before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    margin-left: -30px;
+    background: transparent url('/src/assets/list-icon.png') ;
+    background-size:contain ;
+}
+
+.expert {
+    width: 100%;
+    padding: 15px 0;
+    background-color: #00538A;
+    color: #fff;
+}
+
+.right_content {
+    width: 100%;
+    padding: 20px;
+}
+
+.right_content p {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.button_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 30px;
+    margin-top: 10px;
+    background-color: #671B1D;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.question_image {
+    position: absolute;
+    bottom: 2px;
+    right: 20px;
+    width: 50%;
+}
