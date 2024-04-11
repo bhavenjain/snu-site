@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 // Styles
 import styles from "./AllQueries.module.css";
@@ -10,14 +11,32 @@ import OpenModal from "../../Components/OpenModal/OpenModal";
 const AllQueries = () => {
   // States
   const [show, setShow] = useState(false);
+  const [answer, setAnswer] = useState("")
+  const [queries, setQueries] = useState([]);
+  const [question, setQuestion] = useState("")
   const [categoryText, setCategoryText] = useState("Select Category");
-
-  const question =
-    "How to become a director as per the current guidelines aksjhfbaksjdbf sdakf askf aksd fa";
 
   // Modal Functions
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const getQueries = async () => {
+    const url = "http://127.0.0.1:8000" + `/web/fetch/all/query/user`;
+    const response = axios.get(url, {
+      headers: {},
+      params: {},
+    });
+    setQueries(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  useEffect(() => {
+    try {
+      getQueries();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <div className={styles.queries}>
@@ -47,38 +66,61 @@ const AllQueries = () => {
 
         {/* Queries */}
         <div className={styles.question_container}>
-          <div className={styles.card}>
-            <div className={styles.question}>
-              <div className={styles.info_container}>
-                <p className={styles.text_date}>Jan 12, 2024</p>
-                <p className={styles.text_question}>
-                  {question?.length > 150
-                    ? question?.substring(0, 150) + "..."
-                    : question}
-                </p>
-                <p className={styles.text_category}>
-                  Category: Duty Of Directors
-                </p>
+          {queries?.length > 0 ? (
+            queries?.map((item, key) => (
+              <div className={styles.card} key={key}>
+                <div className={styles.question}>
+                  <div className={styles.info_container}>
+                    <p className={styles.text_date}>
+                      Raised On: {item?.raised_on}
+                    </p>
+                    <p className={styles.text_question}>
+                      {item?.question?.length > 150
+                        ? item?.question?.substring(0, 150) + "..."
+                        : item?.question}
+                    </p>
+                    <p className={styles.text_category}>
+                      Category: {item?.category}
+                    </p>
+                  </div>
+                  <div className={styles.status_container}>
+                    <p
+                      className={styles.status}
+                      style={{
+                        background: item?.status === "closed" ? "red" : "green",
+                      }}
+                    >
+                      {item?.status}
+                    </p>
+                  </div>
+                </div>
+                {item?.status === "closed" ? (
+                  <div className={styles.answer}>
+                    <div
+                      onClick={() => {
+                        setQuestion(item?.question)
+                        setAnswer(item?.answer)
+                        handleShow();
+                      }}
+                    >
+                      View Details
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
-              <div className={styles.status_container}>
-                <p className={styles.status} style={{ background: "green" }}>
-                  Open
-                </p>
-              </div>
-
-            </div>
-              <div className={styles.answer}>
-                {/* <span>Your Question has been answered</span> */}
-                <div onClick={handleShow}>View Details</div>
-              </div>
-          </div>
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
 
       {show ? (
         <OpenModal
-          heading="Lorem Ipsum"
-          body="Lorem Ipsum tipsum chipsum"
+          heading={question}
+          body={answer}
           show={show}
           handleClose={handleClose}
         />
