@@ -19,6 +19,7 @@ const Admin = () => {
   const [sortBy, setSortBy] = useState("open");
   const [question, setQuestion] = useState("");
   const [answerFaq, setAnswerFaq] = useState("");
+  const [allQueries, setAllQueries] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [allCategories, setAllCategories] = useState([]);
   const [categoryText, setCategoryText] = useState("Select Category");
@@ -170,10 +171,12 @@ const Admin = () => {
 
           {curr === 2 ? (
             <Queries
-              answer={answer}
               sortBy={sortBy}
               setSortBy={setSortBy}
+              answerFaq={answerFaq}
+              allQueries={allQueries}
               setAnswerFaq={setAnswerFaq}
+              setAllQueries={setAllQueries}
             />
           ) : (
             <></>
@@ -333,11 +336,12 @@ const Faq = ({
         )}
 
         <div className={styles.input_container}>
-          <span>Add Question: </span>
+          <p>Add Question: </p>
           <input
             className={styles.inputs}
             type="text"
             placeholder="Add Question"
+            style={{ width: "100%", marginLeft: "0" }}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
@@ -347,7 +351,7 @@ const Faq = ({
           <span>Add Answer: </span>
           <textarea
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder="About Query"
+            placeholder="Answer FAQ"
             value={answer}
           />
         </div>
@@ -360,7 +364,43 @@ const Faq = ({
   );
 };
 
-const Queries = ({ answer, sortBy, setSortBy, setAnswerFaq }) => {
+const Queries = ({
+  sortBy,
+  setSortBy,
+  answerFaq,
+  setAnswerFaq,
+  allQueries,
+  setAllQueries,
+}) => {
+  const getQueries = async () => {
+    const url = "http://127.0.0.1:8000" + "/web/fetch/all/query";
+    const response = await axios.get(url, {
+      header: {
+        Authorization: "",
+      },
+      params: {},
+    });
+    setAllQueries(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  useEffect(() => {
+    try {
+      getQueries();
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }, []);
+
   return (
     <>
       <h2>Answer Question</h2>
@@ -379,23 +419,36 @@ const Queries = ({ answer, sortBy, setSortBy, setAnswerFaq }) => {
 
       <div className={styles.accordian_container}>
         <Accordion defaultActiveKey="0">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>How do we get this?</Accordion.Header>
-            <Accordion.Body>
-              <h5>How do we get this</h5>
-              <textarea
-                onChange={(e) => setAnswerFaq(e.target.value)}
-                placeholder="Answer Query"
-                className={styles.textareaAnswer}
-              />
-              <div
-                className={styles.submit}
-                style={{ background: "#262626", color: "#fff" }}
-              >
-                Submit
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
+          {allQueries?.length > 0 ? (
+            allQueries?.map((item, key) => {
+              return (
+                <Accordion.Item key={key} eventKey={key}>
+                  <Accordion.Header>
+                    {item?.question?.length > 100
+                      ? `${item?.question}...`
+                      : item?.question}
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <h5>{item?.question}</h5>
+                    <textarea
+                      onChange={(e) => setAnswerFaq(e.target.value)}
+                      placeholder="Answer Query"
+                      value={answerFaq}
+                      className={styles.textareaAnswer}
+                    />
+                    <div
+                      className={styles.submit}
+                      style={{ background: "#262626", color: "#fff" }}
+                    >
+                      Submit
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              );
+            })
+          ) : (
+            <></>
+          )}
         </Accordion>
       </div>
     </>
