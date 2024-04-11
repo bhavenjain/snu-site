@@ -452,6 +452,7 @@ const Queries = ({
 
       if (response?.data?.status) {
         window.location.href= "/admin/add-details/portal#answer";
+        window.location.reload()
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
