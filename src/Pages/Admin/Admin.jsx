@@ -16,6 +16,7 @@ import styles from "./Admin.module.css";
 const Admin = () => {
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
+  const [queries, setQueries] = useState([])
   const [sortBy, setSortBy] = useState("open");
   const [question, setQuestion] = useState("");
   const [answerFaq, setAnswerFaq] = useState("");
@@ -174,6 +175,8 @@ const Admin = () => {
               sortBy={sortBy}
               setSortBy={setSortBy}
               answerFaq={answerFaq}
+              queries={queries}
+              setQueries={setQueries}
               allQueries={allQueries}
               setAnswerFaq={setAnswerFaq}
               setAllQueries={setAllQueries}
@@ -367,6 +370,8 @@ const Faq = ({
 const Queries = ({
   sortBy,
   setSortBy,
+  queries,
+  setQueries,
   answerFaq,
   setAnswerFaq,
   allQueries,
@@ -380,6 +385,7 @@ const Queries = ({
       },
       params: {},
     });
+    setQueries(response?.data?.data)
     setAllQueries(response?.data?.data);
     return response?.data?.data;
   };
@@ -401,6 +407,10 @@ const Queries = ({
     }
   }, []);
 
+  useEffect(() => {
+    setAllQueries(queries?.filter(item => item?.status === sortBy))
+  }, [sortBy])
+
   return (
     <>
       <h2>Answer Question</h2>
@@ -412,7 +422,7 @@ const Queries = ({
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => setSortBy("open")}>Open</Dropdown.Item>
           <Dropdown.Item onClick={() => setSortBy("closed")}>
-            closed
+            Closed
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
