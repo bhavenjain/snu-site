@@ -91,7 +91,7 @@ const AllQueries = () => {
                     <p
                       className={styles.status}
                       style={{
-                        background: item?.status === "closed" ? "red" : "green",
+                        background: item?.status === "closed" ? "green" : "red",
                       }}
                     >
                       {item?.status}
