@@ -98,9 +98,9 @@ const QueryManager = () => {
                     return (
                       <Dropdown.Item
                         key={key}
-                        onClick={() => setCategoryText(item)}
+                        onClick={() => setCategoryText(item?.name)}
                       >
-                        {item}
+                        {item?.name}
                       </Dropdown.Item>
                     );
                   })}
