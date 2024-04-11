@@ -38,6 +38,7 @@ const QueryManager = () => {
   // Functions
   const handleSubmit = async () => {
     if (text?.length > 0 && categoryText !== "Select Category") {
+      const url = 'http://127.0.0.1:8000' + '/web/create/query'
       await axios.post(
         url,
         {
