@@ -8,19 +8,11 @@ import styles from "./AskTheExpert.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import Accordion from "react-bootstrap/Accordion";
 
-// Components
-import OpenModal from "../../Components/OpenModal/OpenModal";
-
 const AskTheExpert = () => {
   // States
-  const [show, setShow] = useState(false);
   const [allFaqs, setAllFaqs] = useState([]);
-  const [allCategories, setAllCAtegories] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
   const [categoryText, setCategoryText] = useState("Select Category");
-
-  // Modal Functions
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // Function to call api to get all the categories
   const getCategories = async () => {
@@ -31,7 +23,7 @@ const AskTheExpert = () => {
       },
       params: {},
     });
-    setAllCAtegories(response?.data?.data);
+    setAllCategories(response?.data?.data);
     if (response?.data?.data?.length > 0)
       setCategoryText(response?.data?.data?.at(0));
 
@@ -52,6 +44,7 @@ const AskTheExpert = () => {
     return response?.data?.data;
   };
 
+  // Get All Categories
   useEffect(() => {
     try {
       getCategories();
@@ -88,13 +81,12 @@ const AskTheExpert = () => {
             <Dropdown.Toggle className={styles.dropdown_button}>
               {categoryText}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
               {allCategories?.map((item, key) => {
                 return (
                   <Dropdown.Item
                     key={key}
-                    onClick={() => setCategoryText(item)}
+                    onClick={() => setCategoryText(item?.name)}
                   >
                     {item}
                   </Dropdown.Item>
@@ -115,9 +107,7 @@ const AskTheExpert = () => {
               return (
                 <Accordion.Item key={key} eventKey={key}>
                   <Accordion.Header>{item?.question}</Accordion.Header>
-                  <Accordion.Body>
-                    {item?.answer}
-                  </Accordion.Body>
+                  <Accordion.Body>{item?.answer}</Accordion.Body>
                 </Accordion.Item>
               );
             })

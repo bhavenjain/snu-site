@@ -13,6 +13,7 @@ import Portal from './Components/Portal/Portal.jsx';
 import QueryManager from './Pages/QueryManager/QueryManager.jsx';
 import AllQueries from './Pages/AllQueries/AllQueries.jsx';
 import Admin from './Pages/Admin/Admin.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
