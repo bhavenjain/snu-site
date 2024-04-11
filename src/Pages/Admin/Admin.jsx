@@ -37,10 +37,11 @@ const Admin = () => {
         progress: undefined,
         theme: "colored",
       });
+      return ;
     }
     try {
       const url = "http://127.0.0.1:8000" + "/web/create/category";
-      const response = axios.post(
+      const response = await axios.post(
         url,
         {
           name: categoryName,
