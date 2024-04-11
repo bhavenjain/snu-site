@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 // Images
 import womensLogo from "../../assets/womensLogoWhite.png";
@@ -12,6 +12,7 @@ import Accordion from "react-bootstrap/Accordion";
 // Styles
 import styles from "./Admin.module.css";
 
+// Admin Panel
 const Admin = () => {
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -19,6 +20,7 @@ const Admin = () => {
   const [question, setQuestion] = useState("");
   const [answerFaq, setAnswerFaq] = useState("");
   const [categoryName, setCategoryName] = useState("");
+  const [allCategories, setAllCategories] = useState([]);
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Functions
@@ -26,7 +28,7 @@ const Admin = () => {
 
   // Category Submit
   const handleCategorySubmit = async () => {
-    if(categoryName?.length === 0) {
+    if (categoryName?.length === 0) {
       toast.error("Please enter category name.", {
         position: "top-right",
         autoClose: 5000,
@@ -37,7 +39,7 @@ const Admin = () => {
         progress: undefined,
         theme: "colored",
       });
-      return ;
+      return;
     }
     try {
       const url = "http://127.0.0.1:8000" + "/web/create/category";
@@ -150,89 +152,29 @@ const Admin = () => {
           ) : (
             <></>
           )}
+
           {curr === 1 ? (
-            <>
-              <h2>Add Faq</h2>
-              <div className={styles.form}>
-                <p>Select Category Name: </p>
-                <div className={styles.category_dropdown}>
-                  <Dropdown>
-                    <Dropdown.Toggle className={styles.dropdown_button}>
-                      {categoryText}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => setCategoryText("Text")}>
-                        Action
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-
-                <div className={styles.input_container}>
-                  <span>Add Question: </span>
-                  <input
-                    className={styles.inputs}
-                    type="text"
-                    placeholder="Add Question"
-                    onChange={(e) => setQuestion(e.target.value)}
-                  />
-                </div>
-
-                <div className={styles.input_container}>
-                  <span>Add Answer: </span>
-                  <textarea
-                    onChange={(e) => setAnswer(e.target.value)}
-                    placeholder="About Query"
-                  />
-                </div>
-
-                <div className={styles.submit}>Submit</div>
-              </div>
-            </>
+            <Faq
+              categoryText={categoryText}
+              setCategoryText={setCategoryText}
+              setAnswer={setAnswer}
+              setQuestion={setQuestion}
+              answer={answer}
+              question={question}
+              allCategories={allCategories}
+              setAllCategories={setAllCategories}
+            />
           ) : (
             <></>
           )}
+
           {curr === 2 ? (
-            <>
-              <h2>Answer Question</h2>
-              <Dropdown>
-                <Dropdown.Toggle className={styles.dropdown_button}>
-                  {sortBy}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => setSortBy("open")}>
-                    Open
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSortBy("closed")}>
-                    closed
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-
-              <div className={styles.accordian_container}>
-                <Accordion defaultActiveKey="0">
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>How do we get this?</Accordion.Header>
-                    <Accordion.Body>
-                      <h5>How do we get this</h5>
-                      <textarea
-                        onChange={(e) => setAnswerFaq(e.target.value)}
-                        placeholder="Answer Query"
-                        className={styles.textareaAnswer}
-                      />
-                      <div
-                        className={styles.submit}
-                        style={{ background: "#262626", color: "#fff" }}
-                      >
-                        Submit
-                      </div>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </div>
-            </>
+            <Queries
+              answer={answer}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+              setAnswerFaq={setAnswerFaq}
+            />
           ) : (
             <></>
           )}
@@ -251,6 +193,210 @@ const Admin = () => {
         theme="colored"
       />
     </div>
+  );
+};
+
+const Faq = ({
+  categoryText,
+  setCategoryText,
+  setAnswer,
+  setQuestion,
+  answer,
+  question,
+  allCategories,
+  setAllCategories,
+}) => {
+  // Function to call api to get all the categories
+  const getCategories = async () => {
+    const url = "http://127.0.0.1:8000" + "/web/category/fetch/all";
+    const response = await axios.get(url, {
+      header: {
+        Authorization: "",
+      },
+      params: {},
+    });
+    setAllCategories(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  // Get All Categories
+  useEffect(() => {
+    try {
+      getCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      if (
+        categoryText !== "Select Category" &&
+        question?.length > 0 &&
+        answer?.length > 0
+      ) {
+        const url = "http://127.0.0.1:8000" + "/web/create/faq";
+        const response = await axios.post(
+          url,
+          {
+            question: question,
+            answer: answer,
+            category: categoryText,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            params: {},
+          }
+        );
+        if (response?.data?.status) {
+          toast.success(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setCategoryText("Select Category");
+          setAnswer("");
+          setQuestion("");
+        } else {
+          toast.error(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  return (
+    <>
+      <h2>Add Faq</h2>
+      <div className={styles.form}>
+        <p>Select Category Name: </p>
+        {allCategories?.length > 0 ? (
+          <div className={styles.category_dropdown}>
+            <Dropdown>
+              <Dropdown.Toggle className={styles.dropdown_button}>
+                {categoryText}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {allCategories?.map((item, key) => {
+                  return (
+                    <Dropdown.Item
+                      key={key}
+                      onClick={() => setCategoryText(item?.name)}
+                    >
+                      {item?.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className={styles.input_container}>
+          <span>Add Question: </span>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Add Question"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.input_container}>
+          <span>Add Answer: </span>
+          <textarea
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="About Query"
+            value={answer}
+          />
+        </div>
+
+        <div onClick={handleSubmit} className={styles.submit}>Submit</div>
+      </div>
+    </>
+  );
+};
+
+const Queries = ({ answer, sortBy, setSortBy, setAnswerFaq }) => {
+  return (
+    <>
+      <h2>Answer Question</h2>
+      <Dropdown>
+        <Dropdown.Toggle className={styles.dropdown_button}>
+          {sortBy}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => setSortBy("open")}>Open</Dropdown.Item>
+          <Dropdown.Item onClick={() => setSortBy("closed")}>
+            closed
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <div className={styles.accordian_container}>
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>How do we get this?</Accordion.Header>
+            <Accordion.Body>
+              <h5>How do we get this</h5>
+              <textarea
+                onChange={(e) => setAnswerFaq(e.target.value)}
+                placeholder="Answer Query"
+                className={styles.textareaAnswer}
+              />
+              <div
+                className={styles.submit}
+                style={{ background: "#262626", color: "#fff" }}
+              >
+                Submit
+              </div>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+    </>
   );
 };
 
