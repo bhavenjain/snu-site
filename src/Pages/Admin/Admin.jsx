@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 
 // Images
@@ -16,7 +17,7 @@ import styles from "./Admin.module.css";
 const Admin = () => {
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [queries, setQueries] = useState([])
+  const [queries, setQueries] = useState([]);
   const [sortBy, setSortBy] = useState("open");
   const [question, setQuestion] = useState("");
   const [answerFaq, setAnswerFaq] = useState("");
@@ -385,7 +386,7 @@ const Queries = ({
       },
       params: {},
     });
-    setQueries(response?.data?.data)
+    setQueries(response?.data?.data);
     setAllQueries(response?.data?.data);
     return response?.data?.data;
   };
@@ -408,8 +409,8 @@ const Queries = ({
   }, []);
 
   useEffect(() => {
-    setAllQueries(queries?.filter(item => item?.status === sortBy))
-  }, [sortBy])
+    setAllQueries(queries?.filter((item) => item?.status === sortBy));
+  }, [sortBy]);
 
   return (
     <>
@@ -440,6 +441,11 @@ const Queries = ({
                   </Accordion.Header>
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
+                    <p>
+                      Raised on {moment(item?.raised_on).format(
+                        "MMM DD, YYYY, h:mm:ss a"
+                      )} by {item?.raised_by}
+                    </p>
                     {item?.status === "open" ? (
                       <textarea
                         onChange={(e) => setAnswerFaq(e.target.value)}
