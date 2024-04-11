@@ -4,145 +4,80 @@ import React, { useState } from "react";
 import styles from "./AskTheExpert.module.css";
 
 // Bootstrap
-import { Col, Row } from "react-bootstrap";
+import Dropdown from "react-bootstrap/Dropdown";
+import Accordion from "react-bootstrap/Accordion";
 
 // Components
 import OpenModal from "../../Components/OpenModal/OpenModal";
 
 const AskTheExpert = () => {
+  // States
   const [show, setShow] = useState(false);
+  const [categoryText, setCategoryText] = useState("Select Category");
 
+  // Modal Functions
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   return (
     <div className={styles.web_container}>
-      <h1 className={styles.heading}>ASK THE EXPERT ( CHOOSE A CATEGORY )</h1>
+      <h1 className={styles.heading}>Frequently Asked Questions</h1>
       <p>
         Which of the categories below best describes the nature of your concern?
       </p>
-      <div>
-        <Row>
-          <Col md={4}>
-            <div
-              className={styles?.card}
-              onClick={handleShow}
-            >
-              <div className={styles.card_container}>
-                <p>Duty of directors</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Integrity and ethics related concerns</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Addressing minority shareholder concerns</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Insider trading</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>
-                  Violation of statutory provision (Companies Act, 2013, SEBI
-                  LODR, other laws)
-                </p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Fraud and reporting of frauds</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Related party transactions</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Financial misconduct, bribery, corruption</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Risk management</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>
-                  People issues (Culture, Workplace harassment, discrimination)
-                </p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Financial oversight</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Audit oversight</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-          <Col md={4}>
-            <div className={styles?.card} onClick={handleShow}>
-              <div className={styles.card_container}>
-                <p>Whistleblower</p>
-                <img src="/src/assets/plus.png" width={22} height={22} />
-              </div>
-            </div>
-          </Col>
-        </Row>
+      <div className={styles.category_dropdown}>
+        <Dropdown>
+          <Dropdown.Toggle className={styles.dropdown_button}>
+            {categoryText}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => setCategoryText("Text")}>
+              Action
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
-      {show ? <OpenModal
-        heading="Lorem Ipsum"
-        body="Lorem Ipsum tipsum chipsum"
-        show={show}
-        handleClose={handleClose}
-      /> : <></>}
+
+      <div className={styles.question_container}>
+        <Accordion defaultActiveKey="0">
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>Accordion Item #1</Accordion.Header>
+            <Accordion.Body>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>Accordion Item #1</Accordion.Header>
+            <Accordion.Body>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+      </div>
+
+      {show ? (
+        <OpenModal
+          heading="Lorem Ipsum"
+          body="Lorem Ipsum tipsum chipsum"
+          show={show}
+          handleClose={handleClose}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

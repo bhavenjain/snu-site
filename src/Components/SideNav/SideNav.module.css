@@ -43,3 +43,11 @@
 .highlight {
     color: #671B1D !important;
 }
+
+
+/* Media Queries */
+@media only screen and (max-width: 992px) {
+    .sidenav_container {
+        width: 100%;
+    }
+}

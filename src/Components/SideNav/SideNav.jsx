@@ -37,12 +37,12 @@ const SideNav = () => {
         </NavLink>
 
         <NavLink
-          to="ask-the-expert"
+          to="faqs"
           className={({isActive}) =>
             isActive ? styles.highlight : ""
           }
         >
-          <h2>ASK THE EXPERT</h2>
+          <h2>Frequently Asked Questions</h2>
           <p>All queries by categories</p>
           <ul>
             <li>Duty of directors</li>
@@ -63,18 +63,30 @@ const SideNav = () => {
         </NavLink>
 
         <NavLink
-          to="query-manager"
+          to="ask-the-expert"
           className={({isActive}) =>
             isActive ? styles.highlight : ""
           }
         >
-          <h2>QUERY MANAGER</h2>
+          <h2>Ask The Expert</h2>
+
+          <ul>
+            <li>Ask queries by categories</li>
+          </ul>
+        </NavLink>
+
+        <NavLink
+          to="my-queries"
+          className={({isActive}) =>
+            isActive ? styles.highlight : ""
+          }
+        >
+          <h2>My Queries</h2>
 
           <ul>
             <li>Open query</li>
             <li>Closed query</li>
             <li>Past query</li>
-            <li>All queries by categories</li>
           </ul>
         </NavLink>
       </div>

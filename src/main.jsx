@@ -10,6 +10,8 @@ import Login from './Pages/Login/Login.jsx';
 import WebBridgePortal from './Pages/WebBridgePortal/WebBridgePortal.jsx';
 import AskTheExpert from './Pages/AskTheExpert/AskTheExpert.jsx';
 import Portal from './Components/Portal/Portal.jsx';
+import QueryManager from './Pages/QueryManager/QueryManager.jsx';
+import AllQueries from './Pages/AllQueries/AllQueries.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,12 +31,16 @@ const router = createBrowserRouter([
         element: <Portal />,
       },
       {
-        path: "ask-the-expert",
+        path: "faqs",
         element: <AskTheExpert />,
       },
       {
-        path: "query-manager",
-        element: <AskTheExpert />,
+        path: "ask-the-expert",
+        element: <QueryManager />,
+      },
+      {
+        path: "my-queries",
+        element: <AllQueries />,
       },
     ]
   },

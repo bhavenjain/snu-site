@@ -20,11 +20,11 @@ const OpenModal = ({ heading, show, handleClose, body }) => {
         <Modal.Title>Modal heading</Modal.Title>
       </Modal.Header>
       <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 };

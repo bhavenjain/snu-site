@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 // Styles
 import styles from "./WebBridgePortal.module.css";
@@ -6,7 +7,6 @@ import styles from "./WebBridgePortal.module.css";
 // Components
 import Header from "../../Components/Header/Header";
 import SideNav from "../../Components/SideNav/SideNav";
-import { Outlet } from "react-router-dom";
 
 const WebBridgePortal = () => {
   return (
