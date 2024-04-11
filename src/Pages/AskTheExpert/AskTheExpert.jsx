@@ -14,7 +14,7 @@ import OpenModal from "../../Components/OpenModal/OpenModal";
 const AskTheExpert = () => {
   // States
   const [show, setShow] = useState(false);
-  const [allCategories, setAllCAtegories] = useState({});
+  const [allCategories, setAllCAtegories] = useState([]);
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Modal Functions
@@ -47,23 +47,30 @@ const AskTheExpert = () => {
       <p>
         Which of the categories below best describes the nature of your concern?
       </p>
-      <div className={styles.category_dropdown}>
-        <Dropdown>
-          <Dropdown.Toggle className={styles.dropdown_button}>
-            {categoryText}
-          </Dropdown.Toggle>
+      {allCategories?.length > 0 ? (
+        <div className={styles.category_dropdown}>
+          <Dropdown>
+            <Dropdown.Toggle className={styles.dropdown_button}>
+              {categoryText}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            {allCategories?.map((item, key) => {
-              return (
-                <Dropdown.Item key={key} onClick={() => setCategoryText(item)}>
-                  {item}
-                </Dropdown.Item>
-              );
-            })}
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
+            <Dropdown.Menu>
+              {allCategories?.map((item, key) => {
+                return (
+                  <Dropdown.Item
+                    key={key}
+                    onClick={() => setCategoryText(item)}
+                  >
+                    {item}
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div className={styles.question_container}>
         <Accordion defaultActiveKey="0">
