@@ -415,7 +415,7 @@ const Queries = ({
   }, [sortBy]);
 
   const handleSubmit = async (id) => {
-    if(answerFaq?.length === 0) {
+    if (answerFaq?.length === 0) {
       toast.error("Please answer the question first", {
         position: "top-right",
         autoClose: 5000,
@@ -444,8 +444,8 @@ const Queries = ({
         }
       );
 
-      if(response?.data?.status) {
-        window.location.reload()
+      if (response?.data?.status) {
+        window.location.reload();
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
@@ -458,7 +458,7 @@ const Queries = ({
           theme: "colored",
         });
       }
-    } catch(err) {
+    } catch (err) {
       toast.error(err?.message, {
         position: "top-right",
         autoClose: 5000,
@@ -470,7 +470,7 @@ const Queries = ({
         theme: "colored",
       });
     }
-  }
+  };
 
   return (
     <>
@@ -520,6 +520,7 @@ const Queries = ({
                     )}
                     {item?.status === "open" ? (
                       <div
+                        onClick={() => handleSubmit(item?.id)}
                         className={styles.submit}
                         style={{ background: "#262626", color: "#fff" }}
                       >
