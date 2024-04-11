@@ -14,6 +14,7 @@ import OpenModal from "../../Components/OpenModal/OpenModal";
 const AskTheExpert = () => {
   // States
   const [show, setShow] = useState(false);
+  const [allCategories, setAllCAtegories] = useState({});
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Modal Functions
@@ -21,23 +22,24 @@ const AskTheExpert = () => {
   const handleShow = () => setShow(true);
 
   const getCategories = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/fetch/category/faq"
-    console.log("............categories", url)
-    const data = await axios.get(url, {
-      header: {},
-      params: {}
-    })
-    return data?.data
-  }
+    const url = "http://127.0.0.1:8000" + "/web/fetch/category/faq";
+    const response = await axios.get(url, {
+      header: {
+        Authorization: "",
+      },
+      params: {},
+    });
+    setAllCAtegories(response?.data?.data);
+    return response?.data?.data;
+  };
 
   useEffect(() => {
     try {
-      const categories = getCategories()
-      console.log("............data", categories)
-    } catch(err) {
-      console.log(err)
+      getCategories();
+    } catch (err) {
+      console.log(err);
     }
-  }, [])
+  }, []);
 
   return (
     <div className={styles.web_container}>
@@ -52,9 +54,13 @@ const AskTheExpert = () => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => setCategoryText("Text")}>
-              Action
-            </Dropdown.Item>
+            {allCategories?.map((item, key) => {
+              return (
+                <Dropdown.Item key={key} onClick={() => setCategoryText(item)}>
+                  {item}
+                </Dropdown.Item>
+              );
+            })}
           </Dropdown.Menu>
         </Dropdown>
       </div>
