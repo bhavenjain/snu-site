@@ -97,6 +97,12 @@ const Admin = () => {
     }
   };
 
+  useEffect(() => {
+    if(window.location.hash === "#answer") {
+      setCurr(2)
+    }
+  }, [])
+
   return (
     <div className={styles.admin}>
       {/* header */}
@@ -445,7 +451,7 @@ const Queries = ({
       );
 
       if (response?.data?.status) {
-        window.location.reload();
+        window.location.href= "/admin/add-details/portal#answer";
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
@@ -501,7 +507,7 @@ const Queries = ({
                   </Accordion.Header>
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
-                    <p style={{color: "rgba(0,0,0,0.4)"}}>
+                    <p style={{color: "rgba(0,0,0,0.4)", fontSize: "12px"}}>
                       Raised on{" "}
                       {moment(item?.raised_on).format(
                         "MMM DD, YYYY, h:mm:ss a"
@@ -528,7 +534,7 @@ const Queries = ({
                       </div>
                     ) : (
                       <>
-                        <p style={{color: "rgba(0,0,0,0.4)"}}>
+                        <p style={{color: "rgba(0,0,0,0.4)", fontSize: "12px"}}>
                           Answered on{" "}
                           {moment(item?.answered_on).format(
                             "MMM DD, YYYY, h:mm:ss a"
