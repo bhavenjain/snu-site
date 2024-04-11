@@ -501,7 +501,7 @@ const Queries = ({
                   </Accordion.Header>
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
-                    <p>
+                    <p style={{color: "rgba(0,0,0,0.4)"}}>
                       Raised on{" "}
                       {moment(item?.raised_on).format(
                         "MMM DD, YYYY, h:mm:ss a"
@@ -528,7 +528,7 @@ const Queries = ({
                       </div>
                     ) : (
                       <>
-                        <p>
+                        <p style={{color: "rgba(0,0,0,0.4)"}}>
                           Answered on{" "}
                           {moment(item?.answered_on).format(
                             "MMM DD, YYYY, h:mm:ss a"
