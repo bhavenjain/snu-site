@@ -387,7 +387,9 @@ const Queries = ({
       params: {},
     });
     setQueries(response?.data?.data);
-    setAllQueries(response?.data?.data);
+    setAllQueries(
+      response?.data?.data?.filter((item) => item?.status === "open")
+    );
     return response?.data?.data;
   };
 
@@ -411,6 +413,64 @@ const Queries = ({
   useEffect(() => {
     setAllQueries(queries?.filter((item) => item?.status === sortBy));
   }, [sortBy]);
+
+  const handleSubmit = async (id) => {
+    if(answerFaq?.length === 0) {
+      toast.error("Please answer the question first", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+    try {
+      const url = "http://127.0.0.1:8000" + "/web/answer/query";
+      const response = await axios.put(
+        url,
+        {
+          id: id,
+          answer: answerFaq,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: {},
+        }
+      );
+
+      if(response?.data?.status) {
+        window.location.reload()
+      } else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch(err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  }
 
   return (
     <>
@@ -442,9 +502,11 @@ const Queries = ({
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
                     <p>
-                      Raised on {moment(item?.raised_on).format(
+                      Raised on{" "}
+                      {moment(item?.raised_on).format(
                         "MMM DD, YYYY, h:mm:ss a"
-                      )} by {item?.raised_by}
+                      )}{" "}
+                      by {item?.raised_by}
                     </p>
                     {item?.status === "open" ? (
                       <textarea
@@ -456,12 +518,24 @@ const Queries = ({
                     ) : (
                       <p>{item?.answer}</p>
                     )}
-                    <div
-                      className={styles.submit}
-                      style={{ background: "#262626", color: "#fff" }}
-                    >
-                      Submit
-                    </div>
+                    {item?.status === "open" ? (
+                      <div
+                        className={styles.submit}
+                        style={{ background: "#262626", color: "#fff" }}
+                      >
+                        Submit
+                      </div>
+                    ) : (
+                      <>
+                        <p>
+                          Answered on{" "}
+                          {moment(item?.answered_on).format(
+                            "MMM DD, YYYY, h:mm:ss a"
+                          )}{" "}
+                          by {item?.answered_by}{" "}
+                        </p>
+                      </>
+                    )}
                   </Accordion.Body>
                 </Accordion.Item>
               );
