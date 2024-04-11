@@ -104,7 +104,7 @@ const AllQueries = () => {
                         : item?.question}
                     </p>
                     <p className={styles.text_category}>
-                      Category | <b>{item?.category}</b>
+                      Category | {item?.category}
                     </p>
                     <p className={styles.text_date}>
                       Raised on{" "}
