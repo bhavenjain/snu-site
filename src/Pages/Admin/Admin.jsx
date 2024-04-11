@@ -425,17 +425,21 @@ const Queries = ({
                 <Accordion.Item key={key} eventKey={key}>
                   <Accordion.Header>
                     {item?.question?.length > 100
-                      ? `${item?.question}...`
+                      ? `${item?.question?.substr(0, 100)}...`
                       : item?.question}
                   </Accordion.Header>
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
-                    <textarea
-                      onChange={(e) => setAnswerFaq(e.target.value)}
-                      placeholder="Answer Query"
-                      value={answerFaq}
-                      className={styles.textareaAnswer}
-                    />
+                    {item?.status === "open" ? (
+                      <textarea
+                        onChange={(e) => setAnswerFaq(e.target.value)}
+                        placeholder="Answer Query"
+                        value={answerFaq}
+                        className={styles.textareaAnswer}
+                      />
+                    ) : (
+                      <p>{item?.answer}</p>
+                    )}
                     <div
                       className={styles.submit}
                       style={{ background: "#262626", color: "#fff" }}
