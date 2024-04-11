@@ -12,10 +12,12 @@ import OpenModal from "../../Components/OpenModal/OpenModal";
 const AllQueries = () => {
   // States
   const [show, setShow] = useState(false);
+  const [allData, setAllData] = useState([])
   const [answer, setAnswer] = useState("");
+  const [sortby, setSortBy] = useState("all");
   const [queries, setQueries] = useState([]);
   const [question, setQuestion] = useState("");
-  const [categoryText, setCategoryText] = useState("Select Category");
+  const [categoryText, setCategoryText] = useState("All Queries");
 
   // Modal Functions
   const handleClose = () => setShow(false);
@@ -27,6 +29,7 @@ const AllQueries = () => {
       headers: {},
       params: {},
     });
+    setAllData(response?.data?.data)
     setQueries(response?.data?.data);
     return response?.data?.data;
   };
@@ -38,6 +41,14 @@ const AllQueries = () => {
       console.log(err);
     }
   }, []);
+
+  useEffect(() => {
+      if(sortby === "all") {
+        setQueries(allData)
+      } else {
+        setQueries(allData?.filter(item => { return item?.status === sortby}))
+      }
+  }, [sortby])
 
   return (
     <div className={styles.queries}>
@@ -52,13 +63,28 @@ const AllQueries = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setCategoryText("All Queries")}>
+              <Dropdown.Item
+                onClick={() => {
+                  setSortBy("all");
+                  setCategoryText("All Queries");
+                }}
+              >
                 All Queries
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => setCategoryText("Open Queries")}>
+              <Dropdown.Item
+                onClick={() => {
+                  setSortBy("open");
+                  setCategoryText("Open Queries");
+                }}
+              >
                 Open Queries
               </Dropdown.Item>
-              <Dropdown.Item onClick={() => setCategoryText("Closed Queries")}>
+              <Dropdown.Item
+                onClick={() => {
+                  setSortBy("closed");
+                  setCategoryText("Closed Queries");
+                }}
+              >
                 Closed Queries
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -91,7 +117,8 @@ const AllQueries = () => {
                     <p
                       className={styles.status}
                       style={{
-                        background: item?.status === "closed" ? "green" : "#dd5100",
+                        background:
+                          item?.status === "closed" ? "green" : "#dd5100",
                       }}
                     >
                       {item?.status}
