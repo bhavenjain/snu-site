@@ -138,6 +138,7 @@ const Admin = () => {
                 <input
                   className={styles.inputs}
                   type="text"
+                  value={categoryName}
                   placeholder="category name"
                   onChange={(e) => setCategoryName(e.target.value)}
                 />
