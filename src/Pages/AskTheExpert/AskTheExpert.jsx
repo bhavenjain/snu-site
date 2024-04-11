@@ -21,7 +21,8 @@ const AskTheExpert = () => {
   const handleShow = () => setShow(true);
 
   const getCategories = async () => {
-    const url = process.env.VITE_API_HOST + "/web/fetch/category/faq"
+    const url = "http://127.0.0.1:8000" + "/web/fetch/category/faq"
+    console.log("............categories", url)
     const data = await axios.get(url, {
       header: {},
       params: {}
