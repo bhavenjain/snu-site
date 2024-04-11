@@ -12,6 +12,7 @@ import AskTheExpert from './Pages/AskTheExpert/AskTheExpert.jsx';
 import Portal from './Components/Portal/Portal.jsx';
 import QueryManager from './Pages/QueryManager/QueryManager.jsx';
 import AllQueries from './Pages/AllQueries/AllQueries.jsx';
+import Admin from './Pages/Admin/Admin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         element: <AllQueries />,
       },
     ]
+  },
+  {
+    path: "/admin/add-details/portal",
+    element: <Admin />,
   },
   {
     path: "*",

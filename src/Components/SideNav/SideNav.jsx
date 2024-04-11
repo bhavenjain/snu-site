@@ -5,7 +5,7 @@ import styles from "./SideNav.module.css";
 
 // Images
 import womensLogo from "../../assets/womensLogoWhite.png";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideNav = () => {
   const [pathname, setPathname] = useState("");
