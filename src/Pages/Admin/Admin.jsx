@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 // Images
 import womensLogo from "../../assets/womensLogoWhite.png";
@@ -21,6 +23,62 @@ const Admin = () => {
 
   // Functions
   const signout = () => {};
+
+  // Category Submit
+  const handleCategorySubmit = async () => {
+    if(categoryName?.length === 0) {
+      toast.error("Please enter category name.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+    try {
+      const url = "http://127.0.0.1:8000" + "/web/create/category";
+      const response = axios.post(
+        url,
+        {
+          name: categoryName,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: {},
+        }
+      );
+
+      if (response?.data?.status) {
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setCategoryName("");
+      }
+    } catch (err) {
+      toast.error(response?.data?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
 
   return (
     <div className={styles.admin}>
@@ -58,6 +116,7 @@ const Admin = () => {
           <img src={womensLogo} width={200} />
         </div>
 
+        {/* Main Form */}
         <div className={styles.form_container}>
           {curr === 0 ? (
             <>
@@ -70,7 +129,9 @@ const Admin = () => {
                   placeholder="category name"
                   onChange={(e) => setCategoryName(e.target.value)}
                 />
-                <div className={styles.submit}>Submit</div>
+                <div onClick={handleCategorySubmit} className={styles.submit}>
+                  Submit
+                </div>
               </div>
             </>
           ) : (
@@ -164,6 +225,18 @@ const Admin = () => {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };
