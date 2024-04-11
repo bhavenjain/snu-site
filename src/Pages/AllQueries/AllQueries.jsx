@@ -81,7 +81,7 @@ const AllQueries = () => {
                       Category | <b>{item?.category}</b>
                     </p>
                     <p className={styles.text_date}>
-                      Raised On{" "}
+                      Raised on{" "}
                       {moment(item?.raised_on).format(
                         "MMM DD, YYYY, h:mm:ss a"
                       )}

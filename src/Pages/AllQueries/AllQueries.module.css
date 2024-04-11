@@ -49,6 +49,7 @@
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .question {
@@ -56,9 +57,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0;
+    margin-bottom: 20px;
     cursor: pointer;
-
 }
 
 .question p {
@@ -86,6 +86,8 @@
 
 .text_date {
     font-size: 12px;
+    margin-top: 10px !important;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .text_category {
