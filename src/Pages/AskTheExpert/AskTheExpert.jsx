@@ -36,7 +36,7 @@ const AskTheExpert = () => {
     } catch(err) {
       console.log(err)
     }
-  })
+  }, [])
 
   return (
     <div className={styles.web_container}>
