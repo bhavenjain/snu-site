@@ -277,7 +277,7 @@ const Faq = ({
           });
         }
       } else {
-        toast.error(response?.data?.message, {
+        toast.error("Please enter all the details.", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -352,7 +352,9 @@ const Faq = ({
           />
         </div>
 
-        <div onClick={handleSubmit} className={styles.submit}>Submit</div>
+        <div onClick={handleSubmit} className={styles.submit}>
+          Submit
+        </div>
       </div>
     </>
   );
