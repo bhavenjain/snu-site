@@ -86,7 +86,7 @@ const AskTheExpert = () => {
                 return (
                   <Dropdown.Item
                     key={key}
-                    onClick={() => setCategoryText(item?.name)}
+                    onClick={() => setCategoryText(item)}
                   >
                     {item}
                   </Dropdown.Item>
