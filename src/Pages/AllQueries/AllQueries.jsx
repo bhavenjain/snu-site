@@ -12,9 +12,9 @@ import OpenModal from "../../Components/OpenModal/OpenModal";
 const AllQueries = () => {
   // States
   const [show, setShow] = useState(false);
-  const [answer, setAnswer] = useState("")
+  const [answer, setAnswer] = useState("");
   const [queries, setQueries] = useState([]);
-  const [question, setQuestion] = useState("")
+  const [question, setQuestion] = useState("");
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Modal Functions
@@ -72,16 +72,13 @@ const AllQueries = () => {
               <div className={styles.card} key={key}>
                 <div className={styles.question}>
                   <div className={styles.info_container}>
-                    <p className={styles.text_date}>
-                      Raised On: {moment(item?.raised_on).format('"MMM DD, YYYY"')}
-                    </p>
                     <p className={styles.text_question}>
                       {item?.question?.length > 150
                         ? item?.question?.substring(0, 150) + "..."
                         : item?.question}
                     </p>
                     <p className={styles.text_category}>
-                      Category: {item?.category}
+                      Category | <b>{item?.category}</b>
                     </p>
                   </div>
                   <div className={styles.status_container}>
@@ -93,23 +90,25 @@ const AllQueries = () => {
                     >
                       {item?.status}
                     </p>
+                    <p className={styles.text_date}>
+                      Raised On{" "}
+                      {moment(item?.raised_on).format(
+                        "MMM DD, YYYY, h:mm:ss a"
+                      )}
+                    </p>
                   </div>
                 </div>
-                {item?.status === "closed" ? (
-                  <div className={styles.answer}>
-                    <div
-                      onClick={() => {
-                        setQuestion(item?.question)
-                        setAnswer(item?.answer)
-                        handleShow();
-                      }}
-                    >
-                      View Details
-                    </div>
+                <div className={styles.answer}>
+                  <div
+                    onClick={() => {
+                      setQuestion(item?.question);
+                      setAnswer(item?.answer);
+                      handleShow();
+                    }}
+                  >
+                    View Details
                   </div>
-                ) : (
-                  <></>
-                )}
+                </div>
               </div>
             ))
           ) : (
