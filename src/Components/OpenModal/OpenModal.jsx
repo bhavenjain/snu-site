@@ -17,9 +17,9 @@ const OpenModal = ({ heading, show, handleClose, body }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Title>{heading}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+      <Modal.Body>{body}</Modal.Body>
       {/* <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close

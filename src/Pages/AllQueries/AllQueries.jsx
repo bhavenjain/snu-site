@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import axios from "axios";
 
 // Styles
@@ -72,7 +73,7 @@ const AllQueries = () => {
                 <div className={styles.question}>
                   <div className={styles.info_container}>
                     <p className={styles.text_date}>
-                      Raised On: {item?.raised_on}
+                      Raised On: {moment(item?.raised_on).format('"MMM DD, YYYY"')}
                     </p>
                     <p className={styles.text_question}>
                       {item?.question?.length > 150
