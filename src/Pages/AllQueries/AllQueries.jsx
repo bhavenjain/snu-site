@@ -80,6 +80,12 @@ const AllQueries = () => {
                     <p className={styles.text_category}>
                       Category | <b>{item?.category}</b>
                     </p>
+                    <p className={styles.text_date}>
+                      Raised On{" "}
+                      {moment(item?.raised_on).format(
+                        "MMM DD, YYYY, h:mm:ss a"
+                      )}
+                    </p>
                   </div>
                   <div className={styles.status_container}>
                     <p
@@ -89,12 +95,6 @@ const AllQueries = () => {
                       }}
                     >
                       {item?.status}
-                    </p>
-                    <p className={styles.text_date}>
-                      Raised On{" "}
-                      {moment(item?.raised_on).format(
-                        "MMM DD, YYYY, h:mm:ss a"
-                      )}
                     </p>
                   </div>
                 </div>
