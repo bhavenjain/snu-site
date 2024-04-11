@@ -13,10 +13,10 @@ import styles from "./Admin.module.css";
 const Admin = () => {
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [answerFaq, setAnswerFaq] = useState("");
-  const [question, setQuestion] = useState("");
-  const [categoryName, setCategoryName] = useState("");
   const [sortBy, setSortBy] = useState("open");
+  const [question, setQuestion] = useState("");
+  const [answerFaq, setAnswerFaq] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Functions
