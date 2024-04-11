@@ -22,7 +22,7 @@ const AllQueries = () => {
 
   const getQueries = async () => {
     const url = "http://127.0.0.1:8000" + `/web/fetch/all/query/user`;
-    const response = axios.get(url, {
+    const response = await axios.get(url, {
       headers: {},
       params: {},
     });
