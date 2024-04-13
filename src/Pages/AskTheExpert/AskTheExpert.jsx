@@ -33,12 +33,14 @@ const AskTheExpert = () => {
 
   // Function to call api to get all faqs
   const getFaqs = async () => {
-    const url = "http://127.0.0.1:8000" + `/web/faq/fetch/all/${categoryText}`;
+    const url = "http://127.0.0.1:8000" + `/web/faq/fetch/all`;
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
       },
-      params: {},
+      params: {
+        category: categoryText
+      },
     });
     setAllFaqs(response?.data?.data);
 
