@@ -67,7 +67,7 @@ const Register = () => {
         theme: "colored",
       });
       return;
-    }else if(password?.length < 8) {
+    } else if(password?.length < 8) {
       toast.error("Password must be of 8 characters", {
         position: "top-right",
         autoClose: 5000,
