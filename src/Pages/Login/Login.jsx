@@ -71,7 +71,32 @@ const Login = () => {
           },
         }
       );
-      console.log("........user", user);
+
+      if (user?.data?.status) {
+        Cookies.set("token", user?.data?.data?.token);
+        Cookies.set(
+          "user",
+          JSON.stringify({
+            name: user?.data?.data?.name,
+            email: user?.data?.data?.email,
+          })
+        );
+
+        if (user?.data?.data?.role === "admin")
+          window.location.href = "/admin/add-details/portal";
+        else window.location.href = "/dashboard/web-bridge-portal";
+      } else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     } catch (err) {
       console.log(err);
       toast.error("There was some error. Please, try again.", {
@@ -94,14 +119,10 @@ const Login = () => {
         if (response) {
           if (response?.status === 200) {
             setLoader(false);
-            if (response?.data?.data?.role === "admin") {
+            if (response?.data?.data?.role === "admin")
               window.location.href = "/admin/add-details/portal";
-            } else {
-              window.location.href = "/dashboard/web-bridge-portal";
-            }
-          } else {
-            setLoader(false);
-          }
+            else window.location.href = "/dashboard/web-bridge-portal";
+          } else setLoader(false);
         }
       })
       .catch((err) => {
