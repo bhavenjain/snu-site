@@ -94,6 +94,16 @@ const Register = () => {
       );
 
       if (user?.data?.status) {
+        toast.success(user?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         navigate("/login")
       } else {
         toast.error(user?.data?.message, {
