@@ -47,7 +47,7 @@ const Login = () => {
             if(response?.data?.data?.role === "admin") {
               navigate("/admin/add-details/portal");
             } else {
-              navigate("/dashboard/web-bridge-portal");
+              window.location.href = "/dashboard/web-bridge-portal";
             }
           } else {
             setLoader(false);
