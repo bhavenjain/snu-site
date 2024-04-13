@@ -44,6 +44,7 @@ a {
   align-items: center;
   justify-content: center;
   color: #fff;
+  flex-direction: column;
 }
 
 .loader_page p {
