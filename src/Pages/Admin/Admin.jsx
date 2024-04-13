@@ -122,19 +122,23 @@ const Admin = () => {
       ?.then((response) => {
         if (response) {
           if (response?.status === 200) {
-            setLoader(false);
-            if (response?.data?.data?.role === "admin") 
-              window.location.href = "/admin/add-details/portal";
+            if (response?.data?.data?.role === "admin") setLoader(false);
             else window.location.href = "/dashboard/web-bridge-portal";
-          } else setLoader(false);
+          } else {
+            setLoader(false);
+            window.location.href = "/login";
+          }
         }
       })
       .catch((err) => {
         setLoader(false);
+        window.location.href = "/login";
       });
   }, []);
 
-  return loader ? <Loader /> :  (
+  return loader ? (
+    <Loader />
+  ) : (
     <div className={styles.admin}>
       {/* header */}
       <div className={styles.header}>
