@@ -20,6 +20,7 @@ const Register = () => {
   const [loader, setLoader] = useState(false);
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [loaderText, setLoaderText] = useState(false)
 
   // Utility functions
   /**
@@ -99,6 +100,7 @@ const Register = () => {
       );
 
       if (user?.data?.status) {
+        setLoaderText(true)
         setLoader(true);
         setTimeout(() => {
           navigate("/login");
@@ -148,7 +150,7 @@ const Register = () => {
   }, []);
 
   return loader ? (
-    <Loader register={true} />
+    <Loader register={loaderText} />
   ) : (
     <div className={`${styles.container}`}>
       {/* Login header logos */}
