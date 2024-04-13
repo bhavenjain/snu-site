@@ -13,12 +13,14 @@ import Accordion from "react-bootstrap/Accordion";
 
 // Styles
 import styles from "./Admin.module.css";
+import Loader from "../../Components/Loader/Loader";
 
 // Admin Panel
 const Admin = () => {
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
   const [queries, setQueries] = useState([]);
+  const [loader, setLoader] = useState(true);
   const [sortBy, setSortBy] = useState("open");
   const [question, setQuestion] = useState("");
   const [answerFaq, setAnswerFaq] = useState("");
@@ -29,6 +31,17 @@ const Admin = () => {
 
   // Functions
   const signout = () => {};
+
+  // Get auth to check for user
+  const getAuth = async () => {
+    const url = "http://127.0.0.1:8000" + "/web/fetch/user";
+    const user = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+    });
+    return user;
+  };
 
   // Category Submit
   const handleCategorySubmit = async () => {
@@ -99,13 +112,29 @@ const Admin = () => {
     }
   };
 
+  // useEffect for the initial Apis
   useEffect(() => {
-    if(window.location.hash === "#answer") {
-      setCurr(2)
+    if (window.location.hash === "#answer") {
+      setCurr(2);
     }
-  }, [])
 
-  return (
+    getAuth()
+      ?.then((response) => {
+        if (response) {
+          if (response?.status === 200) {
+            setLoader(false);
+            if (response?.data?.data?.role === "admin") 
+              window.location.href = "/admin/add-details/portal";
+            else window.location.href = "/dashboard/web-bridge-portal";
+          } else setLoader(false);
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+      });
+  }, []);
+
+  return loader ? <Loader /> :  (
     <div className={styles.admin}>
       {/* header */}
       <div className={styles.header}>
@@ -455,8 +484,8 @@ const Queries = ({
       );
 
       if (response?.data?.status) {
-        window.location.href= "/admin/add-details/portal#answer";
-        window.location.reload()
+        window.location.href = "/admin/add-details/portal#answer";
+        window.location.reload();
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
@@ -512,7 +541,7 @@ const Queries = ({
                   </Accordion.Header>
                   <Accordion.Body>
                     <h5>{item?.question}</h5>
-                    <p style={{color: "rgba(0,0,0,0.4)", fontSize: "12px"}}>
+                    <p style={{ color: "rgba(0,0,0,0.4)", fontSize: "12px" }}>
                       Raised on{" "}
                       {moment(item?.raised_on).format(
                         "MMM DD, YYYY, h:mm:ss a"
@@ -539,7 +568,9 @@ const Queries = ({
                       </div>
                     ) : (
                       <>
-                        <p style={{color: "rgba(0,0,0,0.4)", fontSize: "12px"}}>
+                        <p
+                          style={{ color: "rgba(0,0,0,0.4)", fontSize: "12px" }}
+                        >
                           Answered on{" "}
                           {moment(item?.answered_on).format(
                             "MMM DD, YYYY, h:mm:ss a"
