@@ -19,6 +19,7 @@ const Loader = ({ register }) => {
       </div>
       {register ? (
         <div>
+          {/* <br /> */}
           <p>Registered Successfully.</p>
           <p>Redirecting you to login.</p>
         </div>
