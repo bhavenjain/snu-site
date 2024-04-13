@@ -118,7 +118,6 @@ const Login = () => {
       ?.then((response) => {
         if (response) {
           if (response?.status === 200) {
-            setLoader(false);
             if (response?.data?.data?.role === "admin")
               window.location.href = "/admin/add-details/portal";
             else window.location.href = "/dashboard/web-bridge-portal";
