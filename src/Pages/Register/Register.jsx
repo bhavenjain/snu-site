@@ -94,7 +94,7 @@ const Register = () => {
       );
 
       if (user?.data?.status) {
-        toast.success(user?.data?.message, {
+        toast.success(`${user?.data?.message}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -104,7 +104,19 @@ const Register = () => {
           progress: undefined,
           theme: "colored",
         });
-        navigate("/login")
+        toast.success(`Redirecting you to Login`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setTimeout(() => {
+          navigate("/login")
+        }, 3000)
       } else {
         toast.error(user?.data?.message, {
           position: "top-right",
