@@ -125,13 +125,11 @@ const Admin = () => {
             if (response?.data?.data?.role === "admin") setLoader(false);
             else window.location.href = "/dashboard/web-bridge-portal";
           } else {
-            setLoader(false);
             window.location.href = "/login";
           }
         }
       })
       .catch((err) => {
-        setLoader(false);
         window.location.href = "/login";
       });
   }, []);
