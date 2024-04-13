@@ -41,7 +41,7 @@ const Login = () => {
     getAuth()
       ?.then((response) => {
         if (response) {
-          console.log(".........", response?.data?.data?.role)
+          console.log(".........", response?.data?.data?.role, response?.data?.data)
           if (response?.status === 200) {
             setLoader(false);
             if(response?.data?.data?.role === "admin") {
