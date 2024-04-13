@@ -10,6 +10,7 @@ const Header = () => {
   const handleLogout = () => {
     Cookies.set("token", "")
     Cookies.set("user", "")
+    window.location.href = "/login"
   }
 
   return (
