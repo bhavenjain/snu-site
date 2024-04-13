@@ -4,17 +4,19 @@ import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 
 // Styles
-import styles from "./Login.module.css";
+import styles from "./Register.module.css";
 
 // Components
 import Loader from "../../Components/Loader/Loader";
 import LoginHeader from "../../Components/LoginHeader/LoginHeader";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(false);
   const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
 
   // Utility functions
   /**
@@ -44,7 +46,7 @@ const Login = () => {
 
   // handle submit for login
   const handleSubmit = async () => {
-    if (email?.length === 0 || password?.length === 0) {
+    if (email?.length === 0 || password?.length === 0 || name?.length === 0 || rePassword?.length === 0) {
       toast.error("Please enter all the details", {
         position: "top-right",
         autoClose: 5000,
@@ -58,11 +60,26 @@ const Login = () => {
       return;
     }
 
+    if (password !== rePassword) {
+      toast.error("Passwords do not match", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+
     try {
-      const url = "http://127.0.0.1:8000" + "/web/login";
+      const url = "http://127.0.0.1:8000" + "/web/register/user";
       const user = await axios.post(
         url,
         {
+          name,
           email: email,
           password: password,
         },
@@ -139,13 +156,15 @@ const Login = () => {
 
       <div className={`container ${styles.login_body}`}>
         <h1>
-          Welcome to the <span>WEB BRIDGE</span> platform
+          Register to the <span>WEB BRIDGE</span> platform
         </h1>
-        <h2>
-          Here you will find information, advise and answers to your questions
-          to support your board journey
-        </h2>
         <div className={styles.login_form}>
+          <input
+            type={"text"}
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <input
             type={"email"}
             placeholder="Enter Email"
@@ -158,13 +177,19 @@ const Login = () => {
             value={password}
             onChange={handlePassword}
           />
+          <input
+            type={"password"}
+            placeholder="Re-enter Password"
+            value={rePassword}
+            onChange={(e) => setRePassword(e.target.value)}
+          />
           {/* <a href={"#"} className={styles.forgot}>
             Forgot Password?
           </a> */}
           <div onClick={handleSubmit} className={styles.login_button}>
-            Login
+            Register
           </div>
-          <p style={{marginTop: "20px"}}>Not a user? <Link to="/register">Register</Link></p>
+          <p style={{marginTop: "20px"}}>Already a user? <Link to="/login">Login</Link></p>
         </div>
       </div>
       <ToastContainer
@@ -183,4 +208,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

@@ -6,6 +6,7 @@ import "./App.css";
 import Login from "./Pages/Login/Login.jsx";
 import Admin from "./Pages/Admin/Admin.jsx";
 import Portal from "./Components/Portal/Portal.jsx";
+import Register from "./Pages/Register/Register.jsx";
 import AllQueries from "./Pages/AllQueries/AllQueries.jsx";
 import AskTheExpert from "./Pages/AskTheExpert/AskTheExpert.jsx";
 import QueryManager from "./Pages/QueryManager/QueryManager.jsx";
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
   {
     element: <ProtectedRoutes />,
