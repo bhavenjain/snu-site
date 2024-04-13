@@ -41,9 +41,9 @@ const Login = () => {
     getAuth()
       ?.then((response) => {
         if (response) {
+          console.log(".........", response?.data?.data?.role)
           if (response?.status === 200) {
             setLoader(false);
-            console.log(".........", response?.data?.data?.role)
             if(response?.data?.data?.role === "admin") {
               navigate("/admin/add-details/portal");
             } else {
