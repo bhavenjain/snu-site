@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"
 
 // Styles
 import styles from "./Login.module.css";
+import Loader from "../../Components/Loader/Loader";
 import LoginHeader from "../../Components/LoginHeader/LoginHeader";
 
 const Login = () => {
   const [email, setEmail] = useState("")
+  const [loader, setLoader] = useState(false);
   const [password, setPassword] = useState("")
 
   // Utility functions
-
   /**
    * Function to handle email input
    */
@@ -24,7 +26,12 @@ const Login = () => {
     setPassword(e.target.value)
   }
 
-  return (
+  // useEffects
+  useEffect(() => {
+
+  }, [])
+
+  return loader ? <Loader /> :  (
     <div className={`${styles.container}`}>
       {/* Login header logos */}
       <LoginHeader />
