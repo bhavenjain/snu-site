@@ -86,7 +86,7 @@ const Login = () => {
           window.location.href = "/admin/add-details/portal";
         else window.location.href = "/dashboard/web-bridge-portal";
       } else {
-        toast.error(response?.data?.message, {
+        toast.error(user?.data?.message, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
