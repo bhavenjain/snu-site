@@ -18,11 +18,10 @@ const Loader = ({ register }) => {
         <div className="sk-circle12 sk-child"></div>
       </div>
       {register ? (
-        <>
-          {/* <br /> */}
+        <div style={{marginTop: "20px"}}>
           <p>Registered Successfully.</p>
           <p>Redirecting you to login.</p>
-        </>
+        </div>
       ) : (
         <></>
       )}
