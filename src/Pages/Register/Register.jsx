@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 // Styles
@@ -9,9 +10,11 @@ import styles from "./Register.module.css";
 // Components
 import Loader from "../../Components/Loader/Loader";
 import LoginHeader from "../../Components/LoginHeader/LoginHeader";
-import { Link } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate()
+
+  // States
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(false);
@@ -91,18 +94,7 @@ const Register = () => {
       );
 
       if (user?.data?.status) {
-        Cookies.set("token", user?.data?.data?.token);
-        Cookies.set(
-          "user",
-          JSON.stringify({
-            name: user?.data?.data?.name,
-            email: user?.data?.data?.email,
-          })
-        );
-
-        if (user?.data?.data?.role === "admin")
-          window.location.href = "/admin/add-details/portal";
-        else window.location.href = "/dashboard/web-bridge-portal";
+        navigate("/login")
       } else {
         toast.error(user?.data?.message, {
           position: "top-right",
