@@ -110,7 +110,7 @@ const AskTheExpert = () => {
               return (
                 <Accordion.Item key={key} eventKey={key}>
                   <Accordion.Header>{item?.question}</Accordion.Header>
-                  <Accordion.Body>{item?.answer}</Accordion.Body>
+                  <Accordion.Body dangerouslySetInnerHTML={{ __html: item?.answer.replace(/\n/g, '<br>') }} />
                 </Accordion.Item>
               );
             })
