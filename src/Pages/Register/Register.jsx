@@ -12,7 +12,7 @@ import Loader from "../../Components/Loader/Loader";
 import LoginHeader from "../../Components/LoginHeader/LoginHeader";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // States
   const [name, setName] = useState("");
@@ -49,7 +49,12 @@ const Register = () => {
 
   // handle submit for login
   const handleSubmit = async () => {
-    if (email?.length === 0 || password?.length === 0 || name?.length === 0 || rePassword?.length === 0) {
+    if (
+      email?.length === 0 ||
+      password?.length === 0 ||
+      name?.length === 0 ||
+      rePassword?.length === 0
+    ) {
       toast.error("Please enter all the details", {
         position: "top-right",
         autoClose: 5000,
@@ -94,29 +99,10 @@ const Register = () => {
       );
 
       if (user?.data?.status) {
-        toast.success(`${user?.data?.message}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-        toast.success(`Redirecting you to Login`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        setLoader(true);
         setTimeout(() => {
-          navigate("/login")
-        }, 3000)
+          navigate("/login");
+        }, 3000);
       } else {
         toast.error(user?.data?.message, {
           position: "top-right",
@@ -162,7 +148,7 @@ const Register = () => {
   }, []);
 
   return loader ? (
-    <Loader />
+    <Loader register={true} />
   ) : (
     <div className={`${styles.container}`}>
       {/* Login header logos */}
@@ -203,7 +189,9 @@ const Register = () => {
           <div onClick={handleSubmit} className={styles.login_button}>
             Register
           </div>
-          <p style={{marginTop: "20px"}}>Already a user? <Link to="/login">Login</Link></p>
+          <p style={{ marginTop: "20px" }}>
+            Already a user? <Link to="/login">Login</Link>
+          </p>
         </div>
       </div>
       <ToastContainer

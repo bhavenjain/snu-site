@@ -43,6 +43,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
+}
+
+.loader_page p {
+  margin-top: 10px;
 }
 
 .sk-circle {
