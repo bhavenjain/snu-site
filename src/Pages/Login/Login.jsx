@@ -126,7 +126,7 @@ const Login = () => {
       })
       .catch((err) => {
         setLoader(false);
-        toast.error(err?.message, {
+        toast.error("Some error has occured", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
