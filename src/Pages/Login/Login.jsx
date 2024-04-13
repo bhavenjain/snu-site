@@ -43,7 +43,7 @@ const Login = () => {
 
   // handle submit for login
   const handleSubmit = async () => {
-    if(email?.length ===0 || password?.length === 0) {
+    if (email?.length === 0 || password?.length === 0) {
       toast.error("Please enter all the details", {
         position: "top-right",
         autoClose: 5000,
@@ -58,19 +58,22 @@ const Login = () => {
     }
 
     try {
-      const url = "http://127.0.0.1:8000" + "web/login";
-      const user = await axios.post(url, {
-        email: email,
-        password: password
-      }, {
-        headers: {
-          "Content-Type": "application/json",
+      const url = "http://127.0.0.1:8000" + "/web/login";
+      const user = await axios.post(
+        url,
+        {
+          email: email,
+          password: password,
         },
-      });
-
-      console.log("........user", user)
-
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("........user", user);
     } catch (err) {
+      console.log(err);
       toast.error("There was some error. Please, try again.", {
         position: "top-right",
         autoClose: 5000,
@@ -82,7 +85,7 @@ const Login = () => {
         theme: "colored",
       });
     }
-  }
+  };
 
   // useEffect for the initial Apis
   useEffect(() => {
