@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Styles
 import styles from "./AskTheExpert.module.css";
@@ -35,7 +36,7 @@ const AskTheExpert = () => {
     const url = "http://127.0.0.1:8000" + `/web/faq/fetch/all/${categoryText}`;
     const response = await axios.get(url, {
       header: {
-        Authorization: "",
+        Authorization: Cookies.get("token"),
       },
       params: {},
     });

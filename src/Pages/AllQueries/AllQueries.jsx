@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // Styles
 import styles from "./AllQueries.module.css";
@@ -26,7 +27,9 @@ const AllQueries = () => {
   const getQueries = async () => {
     const url = "http://127.0.0.1:8000" + `/web/fetch/all/query/user`;
     const response = await axios.get(url, {
-      headers: {},
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
       params: {},
     });
     setAllData(response?.data?.data)

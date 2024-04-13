@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 
 // Bootstrap
@@ -19,7 +20,7 @@ const QueryManager = () => {
     const url = "http://127.0.0.1:8000" + "/web/category/fetch/all";
     const response = await axios.get(url, {
       header: {
-        Authorization: "",
+        Authorization: Cookies.get("token"),
       },
       params: {},
     });
@@ -39,7 +40,7 @@ const QueryManager = () => {
   // Functions
   const handleSubmit = async () => {
     if (text?.length > 0 && categoryText !== "Select Category") {
-      const url = 'http://127.0.0.1:8000' + '/web/create/query'
+      const url = "http://127.0.0.1:8000" + "/web/create/query";
       await axios.post(
         url,
         {
@@ -49,6 +50,7 @@ const QueryManager = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: Cookies.get("token"),
           },
           params: {},
         }
