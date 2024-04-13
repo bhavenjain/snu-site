@@ -10,32 +10,36 @@ const ProtectedRoutes = () => {
   const navigate = useNavigate();
 
   // States
-  const [loader, setLoader] = useState(true)
+  const [loader, setLoader] = useState(true);
 
   const getAuth = async () => {
     const url = "http://127.0.0.1:8000" + "/web/fetch/user";
     const user = await axios.get(url, {
       headers: {
-        "Authorization" : Cookies.get("token")
+        Authorization: Cookies.get("token"),
       },
     });
-    console.log(user)
-    return user
+    console.log(user);
+    return user;
   };
 
   useEffect(() => {
-    getAuth()?.then(response => {
-      if(response) {
-        if(response?.status === 200) {
-          setLoader(false)
-        } else {
-          setLoader(false)
-          navigate("/login")
+    getAuth()
+      ?.then((response) => {
+        if (response) {
+          if (response?.status === 200) {
+            setLoader(false);
+          } else {
+            setLoader(false);
+            navigate("/login");
+          }
         }
-      }
-    }).catch(err => {
-      console.log("......error", err)
-    })
+      })
+      .catch((err) => {
+        console.log("......error", err);
+        setLoader(false);
+        navigate("/login");
+      });
   }, []);
 
   return loader ? <Loader /> : <Outlet />;
