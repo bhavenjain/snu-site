@@ -6,3 +6,8 @@
     color: #fff;
     padding: 20px 30px;
 }
+
+.header > span {
+    cursor: pointer;
+    margin-left: 20px;
+}
