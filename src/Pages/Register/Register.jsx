@@ -73,18 +73,6 @@ const Register = () => {
         theme: "colored",
       });
       return;
-    } else if(password?.length < 8) {
-      toast.error("Password must be of 8 characters", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-      return;
     } else if(!validateEmail(email)) {
       toast.error("Please enter a valid email", {
         position: "top-right",
@@ -97,7 +85,19 @@ const Register = () => {
         theme: "colored",
       });
       return;
-    }
+    } else if(password?.length < 8) {
+      toast.error("Password must be of 8 characters", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    } 
 
     if (password !== rePassword) {
       toast.error("Passwords do not match", {
