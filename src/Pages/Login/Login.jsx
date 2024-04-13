@@ -157,9 +157,9 @@ const Login = () => {
             value={password}
             onChange={handlePassword}
           />
-          <a href={"#"} className={styles.forgot}>
+          {/* <a href={"#"} className={styles.forgot}>
             Forgot Password?
-          </a>
+          </a> */}
           <div onClick={handleSubmit} className={styles.login_button}>
             Login
           </div>
