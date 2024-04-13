@@ -152,7 +152,7 @@ const Admin = () => {
         <div>
         <span>Hi, {user?.name ? user?.name : "Admin"}</span>
         <div className={styles.signout} onClick={signout}>
-          Sign Out 
+          Logout
         </div>
         </div>
       </div>
