@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-        <b>Hello, {user?.name}</b>
+        <b>Hello, {user?.name ? user?.name : "User"}</b>
         <span onClick={handleLogout}>Logout</span>
     </div>
   )

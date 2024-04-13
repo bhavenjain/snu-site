@@ -17,6 +17,10 @@ import Loader from "../../Components/Loader/Loader";
 
 // Admin Panel
 const Admin = () => {
+  // User
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {}
+
+  // States
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
   const [queries, setQueries] = useState([]);
@@ -30,7 +34,11 @@ const Admin = () => {
   const [categoryText, setCategoryText] = useState("Select Category");
 
   // Functions
-  const signout = () => {};
+  const signout = () => {
+    Cookies.set("token", "")
+    Cookies.set("user", "")
+    window.location.href = "/login"
+  };
 
   // Get auth to check for user
   const getAuth = async () => {
@@ -141,8 +149,11 @@ const Admin = () => {
       {/* header */}
       <div className={styles.header}>
         <h1>Admin Panel</h1>
+        <div>
+        <span>Hi, {user?.name ? user?.name : "Admin"}</span>
         <div className={styles.signout} onClick={signout}>
-          Sign Out
+          Sign Out 
+        </div>
         </div>
       </div>
 
