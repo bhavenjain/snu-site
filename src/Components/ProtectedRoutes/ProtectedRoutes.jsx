@@ -19,6 +19,7 @@ const ProtectedRoutes = () => {
         "Authorization" : Cookies.get("token")
       },
     });
+    console.log(user)
     return user
   };
 
