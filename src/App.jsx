@@ -48,7 +48,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: "/admin/add-details/portal",
     element: <Admin />,

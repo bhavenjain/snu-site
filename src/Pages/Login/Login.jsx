@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios"
+import Cookies from "js-cookie";
 
 // Styles
 import styles from "./Login.module.css";
@@ -26,10 +27,36 @@ const Login = () => {
     setPassword(e.target.value)
   }
 
-  // useEffects
-  useEffect(() => {
+  const getAuth = async () => {
+    const url = "http://127.0.0.1:8000" + "/web/fetch/user";
+    const user = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+    });
+    return user;
+  };
 
-  }, [])
+  useEffect(() => {
+    getAuth()
+      ?.then((response) => {
+        if (response) {
+          if (response?.status === 200) {
+            setLoader(false);
+            if(response?.data?.data?.role === "admin") {
+              navigate("/admin/add-details/portal");
+            } else {
+              navigate("/dashboard/web-bridge-portal");
+            }
+          } else {
+            setLoader(false);
+          }
+        }
+      })
+      .catch((err) => {
+        setLoader(false);
+      });
+  }, []);
 
   return loader ? <Loader /> :  (
     <div className={`${styles.container}`}>

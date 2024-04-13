@@ -19,7 +19,6 @@ const ProtectedRoutes = () => {
         Authorization: Cookies.get("token"),
       },
     });
-    console.log(user);
     return user;
   };
 
@@ -36,7 +35,6 @@ const ProtectedRoutes = () => {
         }
       })
       .catch((err) => {
-        console.log("......error", err);
         setLoader(false);
         navigate("/login");
       });
