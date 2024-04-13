@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
+import Cookies from "js-cookie";
 import { ToastContainer, toast } from "react-toastify";
 
 // Images
@@ -54,6 +55,7 @@ const Admin = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: Cookies.get("token"),
           },
           params: {},
         }
@@ -223,8 +225,8 @@ const Faq = ({
   const getCategories = async () => {
     const url = "http://127.0.0.1:8000" + "/web/category/fetch/all";
     const response = await axios.get(url, {
-      header: {
-        Authorization: "",
+      headers: {
+        Authorization: Cookies.get("token"),
       },
       params: {},
     });
@@ -259,6 +261,7 @@ const Faq = ({
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: Cookies.get("token"),
             },
             params: {},
           }
@@ -387,8 +390,8 @@ const Queries = ({
   const getQueries = async () => {
     const url = "http://127.0.0.1:8000" + "/web/fetch/all/query";
     const response = await axios.get(url, {
-      header: {
-        Authorization: "",
+      headers: {
+        Authorization: Cookies.get("token"),
       },
       params: {},
     });
@@ -445,6 +448,7 @@ const Queries = ({
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: Cookies.get("token"),
           },
           params: {},
         }
