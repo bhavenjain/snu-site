@@ -66,7 +66,8 @@ const QueryManager = () => {
         theme: "colored",
       });
 
-      window.location.reload();
+      setCategoryText("Select Category")
+      setText("")
     } else {
       toast.error("Can not Submit", {
         position: "top-right",
@@ -114,6 +115,7 @@ const QueryManager = () => {
           )}
           <textarea
             onChange={(e) => setText(e.target.value)}
+            value={text}
             placeholder="About Query"
           />
         </div>

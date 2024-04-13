@@ -29,13 +29,11 @@ const ProtectedRoutes = () => {
           if (response?.status === 200) {
             setLoader(false);
           } else {
-            setLoader(false);
             navigate("/login");
           }
         }
       })
       .catch((err) => {
-        setLoader(false);
         navigate("/login");
       });
   }, []);
