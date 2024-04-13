@@ -19,7 +19,7 @@ const Loader = ({ register }) => {
       </div>
       {register ? (
         <div style={{marginTop: "20px"}}>
-          <p>Registered Successfully.Redirecting you to login.</p>
+          <p>Registered Successfully. Redirecting you to login.</p>
         </div>
       ) : (
         <></>
