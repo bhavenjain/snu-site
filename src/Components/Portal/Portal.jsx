@@ -63,7 +63,7 @@ const Portal = () => {
 
             <ul className={styles.lists}>
               {pageData?.card1?.card_details?.map((item, key) => {
-                return (
+                return item?.question ? (
                   <li
                     key={key}
                     onClick={() => {
@@ -74,6 +74,8 @@ const Portal = () => {
                   >
                     {item?.question}
                   </li>
+                ) : (
+                  <></>
                 );
               })}
             </ul>
@@ -96,7 +98,7 @@ const Portal = () => {
 
             <ul className={styles.lists}>
               {pageData?.card2?.card_details?.map((item, key) => {
-                return (
+                return item?.question ? (
                   <li
                     key={key}
                     onClick={() => {
@@ -107,6 +109,8 @@ const Portal = () => {
                   >
                     {item?.question}
                   </li>
+                ) : (
+                  <></>
                 );
               })}
             </ul>
@@ -127,7 +131,7 @@ const Portal = () => {
 
             <ul className={styles.lists}>
               {pageData?.card3?.card_details?.map((item, key) => {
-                return (
+                return item?.question ? (
                   <li
                     key={key}
                     onClick={() => {
@@ -138,6 +142,8 @@ const Portal = () => {
                   >
                     {item?.question}
                   </li>
+                ) : (
+                  <></>
                 );
               })}
             </ul>
