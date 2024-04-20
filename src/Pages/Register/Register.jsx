@@ -112,7 +112,6 @@ const Register = () => {
       });
       return;
     }
-
     try {
       const url = import.meta.env.VITE_BACKEND_URL + "/web/register/user";
       const user = await axios.post(
