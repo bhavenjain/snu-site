@@ -657,7 +657,7 @@ const LawsAndRules = ({
         Authorization: Cookies.get("token"),
       },
       params: {
-        page_name:'/laws-and-rules'
+        page_name:'laws-and-rules'
       },
     });
     setAllCategories(response?.data?.data);
