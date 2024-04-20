@@ -37,10 +37,10 @@ const router = createBrowserRouter([
             path: "web-bridge-portal",
             element: <Portal />,
           },
-          {
-            path: "faqs",
-            element: <AskTheExpert />,
-          },
+          // {
+          //   path: "faqs",
+          //   element: <AskTheExpert />,
+          // },
           {
             path: "ask-the-expert",
             element: <QueryManager />,

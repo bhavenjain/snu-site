@@ -27,16 +27,32 @@ const SideNav = () => {
               : ""
           }
         >
-          <h2>WEB BRIDGE PORTAL</h2>
-          <ul>
+          <h2>Getting Started: Becoming a director</h2>
+          {/* <ul>
             <li>Laws that affect you</li>
             <li>Getting certified as Independent Director</li>
             <li>Latest developments</li>
             <li>Ask the Expert</li>
-          </ul>
+          </ul> */}
         </NavLink>
 
         <NavLink
+          to="web-bridge-portal"
+          className={({isActive}) =>
+            isActive
+              ? styles.highlight
+              : ""
+          }
+        >
+          <h2>Laws and Rules: Life as a Director</h2>
+          {/* <ul>
+            <li>Laws that affect you</li>
+            <li>Getting certified as Independent Director</li>
+            <li>Latest developments</li>
+          </ul> */}
+        </NavLink>
+
+        {/* <NavLink
           to="faqs"
           className={({isActive}) =>
             isActive ? styles.highlight : ""
@@ -60,7 +76,7 @@ const SideNav = () => {
             <li>People issues</li>
             <li>Related party transactions</li>
           </ul>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
           to="ask-the-expert"

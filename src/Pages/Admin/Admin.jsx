@@ -18,7 +18,7 @@ import Loader from "../../Components/Loader/Loader";
 // Admin Panel
 const Admin = () => {
   // User
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {}
+  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {};
 
   // States
   const [curr, setCurr] = useState(0);
@@ -35,9 +35,9 @@ const Admin = () => {
 
   // Functions
   const signout = () => {
-    Cookies.set("token", "")
-    Cookies.set("user", "")
-    window.location.href = "/login"
+    Cookies.set("token", "");
+    Cookies.set("user", "");
+    window.location.href = "/login";
   };
 
   // Get auth to check for user
@@ -150,10 +150,10 @@ const Admin = () => {
       <div className={styles.header}>
         <h1>Admin Panel</h1>
         <div>
-        <span>Hi, {user?.name ? user?.name : "Admin"}</span>
-        <div className={styles.signout} onClick={signout}>
-          Logout
-        </div>
+          <span>Hi, {user?.name ? user?.name : "Admin"}</span>
+          <div className={styles.signout} onClick={signout}>
+            Logout
+          </div>
         </div>
       </div>
 
@@ -179,12 +179,26 @@ const Admin = () => {
             >
               Answer Queries
             </div>
+            <div
+              onClick={() => setCurr(3)}
+              style={{ background: curr === 3 ? "#fff" : "" }}
+            >
+              Becoming a director
+            </div>
+
+            <div
+              onClick={() => setCurr(4)}
+              style={{ background: curr === 4 ? "#fff" : "" }}
+            >
+              Laws and Rules
+            </div>
           </div>
           <img src={womensLogo} width={200} />
         </div>
 
         {/* Main Form */}
         <div className={styles.form_container}>
+          {/* ADD Category */}
           {curr === 0 ? (
             <>
               <h2>Add Category</h2>
@@ -206,6 +220,7 @@ const Admin = () => {
             <></>
           )}
 
+          {/* Add FAQ */}
           {curr === 1 ? (
             <Faq
               categoryText={categoryText}
@@ -221,6 +236,7 @@ const Admin = () => {
             <></>
           )}
 
+          {/* Answer Queries */}
           {curr === 2 ? (
             <Queries
               sortBy={sortBy}
@@ -231,6 +247,38 @@ const Admin = () => {
               allQueries={allQueries}
               setAnswerFaq={setAnswerFaq}
               setAllQueries={setAllQueries}
+            />
+          ) : (
+            <></>
+          )}
+
+          {/* Becoming a director */}
+          {curr === 3 ? (
+            <BecomingADirector
+              categoryText={categoryText}
+              setCategoryText={setCategoryText}
+              setAnswer={setAnswer}
+              setQuestion={setQuestion}
+              answer={answer}
+              question={question}
+              allCategories={allCategories}
+              setAllCategories={setAllCategories}
+            />
+          ) : (
+            <></>
+          )}
+
+          {/* law and rules */}
+          {curr === 4 ? (
+            <LawsAndRules
+              categoryText={categoryText}
+              setCategoryText={setCategoryText}
+              setAnswer={setAnswer}
+              setQuestion={setQuestion}
+              answer={answer}
+              question={question}
+              allCategories={allCategories}
+              setAllCategories={setAllCategories}
             />
           ) : (
             <></>
@@ -253,6 +301,7 @@ const Admin = () => {
   );
 };
 
+// Add FAQ
 const Faq = ({
   categoryText,
   setCategoryText,
@@ -419,6 +468,341 @@ const Faq = ({
   );
 };
 
+// Becoming A director
+const BecomingADirector = ({
+  categoryText,
+  setCategoryText,
+  setAnswer,
+  setQuestion,
+  answer,
+  question,
+  allCategories,
+  setAllCategories,
+}) => {
+  // Function to call api to get all the categories
+  const getCategories = async () => {
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {},
+    });
+    setAllCategories(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  // Get All Categories
+  useEffect(() => {
+    try {
+      getCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      if (
+        categoryText !== "Select Category" &&
+        question?.length > 0 &&
+        answer?.length > 0
+      ) {
+        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/faq";
+        const response = await axios.post(
+          url,
+          {
+            question: question,
+            answer: answer,
+            category: categoryText,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Cookies.get("token"),
+            },
+            params: {},
+          }
+        );
+        if (response?.data?.status) {
+          toast.success(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setCategoryText("Select Category");
+          setAnswer("");
+          setQuestion("");
+        } else {
+          toast.error(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error("Please enter all the details.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  return (
+    <>
+      <h2>Add Faq</h2>
+      <div className={styles.form}>
+        <p>Select Category Name: </p>
+        {allCategories?.length > 0 ? (
+          <div className={styles.category_dropdown}>
+            <Dropdown>
+              <Dropdown.Toggle className={styles.dropdown_button}>
+                {categoryText}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {allCategories?.map((item, key) => {
+                  return (
+                    <Dropdown.Item
+                      key={key}
+                      onClick={() => setCategoryText(item?.name)}
+                    >
+                      {item?.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className={styles.input_container}>
+          <p>Add Question: </p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Add Question"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.input_container}>
+          <span>Add Answer: </span>
+          <textarea
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="Answer FAQ"
+            value={answer}
+          />
+        </div>
+
+        <div onClick={handleSubmit} className={styles.submit}>
+          Submit
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Laws And Rules
+const LawsAndRules = ({
+  categoryText,
+  setCategoryText,
+  setAnswer,
+  setQuestion,
+  answer,
+  question,
+  allCategories,
+  setAllCategories,
+}) => {
+  // Function to call api to get all the categories
+  const getCategories = async () => {
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {},
+    });
+    setAllCategories(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  // Get All Categories
+  useEffect(() => {
+    try {
+      getCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      if (
+        categoryText !== "Select Category" &&
+        question?.length > 0 &&
+        answer?.length > 0
+      ) {
+        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/faq";
+        const response = await axios.post(
+          url,
+          {
+            question: question,
+            answer: answer,
+            category: categoryText,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Cookies.get("token"),
+            },
+            params: {},
+          }
+        );
+        if (response?.data?.status) {
+          toast.success(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setCategoryText("Select Category");
+          setAnswer("");
+          setQuestion("");
+        } else {
+          toast.error(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error("Please enter all the details.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  return (
+    <>
+      <h2>Add Faq</h2>
+      <div className={styles.form}>
+        <p>Select Category Name: </p>
+        {allCategories?.length > 0 ? (
+          <div className={styles.category_dropdown}>
+            <Dropdown>
+              <Dropdown.Toggle className={styles.dropdown_button}>
+                {categoryText}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {allCategories?.map((item, key) => {
+                  return (
+                    <Dropdown.Item
+                      key={key}
+                      onClick={() => setCategoryText(item?.name)}
+                    >
+                      {item?.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        ) : (
+          <></>
+        )}
+
+        <div className={styles.input_container}>
+          <p>Add Question: </p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Add Question"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.input_container}>
+          <span>Add Answer: </span>
+          <textarea
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="Answer FAQ"
+            value={answer}
+          />
+        </div>
+
+        <div onClick={handleSubmit} className={styles.submit}>
+          Submit
+        </div>
+      </div>
+    </>
+  );
+};
+
+// Answer queries
 const Queries = ({
   sortBy,
   setSortBy,
