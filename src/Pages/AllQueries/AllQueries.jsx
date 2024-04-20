@@ -142,7 +142,9 @@ const AllQueries = () => {
               </div>
             ))
           ) : (
-            <></>
+            <>
+              <h7 style={{color: "#fff"}}>You have not raised a query yet</h7>
+            </>
           )}
         </div>
       </div>
