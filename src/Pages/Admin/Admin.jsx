@@ -131,7 +131,7 @@ const Admin = () => {
         if (response) {
           if (response?.status === 200) {
             if (response?.data?.data?.role === "admin") setLoader(false);
-            else window.location.href = "/dashboard/web-bridge-portal";
+            else window.location.href = "/dashboard/getting-started";
           } else {
             window.location.href = "/login";
           }

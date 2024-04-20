@@ -34,7 +34,11 @@ const router = createBrowserRouter([
         element: <WebBridgePortal />,
         children: [
           {
-            path: "web-bridge-portal",
+            path: "getting-started",
+            element: <Portal />,
+          },
+          {
+            path: "laws-and-rules",
             element: <Portal />,
           },
           // {

@@ -169,7 +169,7 @@ const Register = () => {
           if (response?.status === 200) {
             if (response?.data?.data?.role === "admin")
               window.location.href = "/admin/add-details/portal";
-            else window.location.href = "/dashboard/web-bridge-portal";
+            else window.location.href = "/dashboard/getting-started";
           } else setLoader(false);
         }
       })

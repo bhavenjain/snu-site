@@ -20,7 +20,7 @@ const SideNav = () => {
 
       <div className={styles.sidenav_links}>
         <NavLink
-          to="web-bridge-portal"
+          to="getting-started"
           className={({isActive}) =>
             isActive
               ? styles.highlight
@@ -37,7 +37,7 @@ const SideNav = () => {
         </NavLink>
 
         <NavLink
-          to="web-bridge-portal"
+          to="laws-and-rules"
           className={({isActive}) =>
             isActive
               ? styles.highlight
