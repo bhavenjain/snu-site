@@ -1,71 +1,150 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
 
 // Styles
 import styles from "./Portal.module.css";
 
 // Components
-import BridgeContainer from "../BridgeContainer/BridgeContainer"
-import OpenModal from "../OpenModal/OpenModal"
+import OpenModal from "../OpenModal/OpenModal";
+import BridgeContainer from "../BridgeContainer/BridgeContainer";
 
 const Portal = () => {
   const [show, setShow] = useState(false);
+  const [pageData, setPageData] = useState({});
+  const [answer, setAnswer] = useState("");
+  const [question, setQuestion] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Get page data based on url
+  const getPagedata = async (pageUrl) => {
+    const url =
+      import.meta.env.VITE_BACKEND_URL + "/web/page/fetch/card/details";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {
+        page_name: pageUrl?.includes("getting-started")
+          ? "getting-started"
+          : "laws-and-rules",
+      },
+    });
+    return response?.data?.data;
+  };
+
+  useEffect(() => {
+    getPagedata(window.location.pathname)
+      .then((response) => {
+        if (response) {
+          setPageData(response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [window.location.pathname]);
+
   return (
     <>
       <div className={styles.bridge_container}>
-        <BridgeContainer padding={true}>
-          <div className={styles.heading}>
-            <h2>Laws that affect you</h2>
-            <p>
-              (Snapshot of key provisions which sets accountability of
-              directors)
-            </p>
-          </div>
+        {pageData?.card1 && pageData?.card1?.card_details?.length > 0 ? (
+          <BridgeContainer padding={true}>
+            <div className={styles.heading}>
+              <h2>{pageData?.card1?.heading}</h2>
+              {/* <p>
+                (Snapshot of key provisions which sets accountability of
+                directors)
+              </p> */}
+            </div>
 
-          <ul className={styles.lists}>
-            <li onClick={handleShow}>Companies Act</li>
-            <li onClick={handleShow}>Securities laws (LODR/ Insider Trading/ Takeover)</li>
-            <li onClick={handleShow}>Insolvency laws</li>
-            <li onClick={handleShow}>FCRA</li>
-            <li onClick={handleShow}>PMLA</li>
-            <li onClick={handleShow}>Competition laws</li>
-            <li onClick={handleShow}>IPC</li>
-            <li onClick={handleShow}>Information Technology</li>
-            <li onClick={handleShow}>Data Protection</li>
-            <li onClick={handleShow}>Environmental laws</li>
-            <li onClick={handleShow}>Income Tax Laws</li>
-          </ul>
-        </BridgeContainer>
+            <ul className={styles.lists}>
+              {pageData?.card1?.card_details?.map((item, key) => {
+                return (
+                  <li
+                    key={key}
+                    onClick={() => {
+                      setQuestion(item?.question);
+                      setAnswer(item?.answer);
+                      handleShow();
+                    }}
+                  >
+                    {item?.question}
+                  </li>
+                );
+              })}
+            </ul>
+          </BridgeContainer>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className={styles.bridge_container_middle}>
-        <BridgeContainer padding={true}>
-          <div className={styles.heading}>
-            <h2>Getting certified as Independent Director</h2>
-          </div>
-          <ul className={styles.lists}>
-            <li onClick={handleShow}>The process of certification</li>
-            <li onClick={handleShow}>Relevant rules for certification</li>
-            <li onClick={handleShow}>Booking the exam</li>
-            <li onClick={handleShow}>Relevant links (IICA, IOD)</li>
-            <li onClick={handleShow}>A tutorial</li>
-            <li onClick={handleShow}>Key resources</li>
-          </ul>
-        </BridgeContainer>
+        {pageData?.card2 && pageData?.card2?.card_details?.length > 0 ? (
+          <BridgeContainer padding={true}>
+            <div className={styles.heading}>
+              <h2>{pageData?.card2?.heading}</h2>
+              {/* <p>
+                (Snapshot of key provisions which sets accountability of
+                directors)
+              </p> */}
+            </div>
 
-        <BridgeContainer padding={true}>
-          <div className={styles.heading}>
-            <h2>Latest developments</h2>
-          </div>
-          <ul className={styles.lists}>
-            <li onClick={handleShow}>FAQs on key regulations impacting directors</li>
-            <li onClick={handleShow}>Including Guidance notes</li>
-          </ul>
-        </BridgeContainer>
+            <ul className={styles.lists}>
+              {pageData?.card2?.card_details?.map((item, key) => {
+                return (
+                  <li
+                    key={key}
+                    onClick={() => {
+                      setQuestion(item?.question);
+                      setAnswer(item?.answer);
+                      handleShow();
+                    }}
+                  >
+                    {item?.question}
+                  </li>
+                );
+              })}
+            </ul>
+          </BridgeContainer>
+        ) : (
+          <></>
+        )}
+
+        {pageData?.card3 && pageData?.card3?.card_details?.length > 0 ? (
+          <BridgeContainer padding={true}>
+            <div className={styles.heading}>
+              <h2>{pageData?.card3?.heading}</h2>
+              {/* <p>
+                (Snapshot of key provisions which sets accountability of
+                directors)
+              </p> */}
+            </div>
+
+            <ul className={styles.lists}>
+              {pageData?.card3?.card_details?.map((item, key) => {
+                return (
+                  <li
+                    key={key}
+                    onClick={() => {
+                      setQuestion(item?.question);
+                      setAnswer(item?.answer);
+                      handleShow();
+                    }}
+                  >
+                    {item?.question}
+                  </li>
+                );
+              })}
+            </ul>
+          </BridgeContainer>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className={styles.bridge_container_right}>
@@ -87,17 +166,23 @@ const Portal = () => {
               maintaining the highest levels of confidentiality.
             </p>
             <div className={styles.button_container}>
-              <Link to="/dashboard/ask-the-expert" className={styles.button}>Get Started</Link>
+              <Link to="/dashboard/ask-the-expert" className={styles.button}>
+                Get Started
+              </Link>
             </div>
           </div>
         </BridgeContainer>
       </div>
-      {show ? <OpenModal
-        heading="Lorem Ipsum"
-        body="Lorem Ipsum tipsum chipsum"
-        show={show}
-        handleClose={handleClose}
-      /> : <></>}
+      {show ? (
+        <OpenModal
+          heading={question}
+          body={answer}
+          show={show}
+          handleClose={handleClose}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

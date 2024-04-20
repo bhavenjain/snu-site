@@ -481,12 +481,14 @@ const BecomingADirector = ({
 }) => {
   // Function to call api to get all the categories
   const getCategories = async () => {
-    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/card_names";
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
       },
-      params: {},
+      params: {
+        page_name:'getting-started'
+      },
     });
     setAllCategories(response?.data?.data);
     return response?.data?.data;
@@ -508,13 +510,14 @@ const BecomingADirector = ({
         question?.length > 0 &&
         answer?.length > 0
       ) {
-        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/faq";
+        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
         const response = await axios.post(
           url,
           {
+            page_name: "getting-started",
             question: question,
             answer: answer,
-            category: categoryText,
+            card_name: categoryText,
           },
           {
             headers: {
@@ -579,9 +582,9 @@ const BecomingADirector = ({
 
   return (
     <>
-      <h2>Add Faq</h2>
+      <h2>Add to page Getting Started</h2>
       <div className={styles.form}>
-        <p>Select Category Name: </p>
+        <p>Select Card Name </p>
         {allCategories?.length > 0 ? (
           <div className={styles.category_dropdown}>
             <Dropdown>
@@ -593,9 +596,9 @@ const BecomingADirector = ({
                   return (
                     <Dropdown.Item
                       key={key}
-                      onClick={() => setCategoryText(item?.name)}
+                      onClick={() => setCategoryText(item)}
                     >
-                      {item?.name}
+                      {item}
                     </Dropdown.Item>
                   );
                 })}
@@ -607,11 +610,11 @@ const BecomingADirector = ({
         )}
 
         <div className={styles.input_container}>
-          <p>Add Question: </p>
+          <p>Add Bulletpoint </p>
           <input
             className={styles.inputs}
             type="text"
-            placeholder="Add Question"
+            placeholder="Add Bulletpoint"
             style={{ width: "100%", marginLeft: "0" }}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
@@ -619,10 +622,10 @@ const BecomingADirector = ({
         </div>
 
         <div className={styles.input_container}>
-          <span>Add Answer: </span>
+          <span>Add Details/Answer </span>
           <textarea
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Answer FAQ"
+            placeholder="Write Details/Answer"
             value={answer}
           />
         </div>
@@ -648,12 +651,14 @@ const LawsAndRules = ({
 }) => {
   // Function to call api to get all the categories
   const getCategories = async () => {
-    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/card_names";
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
       },
-      params: {},
+      params: {
+        page_name:'/laws-and-rules'
+      },
     });
     setAllCategories(response?.data?.data);
     return response?.data?.data;
@@ -675,13 +680,14 @@ const LawsAndRules = ({
         question?.length > 0 &&
         answer?.length > 0
       ) {
-        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/faq";
+        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
         const response = await axios.post(
           url,
           {
+            page_name: "/laws-and-rules",
             question: question,
             answer: answer,
-            category: categoryText,
+            card_name: categoryText,
           },
           {
             headers: {
@@ -746,9 +752,9 @@ const LawsAndRules = ({
 
   return (
     <>
-      <h2>Add Faq</h2>
+      <h2>Add to page Laws And Rules</h2>
       <div className={styles.form}>
-        <p>Select Category Name: </p>
+        <p>Select Card Name </p>
         {allCategories?.length > 0 ? (
           <div className={styles.category_dropdown}>
             <Dropdown>
@@ -760,9 +766,9 @@ const LawsAndRules = ({
                   return (
                     <Dropdown.Item
                       key={key}
-                      onClick={() => setCategoryText(item?.name)}
+                      onClick={() => setCategoryText(item)}
                     >
-                      {item?.name}
+                      {item}
                     </Dropdown.Item>
                   );
                 })}
@@ -774,11 +780,11 @@ const LawsAndRules = ({
         )}
 
         <div className={styles.input_container}>
-          <p>Add Question: </p>
+          <p>Add Bulletpoint </p>
           <input
             className={styles.inputs}
             type="text"
-            placeholder="Add Question"
+            placeholder="Add Bulletpoint"
             style={{ width: "100%", marginLeft: "0" }}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
@@ -786,10 +792,10 @@ const LawsAndRules = ({
         </div>
 
         <div className={styles.input_container}>
-          <span>Add Answer: </span>
+          <span>Add Details/Answer </span>
           <textarea
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Answer FAQ"
+            placeholder="Write Details/Answer"
             value={answer}
           />
         </div>

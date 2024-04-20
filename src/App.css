@@ -4,3 +4,22 @@
     box-shadow: none;
 }
 
+.modal-header {
+    align-items: flex-start !important;
+}
+
+.modal-content {
+    max-height: 800px;
+    overflow: hidden;
+    overflow-y: scroll !important;
+}
+
+.modal-header {
+    max-height: 200px;
+}
+
+.modal-body {
+    min-height: 200px;
+    overflow: hidden;
+    overflow-y: scroll !important;
+}
