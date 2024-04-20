@@ -3,11 +3,11 @@ module.exports = {
       {
         name: `web-bridge-snu`,
         script: "serve",
-        autorestart: true,
+        // autorestart: true,
         env: {
           // PM2_SERVE_PATH: "./dist",
-          PM2_SERVE_PORT: 3000,
-          PM2_SERVE_SPA: "true",
+          // PM2_SERVE_PORT: 3000,
+          // PM2_SERVE_SPA: "true",
           NODE_ENV: 'production',
         },
         env_production: {
