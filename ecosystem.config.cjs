@@ -2,7 +2,7 @@ module.exports = {
     apps: [
       {
         name: `web-bridge-snu`,
-        script: "serve",
+        script: "npm run dev -- --host",
         // autorestart: true,
         env: {
           // PM2_SERVE_PATH: "./dist",
