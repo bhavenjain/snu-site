@@ -17,7 +17,7 @@ const AskTheExpert = () => {
 
   // Function to call api to get all the categories
   const getCategories = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/fetch/category/faq";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/category/faq";
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
@@ -33,7 +33,7 @@ const AskTheExpert = () => {
 
   // Function to call api to get all faqs
   const getFaqs = async () => {
-    const url = "http://127.0.0.1:8000" + `/web/faq/fetch/all`;
+    const url = import.meta.env.VITE_BACKEND_URL + `/web/faq/fetch/all`;
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),

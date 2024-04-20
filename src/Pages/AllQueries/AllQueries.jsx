@@ -25,7 +25,7 @@ const AllQueries = () => {
   const handleShow = () => setShow(true);
 
   const getQueries = async () => {
-    const url = "http://127.0.0.1:8000" + `/web/fetch/all/query/user`;
+    const url = import.meta.env.VITE_BACKEND_URL + `/web/fetch/all/query/user`;
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),

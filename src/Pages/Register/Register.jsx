@@ -45,7 +45,7 @@ const Register = () => {
 
   // Get auth to check for user
   const getAuth = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/fetch/user";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/user";
     const user = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
@@ -114,7 +114,7 @@ const Register = () => {
     }
 
     try {
-      const url = "http://127.0.0.1:8000" + "/web/register/user";
+      const url = import.meta.env.VITE_BACKEND_URL + "/web/register/user";
       const user = await axios.post(
         url,
         {

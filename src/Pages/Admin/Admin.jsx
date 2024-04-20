@@ -42,7 +42,7 @@ const Admin = () => {
 
   // Get auth to check for user
   const getAuth = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/fetch/user";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/user";
     const user = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
@@ -67,7 +67,7 @@ const Admin = () => {
       return;
     }
     try {
-      const url = "http://127.0.0.1:8000" + "/web/create/category";
+      const url = import.meta.env.VITE_BACKEND_URL + "/web/create/category";
       const response = await axios.post(
         url,
         {
@@ -265,7 +265,7 @@ const Faq = ({
 }) => {
   // Function to call api to get all the categories
   const getCategories = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/category/fetch/all";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
@@ -292,7 +292,7 @@ const Faq = ({
         question?.length > 0 &&
         answer?.length > 0
       ) {
-        const url = "http://127.0.0.1:8000" + "/web/create/faq";
+        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/faq";
         const response = await axios.post(
           url,
           {
@@ -430,7 +430,7 @@ const Queries = ({
   setAllQueries,
 }) => {
   const getQueries = async () => {
-    const url = "http://127.0.0.1:8000" + "/web/fetch/all/query";
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/query";
     const response = await axios.get(url, {
       headers: {
         Authorization: Cookies.get("token"),
@@ -480,7 +480,7 @@ const Queries = ({
       return;
     }
     try {
-      const url = "http://127.0.0.1:8000" + "/web/answer/query";
+      const url = import.meta.env.VITE_BACKEND_URL + "/web/answer/query";
       const response = await axios.put(
         url,
         {
