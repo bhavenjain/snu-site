@@ -8,7 +8,7 @@ import Admin from "./Pages/Admin/Admin.jsx";
 import Portal from "./Components/Portal/Portal.jsx";
 import Register from "./Pages/Register/Register.jsx";
 import AllQueries from "./Pages/AllQueries/AllQueries.jsx";
-import AskTheExpert from "./Pages/AskTheExpert/AskTheExpert.jsx";
+// import AskTheExpert from "./Pages/AskTheExpert/AskTheExpert.jsx";
 import QueryManager from "./Pages/QueryManager/QueryManager.jsx";
 import WebBridgePortal from "./Pages/WebBridgePortal/WebBridgePortal.jsx";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
