@@ -40,16 +40,13 @@ const QueryManager = () => {
   // Functions
   const handleSubmit = async () => {
     if (
-      text?.length > 0 &&
-      ((categoryText !== "Select Category" && allCategories?.length > 0) ||
-        (categoryText === "Select Category" && allCategories?.length === 0))
-    ) {
+      text?.length > 0 && categoryText !== "Select Category") {
       const url = import.meta.env.VITE_BACKEND_URL + "/web/create/query";
       await axios.post(
         url,
         {
           question: text,
-          category: categoryText === "Select Category" ? "Default": categoryText,
+          category: categoryText,
         },
         {
           headers: {
