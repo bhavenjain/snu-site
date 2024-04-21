@@ -39,13 +39,17 @@ const QueryManager = () => {
 
   // Functions
   const handleSubmit = async () => {
-    if (text?.length > 0 && categoryText !== "Select Category") {
+    if (
+      text?.length > 0 &&
+      ((categoryText !== "Select Category" && allCategories?.length > 0) ||
+        (categoryText === "Select Category" && allCategories?.length === 0))
+    ) {
       const url = import.meta.env.VITE_BACKEND_URL + "/web/create/query";
       await axios.post(
         url,
         {
           question: text,
-          category: categoryText,
+          category: categoryText === "Select Category" ? "Default": categoryText,
         },
         {
           headers: {
@@ -66,8 +70,8 @@ const QueryManager = () => {
         theme: "colored",
       });
 
-      setCategoryText("Select Category")
-      setText("")
+      setCategoryText("Select Category");
+      setText("");
     } else {
       toast.error("Can not Submit", {
         position: "top-right",
