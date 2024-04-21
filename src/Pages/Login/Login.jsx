@@ -164,7 +164,9 @@ const Login = () => {
           <div onClick={handleSubmit} className={styles.login_button}>
             Login
           </div>
-          <p style={{marginTop: "20px"}}>Not a user? <Link to="/register">Register</Link></p>
+          <p style={{ marginTop: "20px" }}>
+            Not a user? <Link to="/register">Register</Link>
+          </p>
         </div>
       </div>
       <ToastContainer
