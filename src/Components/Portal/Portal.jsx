@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import QuestionImage from "../../assets/question.png"
 import { Link } from "react-router-dom";
 
 // Styles
@@ -156,7 +157,7 @@ const Portal = () => {
       <div className={styles.bridge_container_right}>
         <BridgeContainer>
           <img
-            src="/assets/question.png"
+            src={QuestionImage}
             className={styles.question_image}
           />
           <h2 className={styles.expert}>Ask the Expert</h2>
