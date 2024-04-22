@@ -501,6 +501,11 @@ const BecomingADirector = ({
   // Get All Categories
   useEffect(() => {
     try {
+      setAllCategories([])
+      setCategoryText("Select Category")
+      setQuestion("");
+      setAnswer("")
+      
       getCategories();
     } catch (err) {
       console.log(err);
@@ -672,6 +677,11 @@ const LawsAndRules = ({
   // Get All Categories
   useEffect(() => {
     try {
+      setAllCategories([])
+      setCategoryText("Select Category")
+      setQuestion("");
+      setAnswer("")
+
       getCategories();
     } catch (err) {
       console.log(err);
@@ -859,6 +869,13 @@ const Queries = ({
 
   useEffect(() => {
     try {
+      setAllCategories([])
+      setCategoryText("Select Category")
+      setQuestion("");
+      setAnswerFaq("")
+      setSortBy("open")
+
+      // Get API Data
       getCategories();
       getQueries();
     } catch (err) {
