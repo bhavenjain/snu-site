@@ -243,6 +243,10 @@ const Admin = () => {
               setSortBy={setSortBy}
               answerFaq={answerFaq}
               queries={queries}
+              setCategoryText={setCategoryText}
+              categoryText={categoryText}
+              allCategories={allCategories}
+              setAllCategories={setAllCategories}
               setQueries={setQueries}
               allQueries={allQueries}
               setAnswerFaq={setAnswerFaq}
@@ -487,7 +491,7 @@ const BecomingADirector = ({
         Authorization: Cookies.get("token"),
       },
       params: {
-        page_name:'getting-started'
+        page_name: "getting-started",
       },
     });
     setAllCategories(response?.data?.data);
@@ -510,7 +514,8 @@ const BecomingADirector = ({
         question?.length > 0 &&
         answer?.length > 0
       ) {
-        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
+        const url =
+          import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
         const response = await axios.post(
           url,
           {
@@ -657,7 +662,7 @@ const LawsAndRules = ({
         Authorization: Cookies.get("token"),
       },
       params: {
-        page_name:'laws-and-rules'
+        page_name: "laws-and-rules",
       },
     });
     setAllCategories(response?.data?.data);
@@ -680,7 +685,8 @@ const LawsAndRules = ({
         question?.length > 0 &&
         answer?.length > 0
       ) {
-        const url = import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
+        const url =
+          import.meta.env.VITE_BACKEND_URL + "/web/create/card/detail";
         const response = await axios.post(
           url,
           {
@@ -813,8 +819,12 @@ const Queries = ({
   sortBy,
   setSortBy,
   queries,
+  categoryText,
+  setCategoryText,
   setQueries,
   answerFaq,
+  allCategories,
+  setAllCategories,
   setAnswerFaq,
   allQueries,
   setAllQueries,
@@ -834,8 +844,22 @@ const Queries = ({
     return response?.data?.data;
   };
 
+  // Function to call api to get all the categories
+  const getCategories = async () => {
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/category/fetch/all";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {},
+    });
+    setAllCategories(response?.data?.data);
+    return response?.data?.data;
+  };
+
   useEffect(() => {
     try {
+      getCategories();
       getQueries();
     } catch (err) {
       toast.error(err?.message, {
@@ -852,8 +876,16 @@ const Queries = ({
   }, []);
 
   useEffect(() => {
-    setAllQueries(queries?.filter((item) => item?.status === sortBy));
-  }, [sortBy]);
+    if (categoryText !== "Select Category") {
+      setAllQueries(
+        allQueries?.filter(
+          (item) => item?.category === categoryText && item?.status === sortBy
+        )
+      );
+    } else {
+      setAllQueries(queries?.filter((item) => item?.status === sortBy));
+    }
+  }, [sortBy, categoryText]);
 
   const handleSubmit = async (id) => {
     if (answerFaq?.length === 0) {
@@ -918,6 +950,7 @@ const Queries = ({
   return (
     <>
       <h2>Answer Question</h2>
+      <div style={{display: "flex"}}> 
       <Dropdown>
         <Dropdown.Toggle className={styles.dropdown_button}>
           {sortBy}
@@ -930,6 +963,37 @@ const Queries = ({
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+
+      {allCategories?.length > 0 ? (
+        <div style={{marginLeft: 40}}>
+        {/* <div className={styles.category_dropdown}> */}
+          <Dropdown>
+            <Dropdown.Toggle className={styles.dropdown_button}>
+              {categoryText}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setCategoryText("Select Category")}>
+                Select Category
+              </Dropdown.Item>
+              {allCategories?.map((item, key) => {
+                return (
+                  <Dropdown.Item
+                    key={key}
+                    onClick={() => setCategoryText(item?.name)}
+                  >
+                    {item?.name}
+                  </Dropdown.Item>
+                );
+              })}
+            </Dropdown.Menu>
+          </Dropdown>
+        {/* </div> */}
+        </div>
+      ) : (
+        <></>
+      )}
+
+      </div>
 
       <div className={styles.accordian_container}>
         <Accordion defaultActiveKey="0">
