@@ -156,7 +156,7 @@ const Portal = () => {
       <div className={styles.bridge_container_right}>
         <BridgeContainer>
           <img
-            src="/src/assets/question.png"
+            src="/assets/question.png"
             className={styles.question_image}
           />
           <h2 className={styles.expert}>Ask the Expert</h2>
