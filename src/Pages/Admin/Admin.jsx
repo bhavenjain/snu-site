@@ -684,7 +684,7 @@ const LawsAndRules = ({
         const response = await axios.post(
           url,
           {
-            page_name: "/laws-and-rules",
+            page_name: "laws-and-rules",
             question: question,
             answer: answer,
             card_name: categoryText,
