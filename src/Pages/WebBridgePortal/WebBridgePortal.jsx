@@ -11,11 +11,11 @@ import SideNav from "../../Components/SideNav/SideNav";
 const WebBridgePortal = () => {
 
   useEffect(() => {
-    console.log(window.location.pathname)
     if(window.location.pathname === "/dashboard") {
       window.location.href = "/dashboard/getting-started"
     }
   }, [])
+  
   return (
     <div className={styles.web_container}>
       <SideNav />

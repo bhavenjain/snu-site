@@ -75,7 +75,7 @@ const Portal = () => {
                     {item?.question}
                   </li>
                 ) : (
-                  <></>
+                  <div key={key}></div>
                 );
               })}
             </ul>
@@ -110,7 +110,7 @@ const Portal = () => {
                     {item?.question}
                   </li>
                 ) : (
-                  <></>
+                  <div key={key}></div>
                 );
               })}
             </ul>
@@ -143,7 +143,7 @@ const Portal = () => {
                     {item?.question}
                   </li>
                 ) : (
-                  <></>
+                  <div key={key}></div>
                 );
               })}
             </ul>
