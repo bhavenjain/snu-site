@@ -101,9 +101,10 @@
     -o-border-radius: 5px;
 }
 
+/* 
 .inputs::placeholder {
     color: #262626
-}
+} */
 
 .submit {
     margin-top: 30px;

@@ -183,14 +183,14 @@ const Admin = () => {
               onClick={() => setCurr(3)}
               style={{ background: curr === 3 ? "#fff" : "" }}
             >
-              Becoming a director
+              Getting Started: Becoming a director
             </div>
 
             <div
               onClick={() => setCurr(4)}
               style={{ background: curr === 4 ? "#fff" : "" }}
             >
-              Laws and Rules
+              Laws and Rules: Life as a Director
             </div>
           </div>
           <img src={womensLogo} width={200} />
@@ -505,7 +505,7 @@ const BecomingADirector = ({
       setCategoryText("Select Category")
       setQuestion("");
       setAnswer("")
-      
+
       getCategories();
     } catch (err) {
       console.log(err);
@@ -592,7 +592,7 @@ const BecomingADirector = ({
 
   return (
     <>
-      <h2>Add to page Getting Started</h2>
+      <h2>Add to page Getting Started: Becoming a director</h2>
       <div className={styles.form}>
         <p>Select Card Name </p>
         {allCategories?.length > 0 ? (
@@ -768,7 +768,7 @@ const LawsAndRules = ({
 
   return (
     <>
-      <h2>Add to page Laws And Rules</h2>
+      <h2>Add to page Laws and Rules: Life as a Director</h2>
       <div className={styles.form}>
         <p>Select Card Name </p>
         {allCategories?.length > 0 ? (
@@ -871,7 +871,7 @@ const Queries = ({
     try {
       setAllCategories([])
       setCategoryText("Select Category")
-      setQuestion("");
+      setQueries([]);
       setAnswerFaq("")
       setSortBy("open")
 
