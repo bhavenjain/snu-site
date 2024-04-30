@@ -39,8 +39,7 @@ const QueryManager = () => {
 
   // Functions
   const handleSubmit = async () => {
-    if (
-      text?.length > 0 && categoryText !== "Select Category") {
+    if (text?.length > 0 && categoryText !== "Select Category") {
       const url = import.meta.env.VITE_BACKEND_URL + "/web/create/query";
       await axios.post(
         url,
@@ -89,27 +88,29 @@ const QueryManager = () => {
         <h1>Ask The Expert</h1>
 
         <div className={styles.form}>
-          <p>Queries by categories</p>
           {/* Category Dropdown */}
           {allCategories?.length > 0 ? (
-            <div className={styles.category_dropdown}>
-              <Dropdown>
-                <Dropdown.Toggle className={styles.dropdown_button}>
-                  {categoryText}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {allCategories?.map((item, key) => {
-                    return (
-                      <Dropdown.Item
-                        key={key}
-                        onClick={() => setCategoryText(item?.name)}
-                      >
-                        {item?.name}
-                      </Dropdown.Item>
-                    );
-                  })}
-                </Dropdown.Menu>
-              </Dropdown>
+            <div className={styles.center}>
+              <p>Queries by categories</p>
+              <div className={styles.category_dropdown}>
+                <Dropdown>
+                  <Dropdown.Toggle className={styles.dropdown_button}>
+                    {categoryText}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {allCategories?.map((item, key) => {
+                      return (
+                        <Dropdown.Item
+                          key={key}
+                          onClick={() => setCategoryText(item?.name)}
+                        >
+                          {item?.name}
+                        </Dropdown.Item>
+                      );
+                    })}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
           ) : (
             <></>

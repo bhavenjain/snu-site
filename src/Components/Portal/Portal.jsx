@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import QuestionImage from "../../assets/question.png"
 import { Link } from "react-router-dom";
+
+// Image
+import QuestionImage from "../../assets/question.png"
 
 // Styles
 import styles from "./Portal.module.css";
@@ -12,9 +14,10 @@ import OpenModal from "../OpenModal/OpenModal";
 import BridgeContainer from "../BridgeContainer/BridgeContainer";
 
 const Portal = () => {
+  // States
   const [show, setShow] = useState(false);
-  const [pageData, setPageData] = useState({});
   const [answer, setAnswer] = useState("");
+  const [pageData, setPageData] = useState({});
   const [question, setQuestion] = useState("");
 
   const handleClose = () => setShow(false);

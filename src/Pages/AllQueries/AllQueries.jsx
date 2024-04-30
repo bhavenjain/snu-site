@@ -9,6 +9,7 @@ import styles from "./AllQueries.module.css";
 // Bootstrap
 import Dropdown from "react-bootstrap/Dropdown";
 import OpenModal from "../../Components/OpenModal/OpenModal";
+import { NavLink } from "react-router-dom";
 
 const AllQueries = () => {
   // States
@@ -142,9 +143,14 @@ const AllQueries = () => {
               </div>
             ))
           ) : (
-            <>
-              <h7 style={{color: "#fff"}}>You have not raised a query yet</h7>
-            </>
+            <div className={styles.no_queries}>
+              <div className={styles.no_queries_container}>
+                <h3>YOU HAVE NOT RAISED A QUERY YET</h3>
+                <p>
+                  Please raise a query to proceed. <NavLink to="/dashboard/ask-the-expert">Ask the expert</NavLink>
+                </p>
+              </div>
+            </div>
           )}
         </div>
       </div>

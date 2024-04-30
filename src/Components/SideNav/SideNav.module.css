@@ -7,6 +7,9 @@
     min-width: 300px;
     overflow: hidden;
     overflow-y: scroll;
+    background-image: url('/SVG_Side Panel .svg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .sidenav_links {
@@ -14,9 +17,34 @@
     color: rgba(0,0,0,0.5);
 }
 
+.sidenav_flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 88%;
+}
+
 .sidenav_links h2 {
     font-size: 16px;
     font-weight: 800;
+}
+
+.sidenav_links h4 {
+    color: #671B1D !important;
+    width: 100%;
+    border-bottom: 2px solid rgba(0,0,0,0.5);
+    line-height: 44px;
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.sidenav_image {
+    width: 100%;
+    max-width: 100%;
 }
 
 .sidenav_links a {
@@ -24,6 +52,12 @@
     position: relative;
     margin: 30px 0 0 30px;
     color: rgba(0,0,0,0.5);
+}
+
+.sidenav_links a > img {
+    position: absolute;
+    left: -50px;
+    top: -21px;
 }
 
 .sidenav_links ul {

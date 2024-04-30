@@ -1,58 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 // Styles
 import styles from "./SideNav.module.css";
 
-// Images
-import womensLogo from "../../assets/womensLogoWhite.png";
-import { NavLink } from "react-router-dom";
-
 const SideNav = () => {
-  const [pathname, setPathname] = useState("");
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
-
   return (
     <div className={styles.sidenav_container}>
-      <img src={womensLogo} width={200} />
+      <img
+        className={styles.sidenav_image}
+        src={"/SVG_Logo_Unit.svg"}
+        width={350}
+      />
+      <div className={styles.sidenav_flex}>
+        <div className={styles.sidenav_links}>
+          <h4> <img src="/SVG_Topic.svg" width={60} height={60} /> Topics</h4>
+          <NavLink
+            to="getting-started"
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/started.svg" width={60} height={60} />
+            <h2>Getting Started: Becoming a Director</h2>
+          </NavLink>
 
-      <div className={styles.sidenav_links}>
-        <NavLink
-          to="getting-started"
-          className={({isActive}) =>
-            isActive
-              ? styles.highlight
-              : ""
-          }
-        >
-          <h2>Getting Started: Becoming a director</h2>
-          {/* <ul>
-            <li>Laws that affect you</li>
-            <li>Getting certified as Independent Director</li>
-            <li>Latest developments</li>
-            <li>Ask the Expert</li>
-          </ul> */}
-        </NavLink>
+          <NavLink
+            to="laws-and-rules"
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/SVG_Law.svg" width={60} height={60} />
+            <h2>Laws and Rules: Life as a Director</h2>
+          </NavLink>
 
-        <NavLink
-          to="laws-and-rules"
-          className={({isActive}) =>
-            isActive
-              ? styles.highlight
-              : ""
-          }
-        >
-          <h2>Laws and Rules: Life as a Director</h2>
-          {/* <ul>
-            <li>Laws that affect you</li>
-            <li>Getting certified as Independent Director</li>
-            <li>Latest developments</li>
-          </ul> */}
-        </NavLink>
-
-        {/* <NavLink
+          {/* <NavLink
           to="faqs"
           className={({isActive}) =>
             isActive ? styles.highlight : ""
@@ -77,34 +56,34 @@ const SideNav = () => {
             <li>Related party transactions</li>
           </ul>
         </NavLink> */}
+        </div>
+        <div className={styles.sidenav_links}>
+          <NavLink
+            to="ask-the-expert"
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/SVG_Ask the expert.svg" width={60} height={60} />
+            <h2>Ask The Expert</h2>
 
-        <NavLink
-          to="ask-the-expert"
-          className={({isActive}) =>
-            isActive ? styles.highlight : ""
-          }
-        >
-          <h2>Ask The Expert</h2>
+            <ul>
+              <li>Ask queries by categories</li>
+            </ul>
+          </NavLink>
 
-          <ul>
-            <li>Ask queries by categories</li>
-          </ul>
-        </NavLink>
+          <NavLink
+            to="my-queries"
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/SVG_My query.svg" width={60} height={60} />
+            <h2>My Queries</h2>
 
-        <NavLink
-          to="my-queries"
-          className={({isActive}) =>
-            isActive ? styles.highlight : ""
-          }
-        >
-          <h2>My Queries</h2>
-
-          <ul>
-            <li>Open query</li>
-            <li>Closed query</li>
-            <li>Past query</li>
-          </ul>
-        </NavLink>
+            <ul>
+              <li>Open query</li>
+              <li>Closed query</li>
+              <li>Past query</li>
+            </ul>
+          </NavLink>
+        </div>
       </div>
     </div>
   );
