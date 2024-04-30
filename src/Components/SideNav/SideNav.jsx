@@ -28,7 +28,7 @@ const SideNav = () => {
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/SVG_Law.svg" width={60} height={60} />
-            <h2>Laws and Rules: Life as a Director</h2>
+            <h2>Roles, Rules and the Law: Life as a Director</h2>
           </NavLink>
 
           {/* <NavLink
@@ -63,11 +63,7 @@ const SideNav = () => {
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/SVG_Ask the expert.svg" width={60} height={60} />
-            <h2>Ask The Expert</h2>
-
-            <ul>
-              <li>Ask queries by categories</li>
-            </ul>
+            <h2>Ask The Expert: Queries and Inquiries</h2>
           </NavLink>
 
           <NavLink
