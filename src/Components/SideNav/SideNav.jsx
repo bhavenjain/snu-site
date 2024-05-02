@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { NavLink } from "react-router-dom";
 
 // Styles
 import styles from "./SideNav.module.css";
 
 const SideNav = () => {
+  const [announcements, setAnnouncements] = useState([]);
+
+  // Get page data based on url
+  const getPagedata = async () => {
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/announcements";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {
+        limit: 5,
+      },
+    });
+    return response?.data?.data;
+  };
+
+  useEffect(() => {
+    getPagedata()
+      .then((response) => {
+        if (response) {
+          setAnnouncements(response);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className={styles.sidenav_container}>
       <img
@@ -14,7 +44,10 @@ const SideNav = () => {
       />
       <div className={styles.sidenav_flex}>
         <div className={styles.sidenav_links}>
-          <h4> <img src="/SVG_Topic.svg" width={60} height={60} /> Topics</h4>
+          <h4>
+            {" "}
+            <img src="/SVG_Topic.svg" width={60} height={60} /> Topics
+          </h4>
           <NavLink
             to="getting-started"
             className={({ isActive }) => (isActive ? styles.highlight : "")}
@@ -57,6 +90,32 @@ const SideNav = () => {
           </ul>
         </NavLink> */}
         </div>
+
+        {/* Announcements */}
+        {announcements?.length > 0 ? (
+          <div className={styles.announcements}>
+            <h4>Announcements: </h4>
+            {announcements?.map((item, key) => {
+              return (
+                <NavLink key={key} to={`announcements?id=${item?.id}`}>
+                  <img src="/SVG_Blue Arrow.png" width={15} height={15} />
+                  <h2>
+                    {item?.heading}
+                    {item?.new ? (
+                      <span className={styles.new}>New</span>
+                    ) : (
+                      <></>
+                    )}
+                  </h2>
+                </NavLink>
+              );
+            })}
+          </div>
+        ) : (
+          <></>
+        )}
+
+        {/* Bottom Links */}
         <div className={styles.sidenav_links}>
           <NavLink
             to="ask-the-expert"

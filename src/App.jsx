@@ -12,6 +12,7 @@ import AllQueries from "./Pages/AllQueries/AllQueries.jsx";
 import QueryManager from "./Pages/QueryManager/QueryManager.jsx";
 import WebBridgePortal from "./Pages/WebBridgePortal/WebBridgePortal.jsx";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
+import Announcements from "./Components/Announcements/Announcements.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
           {
             path: "my-queries",
             element: <AllQueries />,
+          },
+          {
+            path: "announcements",
+            element: <Announcements />,
           },
         ],
       },

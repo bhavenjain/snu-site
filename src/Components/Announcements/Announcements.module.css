@@ -1,0 +1,206 @@
+.web_container {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.right_container {
+    flex: 0.75;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    /* height: 100vh; */
+}
+
+.bridge_body {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+    height: 50%;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.bridge_container {
+    flex: 0.26;
+    width: 100%;
+    height: 50%;
+    margin-top: 20px;
+}
+
+.bridge_container_middle h2,
+.bridge_container h2,
+.bridge_container_right h2 {
+    font-size: 18px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.bridge_container p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.bridge_container_middle {
+    flex: 0.33;
+    width: 100%;
+    /* height: calc(100% - 20px); */
+    height: 50%;
+    /* display: flex; */
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+    /* flex-direction: column; */
+}
+
+/* .bridge_container_middle div {
+    flex: 0.49;
+} */
+
+.bridge_container_right {
+    margin-top: 20px;
+    flex: 0.33;
+    height: 50%;
+}
+
+/* .bridge_container,
+.bridge_container_middle,
+.bridge_container_right {
+    overflow: hidden;
+    overflow-y: scroll;
+} */
+
+.heading {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+    background-color: #671B1D;
+    color: #fff;
+    font-weight: 600;
+}
+
+.lists {
+    list-style-type: none;
+    position: relative;
+    margin-top: 30px;
+    padding: 0px 15px 10px 40px
+}
+
+.lists li {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.lists li:before {
+    display: block;
+    position: absolute;
+    content: "";
+    width: 80px;
+    height: 80px;
+    margin-top: -28px;
+    margin-left: -55px;
+    background: transparent url('/SVG_Bullet Point .svg') ;
+    background-size:contain ;
+}
+
+.expert {
+    width: 100%;
+    padding: 15px 0;
+    background-color: #00538A;
+    color: #fff;
+}
+
+.right_content {
+    width: 100%;
+    padding: 20px;
+}
+
+.right_content p {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.button_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 30px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #671B1D;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.question_image {
+    position: absolute;
+    bottom: 2px;
+    right: 20px;
+    width: 50%;
+}
+
+.announcements {
+    width: calc(100% - 2px);
+    border: 1px solid #ccc;
+    border-radius: 0px 0px 8px 8px;
+    -webkit-border-radius: 0px 0px 8px 8px;
+    -moz-border-radius: 0px 0px 8px 8px;
+    -ms-border-radius: 0px 0px 8px 8px;
+    -o-border-radius: 0px 0px 8px 8px;
+    height: 53%;
+    margin-top: 15px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.announcements > h3 {
+    color: #fff;
+    background-color: #671B1D;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.announcements_body {
+    padding: 20px;
+}
+
+.body {
+    margin-top: 20px;
+}
+
+.body a {
+    color: #050505;
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 992px) {
+    .question_image {
+        display: none;
+    }  
+} 
+
+/* Media Queries */
+@media only screen and (max-width: 480px) {
+    .bridge_body {
+        flex-direction: column !important;
+    }  
+} 
