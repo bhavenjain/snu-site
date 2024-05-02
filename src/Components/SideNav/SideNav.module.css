@@ -15,6 +15,7 @@
 .sidenav_links {
     margin-top: 30px;
     color: rgba(0,0,0,0.5);
+    padding-bottom: 20px;
 }
 
 .sidenav_flex {
@@ -60,6 +61,7 @@
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+    word-break: break-all;
 }
 
 .announcements > h4 {

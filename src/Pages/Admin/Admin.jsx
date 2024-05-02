@@ -192,6 +192,13 @@ const Admin = () => {
             >
               Laws and Rules: Life as a Director
             </div>
+
+            <div
+              onClick={() => setCurr(5)}
+              style={{ background: curr === 5 ? "#fff" : "" }}
+            >
+              Add Anouncement
+            </div>
           </div>
           <img src={womensLogo} width={200} />
         </div>
@@ -283,6 +290,18 @@ const Admin = () => {
               question={question}
               allCategories={allCategories}
               setAllCategories={setAllCategories}
+            />
+          ) : (
+            <></>
+          )}
+
+          {/* Announcement */}
+          {curr === 5 ? (
+            <Announcements
+              setAnswer={setAnswer}
+              setQuestion={setQuestion}
+              answer={answer}
+              question={question}
             />
           ) : (
             <></>
@@ -1075,5 +1094,119 @@ const Queries = ({
     </>
   );
 };
+
+const Announcements = ({setAnswer,
+  setQuestion,
+  answer,
+  question,}) => {
+  const handleSubmit = async () => {
+    try {
+      if (
+        question?.length > 0 &&
+        answer?.length > 0
+      ) {
+        const url =
+          import.meta.env.VITE_BACKEND_URL + "/web/create/announcement";
+        const response = await axios.post(
+          url,
+          {
+            heading: question,
+            content: answer,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Cookies.get("token"),
+            },
+            params: {},
+          }
+        );
+        if (response?.data?.status) {
+          toast.success(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setAnswer("");
+          setQuestion("");
+        } else {
+          toast.error(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error("Please enter all the details.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  useEffect(() => {
+    setAnswer("")
+    setQuestion("")
+  }, [])
+
+  return (
+    <>
+      <h2>Add Announcements</h2>
+        <div className={styles.input_container}>
+          <p>Add Announcements </p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Add Announcements"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.input_container}>
+          <span>Add Details </span>
+          <textarea
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="Write Details"
+            value={answer}
+          />
+        </div>
+
+        <div onClick={handleSubmit} className={styles.submit}>
+          Submit
+        </div>
+    </>
+  );
+}
 
 export default Admin;
