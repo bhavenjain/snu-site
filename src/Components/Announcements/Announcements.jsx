@@ -69,11 +69,14 @@ const Announcements = () => {
     getPagedata()
       .then((response) => {
         if (response) {
-          const obj = response?.filter((item) => {
-            return item?.id == parseInt(window?.location?.search?.split("=")?.at(1));
-          });
-          setHeading(obj?.at(0)?.heading);
-          setBody(obj?.at(0)?.content);
+          if(window.location?.search) {
+
+            const obj = response?.filter((item) => {
+              return item?.id == parseInt(window?.location?.search?.split("=")?.at(1));
+            });
+            setHeading(obj?.at(0)?.heading);
+            setBody(obj?.at(0)?.content);
+          }
         }
       })
       .catch((err) => {
