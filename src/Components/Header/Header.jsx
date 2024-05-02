@@ -15,8 +15,11 @@ const Header = () => {
 
   return (
     <div className={styles.header}>
-        <b>Hello, {user?.name ? user?.name : "User"}</b>
-        <span onClick={handleLogout}>Logout</span>
+        <b style={{display: "flex", alignItems: "center", }}>
+          <img src={'/SVG_Profile.svg'} width={25} height={25} style={{marginRight: "10px"}} />
+          Hello, {user?.name ? user?.name : "User"}
+        </b>
+        <span className={styles.logout} onClick={handleLogout}>Logout</span>
     </div>
   )
 }

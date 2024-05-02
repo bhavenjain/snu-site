@@ -3,11 +3,19 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: #fff;
+    color: #050505;
     padding: 20px 30px;
 }
 
 .header > span {
     cursor: pointer;
     margin-left: 20px;
+    background-color: #671B1D;
+    color: #fff;
+    padding: 4px 20px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
 }

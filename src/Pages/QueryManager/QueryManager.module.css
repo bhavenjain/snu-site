@@ -17,9 +17,10 @@
 
 .query_container h1 {
     width: 100%;
-    background: #fff;
+    background: #671B1D;
     padding: 20px;
     font-size: 24px;
+    color: #fff;
 }
 
 .form {
@@ -37,7 +38,7 @@
 
 .form > p,
 .form > .center > p {
-    color: #fff;
+    color: #050505;
     font-size: 18px;
     font-weight: 800;
 }
@@ -46,20 +47,20 @@
     width: 100%;
     background: none;
     border-radius: 8px;
-    border: 1px solid #fff;
+    border: 1px solid #ccc;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
     padding: 20px;
     overflow: hidden;
-    color: #fff;
+    color: #050505;
     resize: both;
     height: 300px;
 }
 
 .form > textarea::placeholder {
-    color: #fff
+    color: #050505
 }
 
 .category_dropdown {
@@ -70,7 +71,8 @@
 
 .dropdown_button {
     background: none;
-    border: 1px solid #fff;
+    border: 1px solid #ccc;
+    color: #050505 !important;
 }
 
 .dropdown_button:hover,

@@ -30,7 +30,7 @@
 .bridge_container {
     flex: 0.26;
     width: 100%;
-    height: calc(100% - 20px);
+    height: 50%;
     margin-top: 20px;
 }
 

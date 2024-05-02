@@ -11,7 +11,7 @@
     width: 100%;
     overflow: hidden;
     padding: 20px;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .bridge_body {
@@ -19,7 +19,7 @@
     justify-content: space-evenly;
     align-items: flex-start;
     width: 100%;
-    height: 90%;
+    height: 50%;
     flex-wrap: wrap;
     overflow-y: scroll;
 }
@@ -27,7 +27,7 @@
 .bridge_container {
     flex: 0.26;
     width: 100%;
-    height: calc(100% - 20px);
+    height: 50%;
     margin-top: 20px;
 }
 
@@ -45,34 +45,49 @@
 }
 
 .bridge_container_middle {
-    flex: 0.26;
+    flex: 0.33;
     width: 100%;
-    height: calc(100% - 20px);
-    display: flex;
+    /* height: calc(100% - 20px); */
+    height: 50%;
+    /* display: flex; */
     justify-content: space-between;
     margin-top: 20px;
     align-items: center;
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
-.bridge_container_middle div {
+/* .bridge_container_middle div {
     flex: 0.49;
-}
+} */
 
 .bridge_container_right {
     margin-top: 20px;
-    flex: 0.45;
-    height: calc(100% - 20px);
+    flex: 0.33;
+    height: 50%;
 }
+
+/* .bridge_container,
+.bridge_container_middle,
+.bridge_container_right {
+    overflow: hidden;
+    overflow-y: scroll;
+} */
 
 .heading {
     border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+    background-color: #671B1D;
+    color: #fff;
+    font-weight: 600;
 }
 
 .lists {
     list-style-type: none;
     position: relative;
     margin-top: 30px;
+    padding: 0px 15px 10px 40px
 }
 
 .lists li {

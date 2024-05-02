@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { NavLink } from "react-router-dom";
 
 // Styles
 import styles from "./AllQueries.module.css";
@@ -9,7 +10,6 @@ import styles from "./AllQueries.module.css";
 // Bootstrap
 import Dropdown from "react-bootstrap/Dropdown";
 import OpenModal from "../../Components/OpenModal/OpenModal";
-import { NavLink } from "react-router-dom";
 
 const AllQueries = () => {
   // States
