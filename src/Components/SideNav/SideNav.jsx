@@ -65,30 +65,28 @@ const SideNav = () => {
           </NavLink>
 
           {/* <NavLink
-          to="faqs"
-          className={({isActive}) =>
-            isActive ? styles.highlight : ""
-          }
-        >
-          <h2>Frequently Asked Questions</h2>
-          <p>All queries by categories</p>
-          <ul>
-            <li>Duty of directors</li>
-            <li>Integrity and ethics</li>
-            <li>Insider trading</li>
-            <li>Minority shareholders</li>
-            <li>
-              Violation of statutory provision Fraud and reporting of frauds
-              Whistleblower
-            </li>
-            <li>Financial misconduct, bribery Management excesses</li>
-            <li>Audit oversight</li>
-            <li>Financial oversight</li>
-            <li>Risk management</li>
-            <li>People issues</li>
-            <li>Related party transactions</li>
-          </ul>
-        </NavLink> */}
+            to="faqs"
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <h2>Frequently Asked Questions</h2>
+            <p>All queries by categories</p>
+            <ul>
+              <li>Duty of directors</li>
+              <li>Integrity and ethics</li>
+              <li>Insider trading</li>
+              <li>Minority shareholders</li>
+              <li>
+                Violation of statutory provision Fraud and reporting of frauds
+                Whistleblower
+              </li>
+              <li>Financial misconduct, bribery Management excesses</li>
+              <li>Audit oversight</li>
+              <li>Financial oversight</li>
+              <li>Risk management</li>
+              <li>People issues</li>
+              <li>Related party transactions</li>
+            </ul>
+          </NavLink> */}
         </div>
 
         {/* Announcements */}
@@ -133,9 +131,8 @@ const SideNav = () => {
             <h2>My Queries</h2>
 
             <ul>
-              <li>Open query</li>
-              <li>Closed query</li>
-              <li>Past query</li>
+              <li>Open queries</li>
+              <li>Closed queries</li>
             </ul>
           </NavLink>
         </div>
