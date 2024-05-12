@@ -13,6 +13,7 @@ import QueryManager from "./Pages/QueryManager/QueryManager.jsx";
 import WebBridgePortal from "./Pages/WebBridgePortal/WebBridgePortal.jsx";
 import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
 import Announcements from "./Components/Announcements/Announcements.jsx";
+import About from "./Components/About/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
           {
             path: "announcements",
             element: <Announcements />,
+          },
+          {
+            path: "about",
+            element: <About />,
           },
         ],
       },

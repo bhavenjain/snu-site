@@ -6,6 +6,9 @@
 
 .modal-header {
     align-items: flex-start !important;
+    max-height: 200px;
+    background-color: #671B1D;
+    color: #fff;
 }
 
 .modal-content {
@@ -14,14 +17,14 @@
     overflow-y: scroll !important;
 }
 
-.modal-header {
-    max-height: 200px;
-}
-
 .modal-body {
     min-height: 200px;
+    max-height: 500px;
     overflow: hidden;
     overflow-y: scroll !important;
+    background-image: url("/SVG_Full_texture.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .dropdown-menu {

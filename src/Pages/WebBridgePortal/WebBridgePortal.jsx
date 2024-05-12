@@ -20,7 +20,7 @@ const WebBridgePortal = () => {
   return (
     <div className={styles.web_container}>
       <div className={styles.mobile_display}>
-        <SideNav />
+        <SideNav setOpen={setOpen} />
       </div>
       <div className={styles.right_container}>
         <Header isOpen={isOpen} setOpen={setOpen} />

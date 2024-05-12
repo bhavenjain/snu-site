@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 // Styles
 import styles from "./SideNav.module.css";
 
-const SideNav = () => {
+const SideNav = ({setOpen}) => {
   const [announcements, setAnnouncements] = useState([]);
 
   // Get page data based on url
@@ -50,6 +50,7 @@ const SideNav = () => {
           </h4> */}
           <NavLink
             to="getting-started"
+            onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/started.svg" width={60} height={60} />
@@ -58,6 +59,7 @@ const SideNav = () => {
 
           <NavLink
             to="laws-and-rules"
+            onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/SVG_Law.svg" width={60} height={60} />
@@ -95,7 +97,7 @@ const SideNav = () => {
             <h4>Announcements: </h4>
             {announcements?.map((item, key) => {
               return (
-                <NavLink key={key} to={`announcements?id=${item?.id}`}>
+                <NavLink onClick={() => setOpen(false)} key={key} to={`announcements?id=${item?.id}`}>
                   <img src="/SVG_Blue Arrow.png" width={17} height={17} />
                   <h2>
                     {item?.heading}
@@ -117,6 +119,7 @@ const SideNav = () => {
         <div className={styles.sidenav_links}>
           <NavLink
             to="ask-the-expert"
+            onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/SVG_Ask the expert.svg" width={60} height={60} />
@@ -125,6 +128,7 @@ const SideNav = () => {
 
           <NavLink
             to="my-queries"
+            onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
             <img src="/SVG_My query.svg" width={60} height={60} />
@@ -134,6 +138,14 @@ const SideNav = () => {
               <li>Open queries</li>
               <li>Closed queries</li>
             </ul>
+          </NavLink>
+          <NavLink
+            to="about"
+            onClick={() => setOpen(false)}
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/SVG_My query.svg" width={60} height={60} />
+            <h2>About Web Bridge</h2>
           </NavLink>
         </div>
       </div>
