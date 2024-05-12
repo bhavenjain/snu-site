@@ -44,10 +44,10 @@ const SideNav = () => {
       />
       <div className={styles.sidenav_flex}>
         <div className={styles.sidenav_links}>
-          <h4>
+          {/* <h4>
             {" "}
             <img src="/SVG_Topic.svg" width={60} height={60} /> Topics
-          </h4>
+          </h4> */}
           <NavLink
             to="getting-started"
             className={({ isActive }) => (isActive ? styles.highlight : "")}
@@ -96,7 +96,7 @@ const SideNav = () => {
             {announcements?.map((item, key) => {
               return (
                 <NavLink key={key} to={`announcements?id=${item?.id}`}>
-                  <img src="/SVG_Blue Arrow.png" width={15} height={15} />
+                  <img src="/SVG_Blue Arrow.png" width={17} height={17} />
                   <h2>
                     {item?.heading}
                     {item?.new ? (

@@ -50,7 +50,11 @@ const Portal = () => {
 
   return (
     <>
-    <img src="/Banner_with_text.svg" alt="banner" />
+      <img
+        src="/Banner_with_text.svg"
+        alt="banner"
+        style={{ maxWidth: "100%" }}
+      />
       <div className={styles.bridge_container}>
         {pageData?.card1 && pageData?.card1?.card_details?.length > 0 ? (
           <BridgeContainer>
