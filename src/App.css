@@ -9,6 +9,12 @@
     max-height: 200px;
     background-color: #671B1D;
     color: #fff;
+    fill: #fff;
+}
+
+.modal-header > button {
+    color: #fff;
+    background-color: #fff;
 }
 
 .modal-content {

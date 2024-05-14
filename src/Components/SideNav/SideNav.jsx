@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 // Styles
 import styles from "./SideNav.module.css";
 
-const SideNav = ({setOpen}) => {
+const SideNav = ({ setOpen }) => {
   const [announcements, setAnnouncements] = useState([]);
 
   // Get page data based on url
@@ -97,7 +97,11 @@ const SideNav = ({setOpen}) => {
             <h4>Announcements: </h4>
             {announcements?.map((item, key) => {
               return (
-                <NavLink onClick={() => setOpen(false)} key={key} to={`announcements?id=${item?.id}`}>
+                <NavLink
+                  onClick={() => setOpen(false)}
+                  key={key}
+                  to={`announcements?id=${item?.id}`}
+                >
                   <img src="/SVG_Blue Arrow.png" width={17} height={17} />
                   <h2>
                     {item?.heading}
@@ -144,7 +148,12 @@ const SideNav = ({setOpen}) => {
             onClick={() => setOpen(false)}
             className={({ isActive }) => (isActive ? styles.highlight : "")}
           >
-            <img src="/SVG_My query.svg" width={60} height={60} />
+            <img
+              style={{ top: "0px", left: "-27px" }}
+              src="/info.png"
+              width={20}
+              height={20}
+            />
             <h2>About Web Bridge</h2>
           </NavLink>
         </div>
