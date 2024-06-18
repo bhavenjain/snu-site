@@ -1,11 +1,6 @@
 .test_background {
   width: 100%;
   overflow: hidden;
-  padding: 20px;
-  background-image: url("/SVG_Full_texture.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
 }
 
 .test_header {
@@ -44,7 +39,7 @@
 }
 
 .body {
-  height: calc(100vh - 220px);
+  height: 100%;
   border-bottom: 1px solid #111;
   border-left: 1px solid #111;
   border-right: 1px solid #111;
@@ -63,8 +58,9 @@
 
 .body_header {
   flex: 0.1;
-  min-height: 50px;
+  min-height: 80px;
   width: 100%;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

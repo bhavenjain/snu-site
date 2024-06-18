@@ -36,14 +36,6 @@ const router = createBrowserRouter([
     element: <ProtectedRoutes />,
     children: [
       {
-        path: "/solutions/test-result/:id",
-        element: <Solutions />,
-      },
-      {
-        path: "/test-result/:id",
-        element: <TestResult />,
-      },
-      {
         path: "/test",
         element: <Test />,
       },
@@ -54,6 +46,14 @@ const router = createBrowserRouter([
           {
             path: "getting-started",
             element: <Portal />,
+          },
+          {
+            path: "solutions/test-result/:id",
+            element: <Solutions />,
+          },
+          {
+            path: "test-result/:id",
+            element: <TestResult />,
           },
           {
             path: "laws-and-rules",

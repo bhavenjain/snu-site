@@ -63,14 +63,8 @@ const Solutions = () => {
   const [questions, setQuestions] = useState({});
   const [curQuestion, setCurQuestion] = useState(0);
 
-  const logout = () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
-    window.location.href = "/login";
-  };
-
   const getSolutions = async () => {
-    const quiz_id = url?.split("/")?.at(3);
+    const quiz_id = url?.split("/")?.at(4);
     const apiUrl = `${
       import.meta.env.VITE_BACKEND_URL
     }/web/fetch/quiz/summary/${quiz_id}`;
@@ -90,40 +84,19 @@ const Solutions = () => {
   }, []);
 
   return (
-    <main>
+    <main style={{width: "100%"}}>
       <div className={styles.test_background}>
-        <header className={styles.test_header_container}>
-          <Row className={styles.test_header}>
-            <Col className={styles.desktop_display}>
-              <img src={"/SVG_Logo_Unit.svg"} width={350} />
-            </Col>
-            <Col className={styles.test_header_right}>
-              <img src="/SVG_Profile.svg" width="30" />
-              <b style={{ display: "flex", alignItems: "center" }}>
-                Hello,{" "}
-                {user?.name
-                  ? user?.name?.length > 17
-                    ? user?.name?.substr(0, 17) + "..."
-                    : user?.name
-                  : "User"}
-              </b>
-              <span className={styles.logout} onClick={logout}>
-                Logout
-              </span>
-            </Col>
-          </Row>
-        </header>
         <div className={styles.header}>Solutions</div>
         <div className={styles.body}>
           <div className={styles.body_header}>
             <Container>
               <Row>
-                <Col>
-                  <h4 style={{ margin: 0 }}>
-                    <b>Solutions</b>
+                <Col md={2}>
+                  <h4 style={{ margin: 0, fontSize: "16px", marginBottom: "10px" }}>
+                    <b>View Solutions</b>
                   </h4>
                 </Col>
-                <Col className={styles.questions_container}>
+                <Col md={9} className={styles.questions_container}>
                   {questions?.responses?.map((item, index) => (
                     <div
                       className={
@@ -136,7 +109,7 @@ const Solutions = () => {
                       key={index}
                       onClick={() => setCurQuestion(index)}
                     >
-                      {index}
+                      {index+1}
                     </div>
                   ))}
                 </Col>
@@ -268,10 +241,6 @@ const Solutions = () => {
                     questions?.responses?.at(curQuestion)?.explanation || ""
                   )}
                 />
-              </div>
-
-              <div className={styles.button_container}>
-                <a className={styles.button} href="/dashboard/getting-started">{"Go to dashboard"}</a>
               </div>
             </Container>
           </div>

@@ -109,7 +109,7 @@ const Test = () => {
         params: {}, // No query parameters needed for this request
       });
 
-      history(`/test-result/${questions?.quiz_id}`, {
+      history(`/dashboard/test-result/${questions?.quiz_id}`, {
         state: {
           ...response?.data,
           minutes: totalMinutes - (minutes+1),
