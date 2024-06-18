@@ -143,6 +143,16 @@ const SideNav = ({ setOpen }) => {
               <li>Closed queries</li>
             </ul>
           </NavLink>
+
+          <NavLink
+            to="test-yourself"
+            onClick={() => setOpen(false)}
+            className={({ isActive }) => (isActive ? styles.highlight : "")}
+          >
+            <img src="/SVG_My query.svg" width={60} height={60} />
+            <h2>Test Yourself</h2>
+          </NavLink>
+
           <NavLink
             to="about"
             onClick={() => setOpen(false)}

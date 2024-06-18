@@ -23,6 +23,7 @@ const Admin = () => {
   // States
   const [curr, setCurr] = useState(0);
   const [answer, setAnswer] = useState("");
+  const [section, setSection] = useState("");
   const [queries, setQueries] = useState([]);
   const [loader, setLoader] = useState(true);
   const [sortBy, setSortBy] = useState("open");
@@ -94,6 +95,75 @@ const Admin = () => {
           theme: "colored",
         });
         setCategoryName("");
+      } else {
+        toast.error(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } catch (err) {
+      toast.error(response?.data?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  // section Submit
+  const handleSectionSubmit = async () => {
+    if (section?.length === 0) {
+      toast.error("Please enter category name.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return;
+    }
+    try {
+      const url = import.meta.env.VITE_BACKEND_URL + "/web/create/quiz/section";
+      const response = await axios.post(
+        url,
+        {
+          name: section,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: Cookies.get("token"),
+          },
+          params: {},
+        }
+      );
+
+      if (response?.data?.status) {
+        toast.success(response?.data?.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setSection("");
       } else {
         toast.error(response?.data?.message, {
           position: "top-right",
@@ -199,7 +269,21 @@ const Admin = () => {
             >
               Add Anouncement
             </div>
+
+            <div
+              onClick={() => setCurr(6)}
+              style={{ background: curr === 6 ? "#fff" : "" }}
+            >
+              Add Quiz Section
+            </div>
+            <div
+              onClick={() => setCurr(7)}
+              style={{ background: curr === 7 ? "#fff" : "" }}
+            >
+              Add Quiz Question
+            </div>
           </div>
+
           <img src={womensLogo} width={200} />
         </div>
 
@@ -302,6 +386,44 @@ const Admin = () => {
               setQuestion={setQuestion}
               answer={answer}
               question={question}
+            />
+          ) : (
+            <></>
+          )}
+
+          {/* Quiz section */}
+          {curr === 6 ? (
+            <>
+              <h2>Add Quiz Section</h2>
+              <div className={styles.form}>
+                <span>Enter section name: </span>
+                <input
+                  className={styles.inputs}
+                  type="text"
+                  value={section}
+                  placeholder="Section Name"
+                  onChange={(e) => setSection(e.target.value)}
+                />
+                <div onClick={handleSectionSubmit} className={styles.submit}>
+                  Submit
+                </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+
+          {/* Becoming a director */}
+          {curr === 7 ? (
+            <CreateQuestion
+              categoryText={categoryText}
+              setCategoryText={setCategoryText}
+              setAnswer={setAnswer}
+              setQuestion={setQuestion}
+              answer={answer}
+              question={question}
+              allCategories={allCategories}
+              setAllCategories={setAllCategories}
             />
           ) : (
             <></>
@@ -520,10 +642,10 @@ const BecomingADirector = ({
   // Get All Categories
   useEffect(() => {
     try {
-      setAllCategories([])
-      setCategoryText("Select Category")
+      setAllCategories([]);
+      setCategoryText("Select Category");
       setQuestion("");
-      setAnswer("")
+      setAnswer("");
 
       getCategories();
     } catch (err) {
@@ -696,10 +818,10 @@ const LawsAndRules = ({
   // Get All Categories
   useEffect(() => {
     try {
-      setAllCategories([])
-      setCategoryText("Select Category")
+      setAllCategories([]);
+      setCategoryText("Select Category");
       setQuestion("");
-      setAnswer("")
+      setAnswer("");
 
       getCategories();
     } catch (err) {
@@ -888,11 +1010,11 @@ const Queries = ({
 
   useEffect(() => {
     try {
-      setAllCategories([])
-      setCategoryText("Select Category")
+      setAllCategories([]);
+      setCategoryText("Select Category");
       setQueries([]);
-      setAnswerFaq("")
-      setSortBy("open")
+      setAnswerFaq("");
+      setSortBy("open");
 
       // Get API Data
       getCategories();
@@ -986,49 +1108,52 @@ const Queries = ({
   return (
     <>
       <h2>Answer Question</h2>
-      <div style={{display: "flex"}}> 
-      <Dropdown>
-        <Dropdown.Toggle className={styles.dropdown_button}>
-          {sortBy}
-        </Dropdown.Toggle>
+      <div style={{ display: "flex" }}>
+        <Dropdown>
+          <Dropdown.Toggle className={styles.dropdown_button}>
+            {sortBy}
+          </Dropdown.Toggle>
 
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => setSortBy("open")}>Open</Dropdown.Item>
-          <Dropdown.Item onClick={() => setSortBy("closed")}>
-            Closed
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={() => setSortBy("open")}>
+              Open
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => setSortBy("closed")}>
+              Closed
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
 
-      {allCategories?.length > 0 ? (
-        <div style={{marginLeft: 40}}>
-        {/* <div className={styles.category_dropdown}> */}
-          <Dropdown>
-            <Dropdown.Toggle className={styles.dropdown_button}>
-              {categoryText}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => setCategoryText("Select Category")}>
-                Select Category
-              </Dropdown.Item>
-              {allCategories?.map((item, key) => {
-                return (
-                  <Dropdown.Item
-                    key={key}
-                    onClick={() => setCategoryText(item?.name)}
-                  >
-                    {item?.name}
-                  </Dropdown.Item>
-                );
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
-        {/* </div> */}
-        </div>
-      ) : (
-        <></>
-      )}
-
+        {allCategories?.length > 0 ? (
+          <div style={{ marginLeft: 40 }}>
+            {/* <div className={styles.category_dropdown}> */}
+            <Dropdown>
+              <Dropdown.Toggle className={styles.dropdown_button}>
+                {categoryText}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  onClick={() => setCategoryText("Select Category")}
+                >
+                  Select Category
+                </Dropdown.Item>
+                {allCategories?.map((item, key) => {
+                  return (
+                    <Dropdown.Item
+                      key={key}
+                      onClick={() => setCategoryText(item?.name)}
+                    >
+                      {item?.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+            {/* </div> */}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className={styles.accordian_container}>
@@ -1095,16 +1220,10 @@ const Queries = ({
   );
 };
 
-const Announcements = ({setAnswer,
-  setQuestion,
-  answer,
-  question,}) => {
+const Announcements = ({ setAnswer, setQuestion, answer, question }) => {
   const handleSubmit = async () => {
     try {
-      if (
-        question?.length > 0 &&
-        answer?.length > 0
-      ) {
+      if (question?.length > 0 && answer?.length > 0) {
         const url =
           import.meta.env.VITE_BACKEND_URL + "/web/create/announcement";
         const response = await axios.post(
@@ -1174,39 +1293,330 @@ const Announcements = ({setAnswer,
   };
 
   useEffect(() => {
-    setAnswer("")
-    setQuestion("")
-  }, [])
+    setAnswer("");
+    setQuestion("");
+  }, []);
 
   return (
     <>
       <h2>Add Announcements</h2>
+      <div className={styles.input_container}>
+        <p>Add Announcements </p>
+        <input
+          className={styles.inputs}
+          type="text"
+          placeholder="Add Announcements"
+          style={{ width: "100%", marginLeft: "0" }}
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+      </div>
+
+      <div className={styles.input_container}>
+        <span>Add Details </span>
+        <textarea
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="Write Details"
+          value={answer}
+        />
+      </div>
+
+      <div onClick={handleSubmit} className={styles.submit}>
+        Submit
+      </div>
+    </>
+  );
+};
+
+// Becoming A director
+const CreateQuestion = ({
+  categoryText,
+  setCategoryText,
+  setAnswer,
+  setQuestion,
+  answer,
+  question,
+  allCategories,
+  setAllCategories,
+}) => {
+  // States
+  const [sectionCategory, setSectionCategory] = useState("");
+  const [quizQuestion, setQuizQuestion] = useState("");
+  const [optionA, setOptionA] = useState("");
+  const [optionB, setOptionB] = useState("");
+  const [optionC, setOptionC] = useState("");
+  const [optionD, setOptionD] = useState("");
+  const [explanation, setExplanation] = useState("");
+  const [correctOption, setCorrectOption] = useState("");
+
+  // Function to call api to get all the categories
+  const getCategories = async () => {
+    const url =
+      import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/quiz/sections";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {},
+    });
+    setAllCategories(response?.data?.data);
+    return response?.data?.data;
+  };
+
+  // Get All Categories
+  useEffect(() => {
+    try {
+      setAllCategories([]);
+      setCategoryText("Select Section");
+      setQuestion("");
+      setAnswer("");
+
+      getCategories();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      if (
+        categoryText !== "Select Section" &&
+        quizQuestion?.length > 0 &&
+        optionA?.length > 0 &&
+        optionB?.length > 0 &&
+        optionC?.length > 0 &&
+        optionD?.length > 0
+      ) {
+        const url =
+          import.meta.env.VITE_BACKEND_URL + "/web/create/quiz/question";
+        const response = await axios.post(
+          url,
+          {
+            question: quizQuestion,
+            option_a: optionA,
+            option_b: optionB,
+            option_c: optionC,
+            option_d: optionD,
+            correct_option: correctOption,
+            explanation: explanation,
+            section_id: sectionCategory,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: Cookies.get("token"),
+            },
+            params: {},
+          }
+        );
+        if (response?.data?.status) {
+          toast.success(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setCategoryText("Select Section");
+          setOptionA("")
+          setOptionB("")
+          setOptionC("")
+          setOptionD("")
+          setExplanation("")
+          setCorrectOption("")
+        } else {
+          toast.error(response?.data?.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      } else {
+        toast.error("Please enter all the details.", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
+    } catch (err) {
+      toast.error(err?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
+  const handleCorrect = (e) => {
+    setCorrectOption(e.target.name);
+  };
+
+  return (
+    <div style={{ height: "85vh", overflowY: "scroll" }}>
+      <h2>Add Quiz Question</h2>
+      <div className={styles.form}>
+        <p>Select Section </p>
+        {allCategories?.length > 0 ? (
+          <div className={styles.category_dropdown}>
+            <Dropdown>
+              <Dropdown.Toggle className={styles.dropdown_button}>
+                {categoryText}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {allCategories?.map((item, key) => {
+                  return (
+                    <Dropdown.Item
+                      key={key}
+                      onClick={() => {
+                        setSectionCategory(item?.section_id);
+                        setCategoryText(item?.name);
+                      }}
+                    >
+                      {item?.name}
+                    </Dropdown.Item>
+                  );
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+        ) : (
+          <></>
+        )}
+
         <div className={styles.input_container}>
-          <p>Add Announcements </p>
+          <p>Enter Question</p>
           <input
             className={styles.inputs}
             type="text"
-            placeholder="Add Announcements"
+            placeholder="Add Question"
             style={{ width: "100%", marginLeft: "0" }}
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            value={quizQuestion}
+            onChange={(e) => setQuizQuestion(e.target.value)}
           />
         </div>
 
         <div className={styles.input_container}>
-          <span>Add Details </span>
+          <p>Enter Option A</p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Option A"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={optionA}
+            onChange={(e) => setOptionA(e.target.value)}
+          />
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="radio"
+              name="a"
+              value={correctOption}
+              checked={correctOption === "a"}
+              onChange={handleCorrect}
+            />
+            <span style={{ marginLeft: "10px" }}>Mark Correct</span>
+          </div>
+        </div>
+
+        <div className={styles.input_container}>
+          <p>Enter Option B</p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Option B"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={optionB}
+            onChange={(e) => setOptionB(e.target.value)}
+          />
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="radio"
+              checked={correctOption === "b"}
+              name="b"
+              value={correctOption}
+              onChange={handleCorrect}
+            />
+            <span style={{ marginLeft: "10px" }}>Mark Correct</span>
+          </div>
+        </div>
+
+        <div className={styles.input_container}>
+          <p>Enter Option C</p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Option C"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={optionC}
+            onChange={(e) => setOptionC(e.target.value)}
+          />
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="radio"
+              name="c"
+              checked={correctOption === "c"}
+              value={correctOption}
+              onChange={handleCorrect}
+            />
+            <span style={{ marginLeft: "10px" }}>Mark Correct</span>
+          </div>
+        </div>
+
+        <div className={styles.input_container}>
+          <p>Enter Option D</p>
+          <input
+            className={styles.inputs}
+            type="text"
+            placeholder="Option D"
+            style={{ width: "100%", marginLeft: "0" }}
+            value={optionD}
+            onChange={(e) => setOptionD(e.target.value)}
+          />
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="radio"
+              name="d"
+              value={correctOption}
+              checked={correctOption === "d"}
+              onChange={handleCorrect}
+            />
+            <span style={{ marginLeft: "10px" }}>Mark Correct</span>
+          </div>
+        </div>
+
+        <div className={styles.input_container}>
+          <span>Add Explanation </span>
           <textarea
-            onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Write Details"
-            value={answer}
+            onChange={(e) => setExplanation(e.target.value)}
+            placeholder="Write Explanation"
+            value={explanation}
           />
         </div>
 
         <div onClick={handleSubmit} className={styles.submit}>
           Submit
         </div>
-    </>
+      </div>
+    </div>
   );
-}
+};
 
 export default Admin;
