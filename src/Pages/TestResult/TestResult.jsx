@@ -22,7 +22,7 @@ const TestResult = () => {
             {score >= 50 ? (
               <>
                 <img src="/congrats.png" width={"70%"} />
-                <h1>You've Scored {score}%</h1>
+                <h1>You've Scored {parseFloat(score).toFixed(2)}%</h1>
               </>
             ) : (
               <div className={styles.fail}>
