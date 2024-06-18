@@ -44,10 +44,6 @@ const SideNav = ({ setOpen }) => {
       />
       <div className={styles.sidenav_flex}>
         <div className={styles.sidenav_links}>
-          {/* <h4>
-            {" "}
-            <img src="/SVG_Topic.svg" width={60} height={60} /> Topics
-          </h4> */}
           <NavLink
             to="getting-started"
             onClick={() => setOpen(false)}
