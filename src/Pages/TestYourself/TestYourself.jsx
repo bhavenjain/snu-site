@@ -34,14 +34,14 @@ const TestYourself = () => {
           <p className={styles.disclaimer}>Disclaimer:</p>
           <Row>
             <Col>
-                <p>Duration of Test: 45 minutes</p>
-                <p>Closure of Test: 45 minutes or submission of test by pressing the Submit button.</p>
-                <p>Total number of questions in Test: 32</p>
+                <p>Duration: 45 minutes</p>
+                <p>Closure: 45 minutes or submission of test by pressing the Submit button.</p>
+                <p>Total number of questions: 32</p>
             </Col>
             <Col>
-                <p>Question type: All questions of multiple choice type</p>
-                <p>Weightage of each question: Each carry equal weightage – 1 Mark each</p>
-                <p>Passing marks: 50 per cent – 16 marks</p>
+                <p>Question type: MCQ</p>
+                <p>Weightage of questions: 1 Mark each</p>
+                <p>Passing marks: 50% (16 marks)</p>
             </Col>
           </Row>
         </div>
