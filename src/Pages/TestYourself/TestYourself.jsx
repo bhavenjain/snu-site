@@ -30,7 +30,7 @@ const TestYourself = () => {
             dealing with matters relating to the discharge of duties as a board
             member among other things relating to being an effective director.
           </h5>
-
+          <br/>
           <p className={styles.disclaimer}>Disclaimer:</p>
           <Row>
             <Col>
