@@ -35,7 +35,7 @@ const TestYourself = () => {
           <Row>
             <Col>
                 <p>Duration: 45 minutes</p>
-                <p>Closure: 45 minutes or submission of test by pressing the Submit button.</p>
+                <p>Closure: 45 minutes or submission.</p>
                 <p>Total number of questions: 32</p>
             </Col>
             <Col>
