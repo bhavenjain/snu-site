@@ -112,7 +112,7 @@ const Test = () => {
       history(`/dashboard/test-result/${questions?.quiz_id}`, {
         state: {
           ...response?.data,
-          minutes: totalMinutes - (minutes+1),
+          minutes: totalMinutes - (minutes + 1),
           seconds: 60 - seconds,
           totalQuestions: questions?.questions?.length,
         },
@@ -297,7 +297,7 @@ const Test = () => {
             </Col>
 
             {/* Right Side Container */}
-            <Col md={8}  className={styles.right_container}>
+            <Col md={8} className={styles.right_container}>
               <div className={styles.right}>
                 <div className={styles.right_header}>
                   <h4>Question - {curQuestion + 1}</h4>
@@ -393,7 +393,7 @@ const Test = () => {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title>Do you want to submit?</Modal.Title>
+            <Modal.Title>Are you sure you want to submit?</Modal.Title>
           </Modal.Header>
           <Modal.Body className={styles.submit_conf}>
             <div onClick={() => setShow(false)}>No</div>

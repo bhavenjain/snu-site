@@ -84,7 +84,7 @@ const Solutions = () => {
   }, []);
 
   return (
-    <main style={{width: "100%"}}>
+    <main style={{ width: "100%" }}>
       <div className={styles.test_background}>
         <div className={styles.header}>Solutions</div>
         <div className={styles.body}>
@@ -92,7 +92,13 @@ const Solutions = () => {
             <Container>
               <Row>
                 <Col md={2}>
-                  <h4 style={{ margin: 0, fontSize: "16px", marginBottom: "10px" }}>
+                  <h4
+                    style={{
+                      margin: 0,
+                      fontSize: "16px",
+                      marginBottom: "10px",
+                    }}
+                  >
                     <b>View Solutions</b>
                   </h4>
                 </Col>
@@ -102,14 +108,14 @@ const Solutions = () => {
                       className={
                         item?.selected_option === item?.correct_option
                           ? styles.correct
-                          : item?.selected_option != ""
+                          : item?.selected_option
                           ? styles.wrong
                           : ""
                       }
                       key={index}
                       onClick={() => setCurQuestion(index)}
                     >
-                      {index+1}
+                      {index + 1}
                     </div>
                   ))}
                 </Col>
