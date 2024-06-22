@@ -1,10 +1,31 @@
 import React from "react";
+import axios from "axios";
+import Cookies from "js-cookie"
 
 // Styles
 import styles from "./TestYourself.module.css";
+
+// Bootstrap
 import { Col, Row } from "react-bootstrap";
 
 const TestYourself = () => {
+  const getTest = async () => {
+    // Define the API endpoint URL
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/create/quiz";
+
+    // Send a GET request to the API with the Authorization token in the headers
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {}, // No query parameters needed for this request
+    });
+
+    if(response?.data?.data) {
+      window.location.href = `/test/${response?.data?.data?.quiz_id}`
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>Test Yourself</div>
@@ -20,7 +41,7 @@ const TestYourself = () => {
           </div>
         </div>
         <div className={styles.content}>
-          <a href="/test">Start Test</a>
+          <div onClick={getTest}>Start Test</div>
         </div>
         <div className={styles.footer_info}>
           <h5>

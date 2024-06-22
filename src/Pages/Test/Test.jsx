@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Styles
 import styles from "./Test.module.css";
@@ -13,7 +14,9 @@ import { Col, Modal, Row } from "react-bootstrap";
 import Timer from "../../Components/Timer/Timer";
 import Loader from "../../Components/Loader/Loader";
 
-const Test = () => {
+const Test = (props) => {
+  const { state: prevState, pathname: url } = useLocation();
+  const quiz_id = url?.split("/")?.at(2);
   const history = useNavigate();
 
   // Cookies
@@ -36,29 +39,62 @@ const Test = () => {
    * @returns {Promise<void>}
    */
   const getQuestions = async () => {
+    setLoader(true);
     try {
       // Define the API endpoint URL
-      const url = import.meta.env.VITE_BACKEND_URL + "/web/create/quiz";
+      const url =
+        import.meta.env.VITE_BACKEND_URL + "/web/fetch/quiz/questions";
 
       // Send a GET request to the API with the Authorization token in the headers
       const response = await axios.get(url, {
         headers: {
           Authorization: Cookies.get("token"),
         },
-        params: {}, // No query parameters needed for this request
+        params: {
+          quiz_id,
+        }, // No query parameters needed for this request
       });
 
-      // Set the questions state with the data received from the API
-      if (response?.data?.data?.questions?.length > 0) {
-        let allQuestions = JSON.parse(JSON.stringify(response?.data?.data));
-        let questions = allQuestions?.questions?.map((item) => ({
-          ...item,
-          selected: false,
-          skipped: false,
-        }));
-        allQuestions.questions = questions;
-        setQuestions(allQuestions);
+      if (!response?.data?.status) {
+        toast.error(response?.data?.data, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setTimeout(() => {
+          history("/dashboard/test-yourself");
+        }, 3000)
       }
+
+      let savedQuiz = localStorage.getItem(`quiz-${quiz_id}`);
+      if (savedQuiz) {
+        savedQuiz = JSON.parse(savedQuiz);
+      }
+
+      // Set the questions state with the data received from the API
+      if (response?.data?.data?.length > 0 || savedQuiz?.length > 0) {
+        let allQuestions;
+        if(savedQuiz?.length > 0) {
+          allQuestions = savedQuiz;
+        } else {
+          allQuestions = JSON.parse(JSON.stringify(response?.data?.data));
+        }
+        if (allQuestions?.length > 0) {
+          let questions = allQuestions?.map((item) => ({
+            ...item,
+            selected: false,
+            skipped: false,
+          }));
+          allQuestions = questions;
+          setQuestions(allQuestions);
+        }
+      }
+      setLoader(false)
     } catch (err) {
       console.log(err);
     }
@@ -73,12 +109,12 @@ const Test = () => {
   const submitQuiz = async (allQuestions) => {
     setSubmitConfirmation(false);
     let body = {
-      quiz_id: allQuestions?.quiz_id,
+      quiz_id: quiz_id,
       responses: [],
     };
 
-    if (allQuestions && allQuestions.questions) {
-      allQuestions.questions.forEach((item) => {
+    if (allQuestions) {
+      allQuestions.forEach((item) => {
         if (item && item.selected) {
           const selectedOption = item.options.find(
             (option) => option?.selected
@@ -109,12 +145,14 @@ const Test = () => {
         params: {}, // No query parameters needed for this request
       });
 
-      history(`/dashboard/test-result/${questions?.quiz_id}`, {
+      localStorage.removeItem(`quiz-${quiz_id}`);
+
+      history(`/dashboard/test-result/${quiz_id}`, {
         state: {
           ...response?.data,
           minutes: totalMinutes - (minutes + 1),
           seconds: 60 - seconds,
-          totalQuestions: questions?.questions?.length,
+          totalQuestions: questions?.length,
         },
       });
     } catch (err) {
@@ -129,18 +167,18 @@ const Test = () => {
   const checkQuestionStatus = (submitCheck = false) => {
     let allQuestions = JSON.parse(JSON.stringify(questions));
     if (
-      questions?.questions
-        ?.at(curQuestion)
-        ?.options?.filter((item) => item?.selected)?.length > 0
+      questions?.at(curQuestion)?.options?.filter((item) => item?.selected)
+        ?.length > 0
     ) {
-      allQuestions.questions.at(curQuestion).selected = true;
-      allQuestions.questions.at(curQuestion).skipped = false;
+      allQuestions.at(curQuestion).selected = true;
+      allQuestions.at(curQuestion).skipped = false;
       setQuestions(allQuestions);
     } else {
-      allQuestions.questions.at(curQuestion).selected = false;
-      allQuestions.questions.at(curQuestion).skipped = true;
+      allQuestions.at(curQuestion).selected = false;
+      allQuestions.at(curQuestion).skipped = true;
       setQuestions(allQuestions);
     }
+    localStorage.setItem(`quiz-${quiz_id}`, JSON.stringify(allQuestions));
 
     if (submitConfirmation && !timerOver) {
       submitQuiz(allQuestions);
@@ -164,7 +202,7 @@ const Test = () => {
 
   const handleOptionSelect = (option, index) => {
     const allQuestions = JSON.parse(JSON.stringify(questions));
-    let options = allQuestions?.questions?.at(curQuestion)?.options;
+    let options = allQuestions?.at(curQuestion)?.options;
     if (options?.at(index)?.selected) {
       options?.map((item) => {
         return (item.selected = false);
@@ -175,7 +213,8 @@ const Test = () => {
       });
       options.at(index).selected = true;
     }
-    allQuestions.questions.at(curQuestion).options = options;
+    allQuestions.at(curQuestion).options = options;
+    localStorage.setItem(`quiz-${quiz_id}`, JSON.stringify(allQuestions));
     setQuestions(() => allQuestions);
   };
 
@@ -204,13 +243,6 @@ const Test = () => {
     // };
   }, []);
 
-  // Set the loader status
-  useEffect(() => {
-    if (!(questions?.questions?.length > 0)) {
-      setLoader(false);
-    }
-  }, [questions]);
-
   // Timer to submit
   useEffect(() => {
     if (timerOver) {
@@ -223,7 +255,21 @@ const Test = () => {
   }, [submitConfirmation]);
 
   return loader ? (
-    <Loader />
+    <>
+      <Loader />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    </>
   ) : (
     <main>
       <div className={styles.test_background}>
@@ -261,10 +307,10 @@ const Test = () => {
                   className={`${styles.left_body} ${styles.questions_container}`}
                 >
                   <p>
-                    <b>Total Questions:</b> {questions?.questions?.length}
+                    <b>Total Questions:</b> {questions?.length}
                   </p>
                   <div className={styles.questions_container_content}>
-                    {questions?.questions?.map((question, index) => {
+                    {questions?.map((question, index) => {
                       return (
                         <div
                           onClick={() => handleQuestionChange(index)}
@@ -313,10 +359,10 @@ const Test = () => {
                 </div>
                 <div className={styles.right_body}>
                   <div className={styles.question}>
-                    <p>{questions?.questions?.[curQuestion]?.question}</p>
+                    <p>{questions?.[curQuestion]?.question}</p>
                   </div>
                   <div className={styles.options}>
-                    {questions?.questions
+                    {questions
                       ?.at(curQuestion)
                       ?.options?.map((option, index) => {
                         return (
@@ -356,7 +402,7 @@ const Test = () => {
                       )}
                     </div>
                     <div>
-                      {curQuestion + 1 < questions?.questions?.length ? (
+                      {curQuestion + 1 < questions?.length ? (
                         <div
                           onClick={() => {
                             checkQuestionStatus();
@@ -369,7 +415,7 @@ const Test = () => {
                       ) : (
                         <></>
                       )}
-                      {curQuestion === questions?.questions?.length - 1 ? (
+                      {curQuestion === questions?.length - 1 ? (
                         <div onClick={handleSubmit} className={styles.button}>
                           Submit
                         </div>
@@ -410,6 +456,18 @@ const Test = () => {
       ) : (
         <></>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </main>
   );
 };
