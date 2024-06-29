@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
 // Styles
@@ -12,6 +14,23 @@ const TestResult = () => {
   const quiz_id = url?.split("/")?.at(3);
 
   const score = (prevState?.score / prevState?.totalQuestions) * 100;
+
+  const getTest = async () => {
+    // Define the API endpoint URL
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/create/quiz";
+
+    // Send a GET request to the API with the Authorization token in the headers
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {}, // No query parameters needed for this request
+    });
+
+    if(response?.data?.data) {
+      window.location.href = `/test/${response?.data?.data?.quiz_id}`
+    }
+  }
 
   return (
     <main style={{ width: "100%" }}>
@@ -29,9 +48,9 @@ const TestResult = () => {
                 <h1>
                   Thank You for taking the test. <br /> {prevState?.message}
                 </h1>
-                <a href="/test" className={styles.button}>
+                <div onClick={getTest} className={styles.button}>
                   Try again
-                </a>
+                </div>
               </div>
             )}
           </div>

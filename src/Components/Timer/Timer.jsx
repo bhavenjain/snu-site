@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import Cookies from "js-cookie";
 
 const Timer = (props) => {
   const {
@@ -12,8 +13,10 @@ const Timer = (props) => {
   } = props;
 
   useEffect(() => {
-    setMinutes(initialMinute);
-    setSeconds(initialSeconds);
+    const mins = Cookies.get("minutes");
+    const secs = Cookies.get("seconds");
+    setMinutes(mins ? mins : initialMinute);
+    setSeconds(secs ? secs : initialSeconds);
   }, [])
 
   // UseEffects
@@ -21,14 +24,18 @@ const Timer = (props) => {
     let myInterval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
+        Cookies.set("seconds", seconds - 1);
       }
       if (seconds === 0) {
         if (minutes === 0) {
           clearInterval(myInterval);
           setTimerOver(true);
+          Cookies.remove("minutes");
+          Cookies.remove("seconds");
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
+          Cookies.set("minutes", minutes - 1);
         }
       }
     }, 1000);

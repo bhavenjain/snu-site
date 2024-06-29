@@ -30,9 +30,9 @@ const Test = (props) => {
   const [questions, setQuestions] = useState([]);
   const [timerOver, setTimerOver] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState(59);
+  const [totalMinutes, setTotalMinutes] = useState(0);
   const [submitConfirmation, setSubmitConfirmation] = useState(false);
-
-  const totalMinutes = 45;
 
   /**
    * Function to get the questions list from the backend API
@@ -68,7 +68,7 @@ const Test = (props) => {
         });
         setTimeout(() => {
           history("/dashboard/test-yourself");
-        }, 3000)
+        }, 3000);
       }
 
       let savedQuiz = localStorage.getItem(`quiz-${quiz_id}`);
@@ -79,12 +79,12 @@ const Test = (props) => {
       // Set the questions state with the data received from the API
       if (response?.data?.data?.length > 0 || savedQuiz?.length > 0) {
         let allQuestions;
-        if(savedQuiz?.length > 0) {
+        if (savedQuiz?.length > 0) {
           allQuestions = savedQuiz;
         } else {
           allQuestions = JSON.parse(JSON.stringify(response?.data?.data));
         }
-        if (allQuestions?.length > 0) {
+        if (allQuestions?.length > 0 && !savedQuiz) {
           let questions = allQuestions?.map((item) => ({
             ...item,
             selected: false,
@@ -92,9 +92,11 @@ const Test = (props) => {
           }));
           allQuestions = questions;
           setQuestions(allQuestions);
+        } else {
+          setQuestions(allQuestions);
         }
-      }
-      setLoader(false)
+      } 
+      setLoader(false);
     } catch (err) {
       console.log(err);
     }
@@ -115,7 +117,7 @@ const Test = (props) => {
 
     if (allQuestions) {
       allQuestions.forEach((item) => {
-        if (item && item.selected) {
+        if (item && item?.selected) {
           const selectedOption = item.options.find(
             (option) => option?.selected
           )?.option;
@@ -150,8 +152,8 @@ const Test = (props) => {
       history(`/dashboard/test-result/${quiz_id}`, {
         state: {
           ...response?.data,
-          minutes: totalMinutes - (minutes + 1),
-          seconds: 60 - seconds,
+          minutes: minutes === 0 ? totalMinutes : totalMinutes - (minutes),
+          seconds: totalSeconds - seconds,
           totalQuestions: questions?.length,
         },
       });
@@ -179,6 +181,8 @@ const Test = (props) => {
       setQuestions(allQuestions);
     }
     localStorage.setItem(`quiz-${quiz_id}`, JSON.stringify(allQuestions));
+    Cookies.remove("minutes");
+    Cookies.remove("seconds");
 
     if (submitConfirmation && !timerOver) {
       submitQuiz(allQuestions);
@@ -230,17 +234,6 @@ const Test = (props) => {
   // Get the initial questions list
   useEffect(() => {
     getQuestions();
-    // const handleBeforeUnload = (event) => {
-    //   event.preventDefault();
-    //   window.alert(
-    //     "All your saved data will be lost. Do you want to reload the page?"
-    //   );
-    //   event.returnValue = "";
-    // };
-    // window.addEventListener("beforeunload", handleBeforeUnload);
-    // return () => {
-    //   window.removeEventListener("beforeunload", handleBeforeUnload);
-    // };
   }, []);
 
   // Timer to submit
@@ -348,8 +341,10 @@ const Test = (props) => {
                 <div className={styles.right_header}>
                   <h4>Question - {curQuestion + 1}</h4>
                   <Timer
-                    initialMinute={45}
-                    initialSeconds={0}
+                    initialMinute={totalMinutes}
+                    setTotalMinutes={setTotalMinutes}
+                    initialSeconds={totalSeconds}
+                    setTotalSeconds={setTotalSeconds}
                     setTimerOver={setTimerOver}
                     seconds={seconds}
                     setSeconds={setSeconds}
