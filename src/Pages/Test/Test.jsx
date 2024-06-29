@@ -24,14 +24,14 @@ const Test = (props) => {
 
   // States
   const [show, setShow] = useState(false);
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(45);
+  const [seconds, setSeconds] = useState(59);
+  const [minutes, setMinutes] = useState(44);
   const [loader, setLoader] = useState(true);
   const [questions, setQuestions] = useState([]);
   const [timerOver, setTimerOver] = useState(false);
   const [curQuestion, setCurQuestion] = useState(0);
   const [totalSeconds, setTotalSeconds] = useState(59);
-  const [totalMinutes, setTotalMinutes] = useState(0);
+  const [totalMinutes, setTotalMinutes] = useState(44);
   const [submitConfirmation, setSubmitConfirmation] = useState(false);
 
   /**
