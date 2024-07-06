@@ -95,7 +95,7 @@ const Test = (props) => {
         } else {
           setQuestions(allQuestions);
         }
-      } 
+      }
       setLoader(false);
     } catch (err) {
       console.log(err);
@@ -148,11 +148,13 @@ const Test = (props) => {
       });
 
       localStorage.removeItem(`quiz-${quiz_id}`);
+      Cookies.remove("minutes");
+      Cookies.remove("seconds");
 
       history(`/dashboard/test-result/${quiz_id}`, {
         state: {
           ...response?.data,
-          minutes: minutes === 0 ? totalMinutes : totalMinutes - (minutes),
+          minutes: minutes === 0 ? totalMinutes : totalMinutes - minutes,
           seconds: totalSeconds - seconds,
           totalQuestions: questions?.length,
         },
@@ -181,8 +183,6 @@ const Test = (props) => {
       setQuestions(allQuestions);
     }
     localStorage.setItem(`quiz-${quiz_id}`, JSON.stringify(allQuestions));
-    Cookies.remove("minutes");
-    Cookies.remove("seconds");
 
     if (submitConfirmation && !timerOver) {
       submitQuiz(allQuestions);

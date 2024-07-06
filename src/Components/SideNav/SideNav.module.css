@@ -12,6 +12,10 @@
     background-size: cover;
 }
 
+.sidenav_container::-webkit-scrollbar {
+    display: none;
+}
+
 .sidenav_links {
     margin-top: 30px;
     color: rgba(0,0,0,0.5);
@@ -126,7 +130,7 @@
 /* Media Queries */
 @media only screen and (max-width: 992px) {
     .sidenav_container {
-        width: 100%;
+        width: 100vw;
     }
 
     .announcements {

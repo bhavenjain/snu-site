@@ -57,6 +57,10 @@
   -o-border-radius: 0 0 20px 20px;
 }
 
+.body::-webkit-scrollbar {
+  display: none;
+}
+
 .congrats {
   width: 100%;
   display: flex;
@@ -162,14 +166,14 @@
 }
 
 .results p,
-  .results h6 {
-    text-align: center;
-    color: #671b1d;
-  }
+.results h6 {
+  text-align: center;
+  color: #671b1d;
+}
 
-  .results h6 {
-    font-weight: 700;
-  }
+.results h6 {
+  font-weight: 700;
+}
 
 /* RESPONSIVE */
 @media only screen and (max-width: 480px) {
@@ -187,6 +191,10 @@
     overflow: hidden;
     overflow-y: scroll;
     padding-bottom: 20px;
+  }
+
+  .body::-webkit-scrollbar {
+    display: none;
   }
 
   .test_header_right {

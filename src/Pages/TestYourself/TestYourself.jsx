@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
 // Styles
 import styles from "./TestYourself.module.css";
@@ -21,10 +21,10 @@ const TestYourself = () => {
       params: {}, // No query parameters needed for this request
     });
 
-    if(response?.data?.data) {
-      window.location.href = `/test/${response?.data?.data?.quiz_id}`
+    if (response?.data?.data) {
+      window.location.href = `/test/${response?.data?.data?.quiz_id}`;
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -45,24 +45,25 @@ const TestYourself = () => {
         </div>
         <div className={styles.footer_info}>
           <h5>
-            The test is designed to assess your knowledge, concepts and
-            understanding of the Companies Act, 2013, and test your familiarity
-            with the rules, responsibilities and duties as a director, in
-            dealing with matters relating to the discharge of duties as a board
-            member among other things relating to being an effective director.
+            <b>Disclaimer:</b> Due care and diligence in preparing this test but no
+            representation or warranty is made to their accuracy, completeness
+            or correctness and hence, project partners cannot be held
+            responsible for omissions or errors. Readers are encouraged to
+            inform the project partners about any inaccuracies or to provide
+            additional information for changes.
           </h5>
-          <br/>
+          <br />
           <p className={styles.disclaimer}>Disclaimer:</p>
           <Row>
             <Col>
-                <p>Duration: 45 minutes</p>
-                <p>Closure: 45 minutes or submission.</p>
-                <p>Total number of questions: 32</p>
+              <p>Duration: 45 minutes</p>
+              <p>Closure: 45 minutes or submission.</p>
+              <p>Total number of questions: 32</p>
             </Col>
             <Col>
-                <p>Question type: MCQ</p>
-                <p>Weightage of questions: 1 Mark each</p>
-                <p>Passing marks: 50% (16 marks)</p>
+              <p>Question type: MCQ</p>
+              <p>Weightage of questions: 1 Mark each</p>
+              <p>Passing marks: 50% (16 marks)</p>
             </Col>
           </Row>
         </div>

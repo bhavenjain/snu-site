@@ -24,6 +24,10 @@
     overflow-y: scroll;
 }
 
+.bridge_body::-webkit-scrollbar {
+    display: none;
+}
+
 .bridge_container {
     flex: 0.26;
     width: 100%;
@@ -65,13 +69,6 @@
     flex: 0.33;
     height: 50%;
 }
-
-/* .bridge_container,
-.bridge_container_middle,
-.bridge_container_right {
-    overflow: hidden;
-    overflow-y: scroll;
-} */
 
 .heading {
     border-bottom: 1px solid #ccc;
@@ -166,6 +163,10 @@
     margin-top: 15px;
     overflow: hidden;
     overflow-y: scroll;
+}
+
+.announcements::-webkit-scrollbar {
+    display: none;
 }
 
 .announcements > h3 {

@@ -3,7 +3,7 @@
     background-color: #EDF6F4;
     height: 100%;
     position: relative;
-    min-width: 300px;
+    min-width: min-content;
     min-height: fit-content;
     overflow-y: scroll;
     overflow-x: hidden;

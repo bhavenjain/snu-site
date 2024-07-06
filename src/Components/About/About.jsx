@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 // Styles
 import styles from "./About.module.css";
-import { useSearchParams } from "react-router-dom";
 
 function parseText(text) {
   // Split the text by line breaks
@@ -47,42 +46,7 @@ function parseText(text) {
 
 const About = () => {
   // States
-  const params = useSearchParams()
-  const [body, setBody] = useState("");
   const [heading, setHeading] = useState("");
-
-  // Get page data based on url
-  const getPagedata = async () => {
-    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/announcements";
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: Cookies.get("token"),
-      },
-      params: {
-        limit: 5,
-      },
-    });
-    return response?.data?.data;
-  };
-
-  // useEffect(() => {
-  //   getPagedata()
-  //     .then((response) => {
-  //       if (response) {
-  //         if(window.location?.search) {
-
-  //           const obj = response?.filter((item) => {
-  //             return item?.id == parseInt(window?.location?.search?.split("=")?.at(1));
-  //           });
-  //           setHeading(obj?.at(0)?.heading);
-  //           setBody(obj?.at(0)?.content);
-  //         }
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [params]);
 
   return (
     <>

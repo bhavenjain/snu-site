@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useSearchParams } from "react-router-dom";
 
 // Styles
 import styles from "./Announcements.module.css";
-import { useSearchParams } from "react-router-dom";
 
 function parseText(text) {
   // Split the text by line breaks

@@ -89,6 +89,10 @@
   overflow-y: scroll;
 }
 
+.left_body::-webkit-scrollbar {
+  display: none;
+}
+
 .left > span {
   width: 100%;
   display: block;
@@ -189,6 +193,10 @@
   flex: 0.8;
   width: 100%;
   overflow-y: scroll;
+}
+
+.right_body::-webkit-scrollbar {
+  display: none;
 }
 
 .option,
@@ -369,6 +377,10 @@
     overflow: hidden;
     overflow-y: scroll;
     padding-bottom: 20px;
+  }
+
+  .body::-webkit-scrollbar {
+    display: none;
   }
 
   .test_container {

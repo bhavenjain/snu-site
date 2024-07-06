@@ -1381,6 +1381,7 @@ const CreateQuestion = ({
     try {
       if (
         categoryText !== "Select Section" &&
+        correctOption !== "" &&
         quizQuestion?.length > 0 &&
         optionA?.length > 0 &&
         optionB?.length > 0 &&

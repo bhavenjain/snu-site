@@ -23,6 +23,10 @@
     overflow-y: scroll !important;
 }
 
+.modal-content::-webkit-scrollbar {
+    display: none;
+}
+
 .modal-body {
     min-height: 200px;
     max-height: 500px;
@@ -31,6 +35,10 @@
     background-image: url("/SVG_Full_texture.svg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.modal-body::-webkit-scrollbar {
+    display: none;
 }
 
 .dropdown-menu {
