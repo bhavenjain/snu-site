@@ -53,7 +53,7 @@ const TestYourself = () => {
             additional information for changes.
           </h5>
           <br />
-          <p className={styles.disclaimer}>Disclaimer:</p>
+          <p className={styles.disclaimer}>Test Details:</p>
           <Row>
             <Col>
               <p>Duration: 45 minutes</p>

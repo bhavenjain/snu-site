@@ -7,11 +7,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Solutions.module.css";
 
 // Bootstrap Components
-import { Col, Container, Modal, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
-// Components
-import Timer from "../../Components/Timer/Timer";
-import Loader from "../../Components/Loader/Loader";
+// // Components
+// import Timer from "../../Components/Timer/Timer";
+// import Loader from "../../Components/Loader/Loader";
 
 function parseText(text) {
   // Split the text by line breaks
@@ -53,11 +53,11 @@ function parseText(text) {
 }
 
 const Solutions = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { pathname: url } = useLocation();
 
   // Cookies
-  const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {};
+  // const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {};
 
   // States
   const [questions, setQuestions] = useState({});
@@ -86,7 +86,7 @@ const Solutions = () => {
   return (
     <main style={{ width: "100%" }}>
       <div className={styles.test_background}>
-        <div className={styles.header}>Solutions</div>
+        <div className={styles.header}>View the correct answer and its explanation</div>
         <div className={styles.body}>
           <div className={styles.body_header}>
             <Container>
