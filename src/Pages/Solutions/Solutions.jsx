@@ -9,9 +9,9 @@ import styles from "./Solutions.module.css";
 // Bootstrap Components
 import { Col, Container, Row } from "react-bootstrap";
 
-// // Components
-// import Timer from "../../Components/Timer/Timer";
-// import Loader from "../../Components/Loader/Loader";
+// Components
+import Loader from "../../Components/Loader/Loader";
+
 
 function parseText(text) {
   // Split the text by line breaks
@@ -59,7 +59,7 @@ const Solutions = () => {
   // States
   const [questions, setQuestions] = useState({});
   const [curQuestion, setCurQuestion] = useState(0);
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(true)
 
   const getSolutions = async () => {
     const quiz_id = url?.split("/")?.at(4);
@@ -73,7 +73,11 @@ const Solutions = () => {
       },
       params: {}, // No query parameters needed for this request
     });
-    setQuestions(response?.data?.data);
+
+    if(response?.data?.data){
+      setQuestions(response?.data?.data);
+      setLoader(false)
+    }
     return response.data;
   };
 
@@ -81,7 +85,7 @@ const Solutions = () => {
     getSolutions();
   }, []);
 
-  return (
+  return loader ? <Loader /> : (
     <main style={{ width: "100%" }}>
       <div className={styles.test_background}>
         <div className={styles.header}>View the correct answer and its explanation</div>
