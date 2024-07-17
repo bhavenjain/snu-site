@@ -1659,7 +1659,7 @@ const DeleteQuestion = () => {
         params: {
           id,
         },
-        body: {
+        data: {
           id,
         },
       });
@@ -1674,7 +1674,8 @@ const DeleteQuestion = () => {
   useEffect(() => {
     if (allQuestions) {
       const questionsToShow = allQuestions.filter((item) =>
-        item?.question?.includes(question)
+
+        item?.question?.toLowerCase()?.includes(question?.toLowerCase())
       );
       setShowQuestions(questionsToShow);
     }
