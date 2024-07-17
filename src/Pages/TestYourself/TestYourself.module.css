@@ -171,3 +171,22 @@
 .passed {
     background: rgba(0, 167, 0, 0.5);
 }
+
+.solution {
+    font-size: 21px;
+}
+
+@media only screen and (max-width: 480px) {
+    .passed,
+    .failed {
+        font-size: 12px;
+    }
+
+    .solution {
+        font-size: 12px;
+    }
+
+    .stat_card:first-of-type {
+        margin-right: 10px;
+    }
+}

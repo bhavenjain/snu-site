@@ -185,10 +185,10 @@ const TestYourself = () => {
                           }
                         >
                           {item?.status}
-                        </span>{" "}
-                        Score: {item?.score}
+                        </span>
+                        <span className={styles.solution}>Score: {item?.score}</span>
                       </span>
-                      <span>View Solutions</span>
+                      <span className={styles.solution}>View Solutions</span>
                     </a>
                   </li>
                 );
@@ -220,8 +220,8 @@ const TestYourself = () => {
                       className={styles.to_solutions}
                       href={`/dashboard/solutions/test-result/${item?.quiz_id}`}
                     >
-                      <span>Score: {item?.score}</span>
-                      <span>View Solutions</span>
+                      <span className={styles.solution}>Score: {item?.score}</span>
+                      <span className={styles.solution}>View Solutions</span>
                     </a>
                   </li>
                 );
