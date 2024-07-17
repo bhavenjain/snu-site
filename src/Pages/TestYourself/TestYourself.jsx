@@ -69,7 +69,7 @@ const TestYourself = () => {
         </div>
         <div className={styles.content}>
           {prevTests?.length > 0 ? (
-            <div onClick={() => setShow(true)}>My Tests</div>
+            <div onClick={() => setShow(true)}>My Attempts</div>
           ) : (
             <></>
           )}

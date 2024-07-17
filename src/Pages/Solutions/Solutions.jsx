@@ -56,12 +56,10 @@ const Solutions = () => {
   // const navigate = useNavigate();
   const { pathname: url } = useLocation();
 
-  // Cookies
-  // const user = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : {};
-
   // States
   const [questions, setQuestions] = useState({});
   const [curQuestion, setCurQuestion] = useState(0);
+  const [loader, setLoader] = useState(false)
 
   const getSolutions = async () => {
     const quiz_id = url?.split("/")?.at(4);
