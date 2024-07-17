@@ -34,6 +34,10 @@
     margin-top: 20px;
 }
 
+.content > div:first-of-type {
+    margin-right: 15px;
+}
+
 .info_card {
     padding: 30px;
     text-align: center;
@@ -52,6 +56,24 @@
 
 .info_card p {
     margin: 0;
+}
+
+.prev_tests_ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.to_solutions {
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    color: #111 !important;
+    padding: 10px 20px;
+    font-weight: 600;
 }
 
 .content > div {

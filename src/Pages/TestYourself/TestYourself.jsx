@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -6,9 +6,13 @@ import Cookies from "js-cookie";
 import styles from "./TestYourself.module.css";
 
 // Bootstrap
-import { Col, Row } from "react-bootstrap";
+import { Col, Modal, Row } from "react-bootstrap";
 
 const TestYourself = () => {
+  const [show, setShow] = useState(false);
+  const [prevTests, setPrevTests] = useState([]);
+
+  // Get Tests function
   const getTest = async () => {
     // Define the API endpoint URL
     const url = import.meta.env.VITE_BACKEND_URL + "/web/create/quiz";
@@ -26,6 +30,29 @@ const TestYourself = () => {
     }
   };
 
+  const myTest = async () => {
+    // Define the API endpoint URL
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/fetch/user/quiz";
+
+    // Send a GET request to the API with the Authorization token in the headers
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {
+        limit: 5,
+      }, // No query parameters needed for this request
+    });
+
+    if (response?.data?.data) {
+      setPrevTests(response?.data?.data);
+    }
+  };
+
+  useEffect(() => {
+    myTest();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>Test Yourself</div>
@@ -41,14 +68,19 @@ const TestYourself = () => {
           </div>
         </div>
         <div className={styles.content}>
+          {prevTests?.length > 0 ? (
+            <div onClick={() => setShow(true)}>My Tests</div>
+          ) : (
+            <></>
+          )}
           <div onClick={getTest}>Start Test</div>
         </div>
         <div className={styles.footer_info}>
           <h5>
-            <b>Disclaimer:</b> Due care and diligence in preparing this test but no
-            representation or warranty is made to their accuracy, completeness
-            or correctness and hence, project partners cannot be held
-            responsible for omissions or errors. Readers are encouraged to
+            <b>Disclaimer:</b> Due care and diligence in preparing this test but
+            no representation or warranty is made to their accuracy,
+            completeness or correctness and hence, project partners cannot be
+            held responsible for omissions or errors. Readers are encouraged to
             inform the project partners about any inaccuracies or to provide
             additional information for changes.
           </h5>
@@ -68,6 +100,39 @@ const TestYourself = () => {
           </Row>
         </div>
       </div>
+
+      {show ? (
+        <Modal
+          show={show}
+          onHide={() => setShow(false)}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>My Previous Tests</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={styles.prev_tests}>
+            <ul className={styles.prev_tests_ul}>
+              {prevTests?.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <a
+                      className={styles.to_solutions}
+                      href={`/dashboard/solutions/test-result/${item?.quiz_id}`}
+                    >
+                      <span>Score: {item?.score}</span>
+                      <span>View Solutions</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </Modal.Body>
+        </Modal>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
