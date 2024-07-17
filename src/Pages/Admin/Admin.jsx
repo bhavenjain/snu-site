@@ -1636,30 +1636,35 @@ const DeleteQuestion = () => {
   const [showQuestions, setShowQuestions] = useState([]);
 
   const getQuestions = async () => {
-    const url =
-      import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/quiz/questions";
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: Cookies.get("token"),
-      },
-    });
-    if (response?.data?.data) setAllQuestions(response?.data?.data);
+    try {
+      const url =
+        import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/quiz/questions";
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: Cookies.get("token"),
+        },
+      });
+      if (response?.data?.data) setAllQuestions(response?.data?.data);
+    } catch (err) {}
   };
 
   const deleteQuestion = async (id) => {
-    const url = import.meta.env.VITE_BACKEND_URL + "/web/delete/quiz/question";
-    const response = await axios.delete(url, {
-      headers: {
-        Authorization: Cookies.get("token"),
-      },
-      params: {
-        id,
-      },
-      body: {
-        id,
-      },
-    });
-    getQuestions()
+    try {
+      const url =
+        import.meta.env.VITE_BACKEND_URL + "/web/delete/quiz/question";
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: Cookies.get("token"),
+        },
+        params: {
+          id,
+        },
+        body: {
+          id,
+        },
+      });
+      getQuestions();
+    } catch (err) {}
   };
 
   useEffect(() => {
