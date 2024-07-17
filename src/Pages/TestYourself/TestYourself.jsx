@@ -10,6 +10,7 @@ import { Col, Modal, Row } from "react-bootstrap";
 
 const TestYourself = () => {
   const [show, setShow] = useState(false);
+  const [prevData, setPrevData] = useState({});
   const [prevTests, setPrevTests] = useState([]);
 
   // Get Tests function
@@ -44,8 +45,9 @@ const TestYourself = () => {
       }, // No query parameters needed for this request
     });
 
-    if (response?.data?.data) {
-      setPrevTests(response?.data?.data);
+    if (response?.data?.data?.latest_quizzes) {
+      setPrevData(response?.data?.data);
+      setPrevTests(response?.data?.data?.latest_quizzes);
     }
   };
 
@@ -57,23 +59,35 @@ const TestYourself = () => {
     <div className={styles.container}>
       <div className={styles.header}>Test Yourself</div>
       <div className={styles.body}>
+        <h2
+          style={{
+            width: "100%",
+            textAlign: "center",
+            fontSize: "18px",
+            fontWeight: 800,
+            marginRight: "20px"
+          }}
+        >
+          Start a new test
+        </h2>
+
         <div className={styles.content}>
           <div className={styles.info_card}>
             <h2>32</h2>
-            <p>Questions</p>
+            <p style={{fontWeight: 600}}>Questions</p>
           </div>
           <div className={styles.info_card}>
             <h2>45</h2>
-            <p>Minutes</p>
+            <p style={{fontWeight: 600}}>Minutes</p>
           </div>
         </div>
         <div className={styles.content}>
-          {prevTests?.length > 0 ? (
+          {/* {prevTests?.length > 0 ? (
             <div onClick={() => setShow(true)}>My Attempts</div>
           ) : (
             <></>
-          )}
-          <div onClick={getTest}>Start Test</div>
+          )} */}
+          <div style={{padding: "10px 20px", fontWeight: 700}} onClick={getTest}>Start Test</div>
         </div>
         <div className={styles.footer_info}>
           <h5>
@@ -99,6 +113,91 @@ const TestYourself = () => {
             </Col>
           </Row>
         </div>
+
+        {prevTests?.length > 0 ? (
+          <div className="mt-5">
+          <h2
+              style={{
+                width: "100%",
+                textAlign: "center",
+                fontSize: "18px",
+                fontWeight: 800,
+                margin: "20px 0",
+                marginLeft: "5px"
+              }}
+            >
+              Previous Attempts
+            </h2>
+            <div className={styles.all_attempts}>
+              <div className={styles.stat_card}>
+                <p style={{ fontSize: "16px", fontWeight: 600 }}>Best Score</p>
+                <p
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "28px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {prevData?.best_score}
+                </p>
+              </div>
+              <div className={styles.stat_card}>
+                <p style={{ fontSize: "16px", fontWeight: 600 }}>
+                  Total Attempts
+                </p>
+                <p
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "28px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {prevData?.attempts}
+                </p>
+              </div>
+            </div>
+
+            <h2
+              style={{
+                width: "100%",
+                textAlign: "leftt",
+                fontSize: "16px",
+                fontWeight: 600,
+                margin: "20px 0"
+              }}
+            >
+              Latest Five Submissions
+            </h2>
+            <ul className={styles.prev_tests_ul}>
+              {prevTests?.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <a
+                      className={styles.to_solutions}
+                      href={`/dashboard/solutions/test-result/${item?.quiz_id}`}
+                    >
+                      <span>
+                        <span
+                          className={
+                            item?.status === "Passed"
+                              ? styles.passed
+                              : styles.failed
+                          }
+                        >
+                          {item?.status}
+                        </span>{" "}
+                        Score: {item?.score}
+                      </span>
+                      <span>View Solutions</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       {show ? (
