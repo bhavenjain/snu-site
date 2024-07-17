@@ -282,6 +282,12 @@ const Admin = () => {
             >
               Add Quiz Question
             </div>
+            <div
+              onClick={() => setCurr(8)}
+              style={{ background: curr === 8 ? "#fff" : "" }}
+            >
+              Delete Quiz Question
+            </div>
           </div>
 
           <img src={womensLogo} width={200} />
@@ -428,6 +434,9 @@ const Admin = () => {
           ) : (
             <></>
           )}
+
+          {/* Delete Question */}
+          {curr === 8 ? <DeleteQuestion /> : <></>}
         </div>
       </div>
       <ToastContainer
@@ -1422,12 +1431,12 @@ const CreateQuestion = ({
             theme: "colored",
           });
           setCategoryText("Select Section");
-          setOptionA("")
-          setOptionB("")
-          setOptionC("")
-          setOptionD("")
-          setExplanation("")
-          setCorrectOption("")
+          setOptionA("");
+          setOptionB("");
+          setOptionC("");
+          setOptionD("");
+          setExplanation("");
+          setCorrectOption("");
         } else {
           toast.error(response?.data?.message, {
             position: "top-right",
@@ -1615,6 +1624,90 @@ const CreateQuestion = ({
         <div onClick={handleSubmit} className={styles.submit}>
           Submit
         </div>
+      </div>
+    </div>
+  );
+};
+
+// Delete Quesion
+const DeleteQuestion = () => {
+  const [question, setQuestion] = useState("");
+  const [allQuestions, setAllQuestions] = useState([]);
+  const [showQuestions, setShowQuestions] = useState([]);
+
+  const getQuestions = async () => {
+    const url =
+      import.meta.env.VITE_BACKEND_URL + "/web/fetch/all/quiz/questions";
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+    });
+    if (response?.data?.data) setAllQuestions(response?.data?.data);
+  };
+
+  const deleteQuestion = async (id) => {
+    const url = import.meta.env.VITE_BACKEND_URL + "/web/delete/quiz/question";
+    const response = await axios.delete(url, {
+      headers: {
+        Authorization: Cookies.get("token"),
+      },
+      params: {
+        id,
+      },
+      body: {
+        id,
+      },
+    });
+    getQuestions()
+  };
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
+  useEffect(() => {
+    if (allQuestions) {
+      const questionsToShow = allQuestions.filter((item) =>
+        item?.question?.includes(question)
+      );
+      setShowQuestions(questionsToShow);
+    }
+  }, [question, allQuestions]);
+
+  return (
+    <div style={{ height: "85vh", overflowY: "scroll" }}>
+      <h2>Delete Quiz Question</h2>
+      <div className={styles.delete_Container}>
+        <p>Search Question</p>
+        <input
+          type={"text"}
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Search Question"
+        />
+      </div>
+
+      <div className={styles.delete_question_container}>
+        {showQuestions?.length > 0 ? (
+          showQuestions?.map((item) => (
+            <div
+              key={item._id}
+              className={styles.delete_question}
+              onClick={() => {}}
+            >
+              <p>{item?.question}</p>
+              <div
+                onClick={() => deleteQuestion(item?.id)}
+                className={styles.delete_btn}
+              >
+                Delete Question
+              </div>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
