@@ -78,9 +78,14 @@
     padding: 30px;
     color: #fff;
     width: 100%;
+    height: calc(100vh - 80px);
     min-height: 300px;
     overflow: hidden;
     overflow-y: scroll;
+}
+
+.form_container::-webkit-scrollbar {
+    display: none;
 }
 
 .category_dropdown {

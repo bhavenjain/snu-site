@@ -1681,7 +1681,7 @@ const DeleteQuestion = () => {
   }, [question, allQuestions]);
 
   return (
-    <div style={{ height: "85vh", overflowY: "scroll" }}>
+    <>
       <h2>Delete Quiz Question</h2>
       <div className={styles.delete_Container}>
         <p>Search Question</p>
@@ -1714,7 +1714,7 @@ const DeleteQuestion = () => {
           <></>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
