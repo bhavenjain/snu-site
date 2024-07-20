@@ -12,6 +12,7 @@
     -moz-border-radius: 0 0 20px 20px;
     -ms-border-radius: 0 0 20px 20px;
     -o-border-radius: 0 0 20px 20px;
+    scrollbar-width: none;
 }
 
 .bridgeCardContainer::-webkit-scrollbar {

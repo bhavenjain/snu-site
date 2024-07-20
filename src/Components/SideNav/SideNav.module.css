@@ -10,6 +10,7 @@
     background-image: url('/SVG_Side Panel.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    scrollbar-width: none;
 }
 
 .sidenav_container::-webkit-scrollbar {

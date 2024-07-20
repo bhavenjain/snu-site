@@ -4,6 +4,8 @@
     box-shadow: none;
 }
 
+html {overflow: -moz-scrollbars-none;}
+
 .modal-header {
     align-items: flex-start !important;
     max-height: 200px;
@@ -21,6 +23,7 @@
     max-height: 800px;
     overflow: hidden;
     overflow-y: scroll !important;
+    scrollbar-width: none;
 }
 
 .modal-content::-webkit-scrollbar {
@@ -35,6 +38,7 @@
     background-image: url("/SVG_Full_texture.svg");
     background-repeat: no-repeat;
     background-size: cover;
+    scrollbar-width: none;
 }
 
 .modal-body::-webkit-scrollbar {

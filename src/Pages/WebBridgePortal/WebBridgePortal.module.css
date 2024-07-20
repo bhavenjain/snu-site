@@ -25,6 +25,7 @@
     height: 92%;
     flex-wrap: wrap;
     overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .bridge_body::-webkit-scrollbar {

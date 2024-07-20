@@ -133,6 +133,7 @@
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  scrollbar-width: none;
 }
 
 .questions_container::-webkit-scrollbar {
