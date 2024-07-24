@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 
+import styles from "./Timer.module.css"
+
 const Timer = (props) => {
   const {
     initialMinute = 0,
@@ -38,6 +40,7 @@ const Timer = (props) => {
           Cookies.set("minutes", minutes - 1);
         }
       }
+      console.log("....hello")
     }, 1000);
     return () => {
       clearInterval(myInterval);
@@ -47,8 +50,7 @@ const Timer = (props) => {
   return (
     <div>
       {minutes === 0 && seconds === 0 ? null : (
-        <h5>
-          {" "}
+        <h5 className={styles.time}>
           Time Left : {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </h5>
       )}

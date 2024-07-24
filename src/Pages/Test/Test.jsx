@@ -294,7 +294,7 @@ const Test = (props) => {
             <Col md={4} className={styles.left_container}>
               <div className={styles.left}>
                 <div className={styles.left_header}>
-                  <h4>Select Question</h4>
+                  <h4 className={styles.headings}>Select Question</h4>
                 </div>
                 <div
                   className={`${styles.left_body} ${styles.questions_container}`}
@@ -339,7 +339,7 @@ const Test = (props) => {
             <Col md={8} className={styles.right_container}>
               <div className={styles.right}>
                 <div className={styles.right_header}>
-                  <h4>Question - {curQuestion + 1}</h4>
+                  <h4 className={styles.headings}>Question - {curQuestion + 1}</h4>
                   <Timer
                     initialMinute={totalMinutes}
                     setTotalMinutes={setTotalMinutes}
