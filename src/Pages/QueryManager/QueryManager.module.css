@@ -92,13 +92,13 @@
     align-items: center;
     justify-content: center;
     border-radius: 40px;
-    background-color: #e6e6e6;
-    border: 1px solid #fff;
+    background-color: #006DB9;
+    color: #fff;
+    border: none;
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
     -ms-border-radius: 40px;
     -o-border-radius: 40px;
-    color: #262626;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
@@ -109,6 +109,5 @@
 }
 
 .submit:hover {
-    background-color: #fff;
-    color: #262626;
+    background-color: #004e86;
 }

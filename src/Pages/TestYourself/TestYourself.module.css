@@ -10,7 +10,7 @@
 }
 
 .yourself_container {
-    background: #FFC83A;
+    background: #E5F4FA;
     padding: 15px;
     border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -20,7 +20,7 @@
 }
 
 .yourself_container > h4{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #671B1D;
 }
@@ -82,6 +82,15 @@
     font-size: 25px;
     font-weight: 800;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+
+.stat_card:hover {
+    background-color: #004e86;
 }
 
 .mid {
